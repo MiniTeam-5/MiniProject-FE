@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import schedule from '../../../mockup/schedule_all.json';
 
-function ApplyCalendar({ handleDateClick }) {
+function ApplyCalendar() {
   const duties = schedule.data.filter((item) => {
     if (item.type === 'duty') {
       return {
