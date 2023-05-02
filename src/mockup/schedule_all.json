@@ -1,77 +1,81 @@
 {
   "data": [
-        {
-        "username": "김사원",
-        "type": "annual",
-        "status": "approve",
-        "start_date": "2023-05-05",
-        "end_date": "2023-05-07"
-        },
-        {
-        "username": "김사원",
-        "type": "wait",
-        "status": "USER",
-        "start_date": "2023-05-27",
-        "end_date": "2023-05-28"
-        },
-        {
-        "username": "김사원",
-        "type": "duty",
-        "status": "approve",
-        "date": "2023-05-09"
-        },
-        {
-        "username": "김사원",
-        "type": "duty",
-        "status": "wait",
-        "date": "2023-05-13"
-        },
-        {
-        "username": "박사원",
-        "type": "duty",
-        "status": "approve",
-        "date": "2023-05-17"
-        },
-        {
-        "username": "나사원",
-        "type": "duty",
-        "status": "wait",
-        "date": "2023-05-14"
-        },
-        {
-        "username": "이사원",
-        "type": "annual",
-        "status": "approve",
-        "start_date": "2023-05-05",
-        "end_date": "2023-05-07"
-        },
-        {
-        "username": "박사원",
-        "type": "annual",
-        "status": "approve",
-        "start_date": "2023-05-17",
-        "end_date": "2023-05-18"
-        },
-        {
-        "username": "정사원",
-        "type": "annual",
-        "status": "wait",
-        "start_date": "2023-05-14",
-        "end_date": "2023-05-15"
-        },
-        {
-        "username": "최사원",
-        "type": "annual",
-        "status": "wait",
-        "start_date": "2023-05-09",
-        "end_date": "2023-05-10"
-        },
-        {
-        "username": "신사원",
-        "type": "annaul",
-        "status": "approve",
-        "start_date": "2023-05-10",
-        "end_date": "2023-05-11"
-        }
-    ]
+    {
+      "username": "김사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-05",
+      "end_date": "2023-05-07"
+    },
+    {
+      "username": "김사원",
+      "type": "annual",
+      "status": "wait",
+      "start_date": "2023-05-27",
+      "end_date": "2023-05-28"
+    },
+    {
+      "username": "김사원",
+      "type": "duty",
+      "status": "approve",
+      "start_date": "2023-05-27",
+      "end_date": "2023-05-27"
+    },
+    {
+      "username": "김사원",
+      "type": "duty",
+      "status": "wait",
+      "start_date": "2023-05-10",
+      "end_date": "2023-05-10"
+    },
+    {
+      "username": "박사원",
+      "type": "duty",
+      "status": "approve",
+      "start_date": "2023-05-21",
+      "end_date": "2023-05-21"
+    },
+    {
+      "username": "나사원",
+      "type": "duty",
+      "status": "wait",
+      "start_date": "2023-05-10",
+      "end_date": "2023-05-10"
+    },
+    {
+      "username": "이사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-05",
+      "end_date": "2023-05-07"
+    },
+    {
+      "username": "박사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-17",
+      "end_date": "2023-05-18"
+    },
+    {
+      "username": "정사원",
+      "type": "annual",
+      "status": "wait",
+      "start_date": "2023-05-14",
+      "end_date": "2023-05-15"
+    },
+    {
+      "username": "최사원",
+      "type": "annual",
+      "status": "wait",
+      "start_date": "2023-05-09",
+      "end_date": "2023-05-10"
+    },
+    {
+      "username": "신사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-10",
+      "end_date": "2023-05-11"
+    }
+  ]
 }

@@ -16,10 +16,10 @@ const color = {
   background: '#ffffff',
   inputBorder: '#e4e3e8',
   placeholder: '#8a8a8a',
-  btnInActive: '#cbccd7',
+  btnInactive: '#cbccd7',
   btnActiveBackground: '#eff3ff',
   buttonActive: '#014de3',
-  btnInActiveBackground: '#ffffff',
+  btnInactiveBackground: '#ffffff',
   adminTag: '#7939cc',
   masterTag: '#ff5252'
 };
