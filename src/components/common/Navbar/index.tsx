@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import { RiAddBoxLine, RiLogoutBoxRLine } from 'react-icons/ri';
+import { BsPeople } from 'react-icons/bs';
 import * as S from './styles';
-
 function Navbar() {
   return (
     <S.Navbar>
@@ -21,37 +21,45 @@ function Navbar() {
           </div>
         </S.User>
         <S.NavList>
-          <li className='active'>
-            <Link to='/'>
+          <li>
+            <NavLink to='/'>
               <i>
                 <AiFillHome />
               </i>
               <p>홈</p>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to='/editProfile'>
+            <NavLink to='/editProfile'>
               <i>
                 <CgProfile />
               </i>
               <p>프로필 수정</p>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to='/viewSchedule'>
+            <NavLink to='/viewSchedule'>
               <i>
                 <AiTwotoneCalendar />
               </i>
               <p>내 일정 보기</p>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to='/application'>
+            <NavLink to='/application'>
               <i>
                 <RiAddBoxLine />
               </i>
               <p>연차 / 당직 신청</p>
-            </Link>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/admin'>
+              <i>
+                <BsPeople />
+              </i>
+              <p>사원 연차 관리</p>
+            </NavLink>
           </li>
           <li>
             <div>
