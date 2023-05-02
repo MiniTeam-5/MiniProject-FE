@@ -65,7 +65,7 @@ function Navbar() {
       </div>
       <S.NavLogo>
         <Link to='/'>
-          <img src='/assets/logo_white.png' alt='lupintech' />
+          <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
     </S.Navbar>
