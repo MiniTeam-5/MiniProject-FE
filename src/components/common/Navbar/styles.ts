@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { theme } from '../../../styles/theme';
 
 export const Navbar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: fixed;
+  top: 0;
+  left: 0;
   width: 300px;
   height: 100vh;
   background: ${({ theme }) => theme.color.navbar};
@@ -54,11 +55,13 @@ export const NavList = styled.ul`
       background: ${({ theme }) => theme.color.navbarActive};
       color: ${({ theme }) => theme.color.navActiveText};
     }
-    a {
+    a,
+    div {
       display: flex;
       align-items: center;
       border-radius: 10px;
       padding: 8px 11px;
+      cursor: pointer;
       &:hover {
         background: ${({ theme }) => theme.color.navbarActive};
         color: ${({ theme }) => theme.color.navActiveText};

@@ -30,7 +30,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to='#'>
+            <Link to='/editProfile'>
               <i>
                 <CgProfile />
               </i>
@@ -38,7 +38,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to='#'>
+            <Link to='/viewSchedule'>
               <i>
                 <AiTwotoneCalendar />
               </i>
@@ -46,7 +46,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to='#'>
+            <Link to='/application'>
               <i>
                 <RiAddBoxLine />
               </i>
@@ -54,12 +54,12 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to='#'>
+            <div>
               <i>
                 <RiLogoutBoxRLine />
               </i>
               <p>로그아웃</p>
-            </Link>
+            </div>
           </li>
         </S.NavList>
       </div>
