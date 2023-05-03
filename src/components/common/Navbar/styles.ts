@@ -51,7 +51,7 @@ export const User = styled.div`
 export const NavList = styled.ul`
   li {
     margin-bottom: 20px;
-    &.active a {
+    .active {
       background: ${({ theme }) => theme.color.navbarActive};
       color: ${({ theme }) => theme.color.navActiveText};
     }

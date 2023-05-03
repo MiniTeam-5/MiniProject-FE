@@ -7,6 +7,7 @@ ${reset}
 ${normalize}
 
 button {
+  line-height: 1.5;
   background:transparent;
   border:none;
   outline:none;
