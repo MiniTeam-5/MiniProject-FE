@@ -7,6 +7,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 2
     },
@@ -17,6 +18,7 @@
       "role": "ADMIN",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 3
     },
@@ -27,6 +29,7 @@
       "role": "MASTER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 4
     },
@@ -37,6 +40,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 5
     },
@@ -47,6 +51,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 6
     },
@@ -57,6 +62,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 7
     },
@@ -67,6 +73,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 8
     },
@@ -77,6 +84,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 9
     },
@@ -87,6 +95,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 12
     },
@@ -97,6 +106,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 11
     },
@@ -107,6 +117,7 @@
       "role": "USER",
       "status": true,
       "profile": "example_profile_data",
+      "date": "2020-05-03",
       "annual_limit": 15,
       "annual_count": 7
     }
