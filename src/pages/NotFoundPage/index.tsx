@@ -1,4 +1,5 @@
-import * as S from './index.style';
+import { Link } from 'react-router-dom';
+import * as S from './index.styles';
 
 function NotFoundPage() {
   return (
@@ -9,7 +10,9 @@ function NotFoundPage() {
         <S.NotFoundSecP>
           존재하지 않는 주소를 입력하셨거나, 요청하신 페이지는 주소가 변경, 삭제되어 찾을 수 없습니다.
         </S.NotFoundSecP>
-        <S.NotFoundA href='/'>HOME</S.NotFoundA>
+        <Link to={'/'}>
+          <S.NotFoundBtn>HOME</S.NotFoundBtn>
+        </Link>
       </S.NotFoundDiv>
     </S.NotFoundContainer>
   );
