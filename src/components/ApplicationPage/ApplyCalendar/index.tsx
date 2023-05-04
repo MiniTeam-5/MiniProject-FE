@@ -10,7 +10,12 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
   if (isLoading) return <div>loading...</div>;
   return (
     <S.StyleWrapper>
-      <FullCalendar plugins={[dayGridPlugin, interactionPlugin]} events={data} />
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin]}
+        events={data}
+        selectable={true}
+        select={(info) => handleDateSelect(info)}
+      />
     </S.StyleWrapper>
   );
 }
