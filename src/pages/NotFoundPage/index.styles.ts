@@ -29,8 +29,8 @@ export const NotFoundSecP = styled.p`
 `;
 
 export const NotFoundBtn = styled.button`
-  width: 200px;
   height: 50px;
+  width: 200px;
   border-radius: 20px;
   color: #fff;
   background-color: #ffa43c;
