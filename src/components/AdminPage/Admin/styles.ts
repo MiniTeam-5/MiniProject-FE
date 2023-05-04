@@ -19,6 +19,7 @@ export const UserDiv = styled.div`
   width: 1000px;
   height: 62.5px;
   border: 2px solid ${({ theme }) => theme.color.inputBorder};
+  border-top: 0px;
   align-items: center;
   &:last-child {
     border-radius: 0 0 10px 10px;
@@ -45,6 +46,12 @@ export const RoleBox = styled.div`
   text-align: center;
   line-height: 190%;
 `;
+
+export const RoleSelect = styled.select`
+  border: 0px;
+  //margin-left:28.5px;
+`;
+
 export const DateBox = styled.div`
   width: 250px;
   height: 31.25px;
@@ -63,9 +70,10 @@ export const AnnualBox = styled.div`
 export const AdminBtn = styled.button`
   width: 48.75px;
   height: 25px;
-  margin-left: 15px;
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color.btnInactive};
   background-color: ${({ theme }) => theme.color.btnInactive};
   font-size: 12px;
+  position:absolute;
+  margin-left: 920px;
 `;
