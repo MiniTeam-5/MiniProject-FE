@@ -1,3 +1,4 @@
+import { DateSelectArg } from '@fullcalendar/core/index.js';
 import { MouseEvent } from 'react';
 
 export interface ICalendarInfo {
@@ -8,4 +9,9 @@ export interface ICalendarInfo {
   endStr: string;
   jsEvent: MouseEvent;
   view: any;
+}
+
+export interface ICalendarProps {
+  select: 'annual' | 'duty';
+  handleDateSelect: (date: DateSelectArg) => void;
 }

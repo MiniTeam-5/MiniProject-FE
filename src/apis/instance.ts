@@ -26,4 +26,4 @@ const getAxiosInstance = () => {
   return instance;
 };
 
-export const axiosInstance = getAxiosInstance();
+export const axiosInstance = getAxiosInstance;
