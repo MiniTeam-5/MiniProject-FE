@@ -1,4 +1,4 @@
-import UserMain from '../../components/UserMain';
+import UserMain from '../../components/UserMainPage';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
 import temp from '../../mockup/user_login.json';
 

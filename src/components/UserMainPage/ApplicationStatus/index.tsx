@@ -1,5 +1,5 @@
 import * as S from './styles';
-import { ApplicationStatusProps } from '../../interfaces/application';
+import { ApplicationStatusProps } from '../../../interfaces/application';
 
 function index({ title, annualList, dutyList }: ApplicationStatusProps) {
   return (

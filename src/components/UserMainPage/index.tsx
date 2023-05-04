@@ -1,4 +1,4 @@
-import ApplicationStatus from '../ApplicationStatus';
+import ApplicationStatus from './ApplicationStatus';
 import temp from '../../mockup/schedule_login.json';
 import * as S from './styles';
 
