@@ -3,7 +3,7 @@ import { getSchedules } from '../apis/auth';
 import { IUseScheduleQuery } from '../interfaces/common';
 import { AxiosError } from 'axios';
 
-function useGetSchedule() {
+function useGetSchedule(select?: 'annual' | 'duty') {
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>('schedule', getSchedules);
   if (!data?.data) return { data: [], isLoading, error };
 

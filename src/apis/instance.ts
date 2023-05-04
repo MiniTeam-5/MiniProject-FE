@@ -3,7 +3,7 @@ import { getCookie } from '../utils/cookies';
 
 const getAxiosInstance = (option?: { multi?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: 'http://moodlog-env.eba-a73kg2hr.ap-northeast-2.elasticbeanstalk.com/',
+    baseURL: '/',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
