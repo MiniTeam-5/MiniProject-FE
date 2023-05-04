@@ -2,19 +2,21 @@ import { MouseEvent, useState } from 'react';
 import ApplyCalendar from '../ApplyCalendar';
 import * as S from './styles';
 import { ICalendarInfo } from '../../../interfaces/applicationPage';
+import { DateSelectArg } from '@fullcalendar/core/index.js';
 
 function Application() {
-  const [select, setSelect] = useState('annual');
+  const [select, setSelect] = useState<'annual' | 'duty'>('annual');
   const [date, setDate] = useState({ start_date: '', end_date: '' });
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLButtonElement;
-    const select = target.dataset.select;
+    const select = target.dataset.select as 'annual' | 'duty';
     if (select) {
       setSelect(select);
     }
   };
-  const handleDateSelect = (info: ICalendarInfo) => {
-    const { startStr, endStr } = info;
+  const handleDateSelect = (date: DateSelectArg) => {
+    if (select === 'duty') return;
+    const { startStr, endStr } = date;
     console.log(startStr, endStr);
   };
 
