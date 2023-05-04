@@ -188,7 +188,13 @@ export const handlers = [
         ctx.json({
           status: 200,
           msg: '성공',
-          data
+          data: {
+            id: 1, // 연차/당직(Leave 테이블)의 id
+            type: 'ANNUAL',
+            usingDays: 1, // 신청한 연차 일수 (당직이면 0)
+            remainDays: 14, // 해당 유저의 남은 연차 일수
+            status: 'WAITING' // 대기 상태 (성공하면 다 WAITING으로 뜸)
+          }
         })
       );
     } catch {
@@ -219,7 +225,7 @@ export const handlers = [
       ctx.json({
         status: '200',
         msg: 'success',
-        data: db.applys
+        data: db.schedules
       })
     );
   }),
@@ -274,7 +280,7 @@ export const handlers = [
     }
   }),
   // 유저 연차 일수 조정
-  rest.post('/auth/admin/{id}/update', async (req, res, ctx) => {
+  rest.post('/auth/admin/annual/{id}', async (req, res, ctx) => {
     try {
       const { id } = req.params;
       const { annual_limit } = await req.json();
@@ -301,7 +307,7 @@ export const handlers = [
     }
   }),
   // 유저 권한 변경
-  rest.post('/auth/admin/update', async (req, res, ctx) => {
+  rest.post('/auth/admin/role/{id}', async (req, res, ctx) => {
     try {
       const { id } = req.params;
       const { role } = await req.json();

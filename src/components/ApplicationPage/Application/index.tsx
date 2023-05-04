@@ -28,7 +28,7 @@ function Application() {
           당직 신청
         </S.SelectBtn>
       </S.SelectBtns>
-      <ApplyCalendar handleDateSelect={handleDateSelect} />
+      <ApplyCalendar select={select} handleDateSelect={handleDateSelect} />
     </S.Wrapper>
   );
 }
