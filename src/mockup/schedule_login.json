@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "username": "김사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-05",
+      "end_date": "2023-05-07"
+    },
+    {
+      "username": "김사원",
+      "type": "annual",
+      "status": "approve",
+      "start_date": "2023-05-27",
+      "end_date": "2023-05-28"
+    },
+    {
+      "username": "김사원",
+      "type": "duty",
+      "status": "approve",
+      "start_date": "2023-05-09",
+      "end_date": "2023-05-09"
+    },
+    {
+      "username": "김사원",
+      "type": "duty",
+      "status": "wait",
+      "start_date": "2023-05-23",
+      "end_date": "2023-05-23"
+    }
+  ]
+}
