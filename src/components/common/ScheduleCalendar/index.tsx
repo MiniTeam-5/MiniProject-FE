@@ -4,7 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import temp from '../../../mockup/schedule_all.json';
 import * as S from './styles';
 
-function index() {
+function ScheduleCalendar() {
   const annualList = temp.data.filter((item) => item.type === 'annual');
   const dutyList = temp.data.filter((item) => item.type === 'duty');
 
@@ -60,4 +60,4 @@ function index() {
   );
 }
 
-export default index;
+export default ScheduleCalendar;
