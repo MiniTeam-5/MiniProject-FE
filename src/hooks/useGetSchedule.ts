@@ -13,27 +13,27 @@ function useGetSchedule(select?: 'annual' | 'duty') {
 
   const scheduleData = () => {
     const annualResult = annualList.map((item, index) => {
-      const { username, start_date, end_date } = item;
+      const { username, start_date, end_date, status } = item;
       return {
         id: `annual-${index}`,
         title: username,
         start: new Date(start_date),
-        end: new Date(end_date)
-        // extendedProps: { status }
+        end: new Date(end_date),
+        extendedProps: { status }
       };
     });
 
     const dutyResult = dutyList.map((item, index) => {
-      const { username, start_date, end_date } = item;
+      const { username, start_date, end_date, status } = item;
 
       return {
         id: `duty-${index}`,
         title: username,
         start: new Date(start_date),
         end: new Date(end_date),
-        color: 'green',
-        allDay: true
-        // extendedProps: { status }
+        color: '#ba55d3',
+        allDay: true,
+        extendedProps: { status }
       };
     });
 
