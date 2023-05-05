@@ -9,26 +9,22 @@ function ScheduleCalendar() {
   const { data } = useGetSchedule();
 
   // 캘린더 이벤트 바 스타일
-  // function renderEventContent(eventInfo: any) {
-  //   const { status } = eventInfo.event.extendedProps;
-  //   const backgroundColor = status === 'wait' ? 'hotpink' : '';
+  function renderEventContent(eventInfo: any) {
+    const { status } = eventInfo.event.extendedProps;
 
-  //   return (
-  //     <div className='fc-event-main' style={{ backgroundColor }}>
-  //       <i>{eventInfo.event.title}</i>
-  //     </div>
-  //   );
-  // }
+    return (
+      <>
+        {status === 'wait' && <strong>승인대기</strong>}
+        <i>{eventInfo.event.title}</i>
+      </>
+    );
+  }
 
   return (
     <S.StyleWrapper>
       <CalendarGuide />
 
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        events={data}
-        // eventContent={renderEventContent}
-      />
+      <FullCalendar plugins={[dayGridPlugin, interactionPlugin]} events={data} eventContent={renderEventContent} />
     </S.StyleWrapper>
   );
 }
