@@ -19,7 +19,7 @@ export const StyleWrapper = styled.div`
   }
 
   /* 승인대기 태그 */
-  /* .fc-event-main strong {
+  .fc-event-main strong {
     padding: 2px 6px;
     margin-right: 6px;
     color: ${({ theme }) => theme.color.text};
@@ -27,5 +27,5 @@ export const StyleWrapper = styled.div`
     font-size: 11px;
     font-weight: 400;
     border-radius: 2px;
-  } */
+  }
 `;
