@@ -33,6 +33,7 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
     clickedDateElement.style.backgroundColor = '#EAF8FA';
     // 이전에 선택된 일자를 저장함
     setPrevClickedDate(clickedDateElement);
+    handleDateSelect(info);
   };
 
   if (isLoading) return <div>loading...</div>;
