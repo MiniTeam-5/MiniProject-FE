@@ -1,41 +1,11 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import temp from '../../../mockup/schedule_all.json';
 import * as S from './styles';
+import useGetSchedule from '../../../hooks/useGetSchedule';
 
 function ScheduleCalendar() {
-  const annualList = temp.data.filter((item) => item.type === 'annual');
-  const dutyList = temp.data.filter((item) => item.type === 'duty');
-
-  const scheduleData = async () => {
-    const annualResult = annualList.map((item, index) => {
-      const { username, start_date, end_date } = item;
-      return {
-        id: `annual-${index}`,
-        title: username,
-        start: new Date(start_date),
-        end: new Date(end_date)
-        // extendedProps: { status }
-      };
-    });
-
-    const dutyResult = dutyList.map((item, index) => {
-      const { username, start_date, end_date } = item;
-
-      return {
-        id: `duty-${index}`,
-        title: username,
-        start: new Date(start_date),
-        end: new Date(end_date),
-        color: 'green',
-        allDay: true
-        // extendedProps: { status }
-      };
-    });
-
-    return annualResult.concat(dutyResult);
-  };
+  const { data } = useGetSchedule();
 
   // 캘린더 이벤트 바 스타일
   // function renderEventContent(eventInfo: any) {
@@ -53,7 +23,7 @@ function ScheduleCalendar() {
     <S.StyleWrapper>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
-        events={scheduleData}
+        events={data}
         // eventContent={renderEventContent}
       />
     </S.StyleWrapper>
