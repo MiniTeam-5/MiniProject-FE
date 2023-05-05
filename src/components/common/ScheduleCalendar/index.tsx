@@ -3,6 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import * as S from './styles';
 import useGetSchedule from '../../../hooks/useGetSchedule';
+import CalendarGuide from '../CalendarGuide';
 
 function ScheduleCalendar() {
   const { data } = useGetSchedule();
@@ -21,6 +22,8 @@ function ScheduleCalendar() {
 
   return (
     <S.StyleWrapper>
+      <CalendarGuide />
+
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         events={data}

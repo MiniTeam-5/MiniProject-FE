@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StyleWrapper = styled.div`
+  position: relative;
+
   .fc-event {
     height: 100%;
   }
