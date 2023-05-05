@@ -28,5 +28,5 @@ export const AnuualColorBox = styled(DefaultColorBox)`
 `;
 
 export const DutyColorBox = styled(DefaultColorBox)`
-  background-color: green;
+  background-color: #ba55d3;
 `;

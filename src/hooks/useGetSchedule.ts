@@ -31,7 +31,7 @@ function useGetSchedule(select?: 'annual' | 'duty') {
         title: username,
         start: new Date(start_date),
         end: new Date(end_date),
-        color: 'green',
+        color: '#ba55d3',
         allDay: true,
         extendedProps: { status }
       };
