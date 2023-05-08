@@ -108,10 +108,38 @@ export const db = {
     },
     {
       username: '신사원',
-      type: 'annual',
+      type: 'duty',
       status: 'approve',
-      start_date: '2023-05-10',
-      end_date: '2023-05-11'
+      start_date: '2023-06-10',
+      end_date: '2023-06-10'
+    },
+    {
+      username: '황사원',
+      type: 'annual',
+      status: 'wait',
+      start_date: '2023-06-10',
+      end_date: '2023-06-12'
+    },
+    {
+      username: '진사원',
+      type: 'duty',
+      status: 'approve',
+      start_date: '2023-05-21',
+      end_date: '2023-05-21'
+    },
+    {
+      username: '유사원',
+      type: 'annual',
+      status: 'wait',
+      start_date: '2023-05-24',
+      end_date: '2023-05-24'
+    },
+    {
+      username: '구사원',
+      type: 'annual',
+      status: 'wait',
+      start_date: '2023-05-21',
+      end_date: '2023-05-21'
     }
   ]
 };
