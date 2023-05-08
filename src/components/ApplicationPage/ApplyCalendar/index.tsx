@@ -5,6 +5,7 @@ import { ICalendarProps } from '../../../interfaces/applicationPage';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 import * as S from '../../common/ScheduleCalendar/styles';
 import { useEffect, useState } from 'react';
+import CalendarGuide from '../../common/CalendarGuide';
 
 function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(select);
@@ -39,6 +40,7 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
   if (isLoading) return <div>loading...</div>;
   return (
     <S.StyleWrapper>
+      <CalendarGuide />
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         events={data}

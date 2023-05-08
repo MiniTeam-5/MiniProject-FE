@@ -14,6 +14,7 @@ function Application() {
     const select = target.dataset.select as 'annual' | 'duty';
     if (select) {
       setSelect(select);
+      setDate({ start_date: '', end_date: '' });
     }
   };
   const handleDateSelect = (date: DateSelectArg | DateClickArg) => {
