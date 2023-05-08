@@ -1,13 +1,16 @@
+import Header from '../../components/common/Header';
 import UserMain from '../../components/UserMainPage';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
+import Admin from './admin';
 import temp from '../../mockup/user_login.json';
 
 function HomePage() {
-  const user = temp.data[0].role;
+  const user = temp.data[1].role;
 
   return (
     <div>
-      {user === 'USER' ? <UserMain /> : <>관리자 메인</>}
+      <Header />
+      {user === 'USER' ? <UserMain /> : <Admin />}
       <ScheduleCalendar />
     </div>
   );
