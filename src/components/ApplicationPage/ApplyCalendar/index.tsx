@@ -1,37 +1,54 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import schedule from '../../../mockup/schedule_all.json';
+import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
+import { ICalendarProps } from '../../../interfaces/applicationPage';
+import useGetSchedule from '../../../hooks/useGetSchedule';
+import * as S from '../../common/ScheduleCalendar/styles';
+import { useEffect, useState } from 'react';
+import CalendarGuide from '../../common/CalendarGuide';
 
-function ApplyCalendar() {
-  const duties = schedule.data.filter((item) => {
-    if (item.type === 'duty') {
-      return {
-        title: item.username,
-        start: item.start_date,
-        end: item.end_date
-      };
-    }
-  });
-  const annuals = schedule.data.filter((item) => {
-    if (item.type === 'annual') {
-      return {
-        title: item.username,
-        start: item.start_date,
-        end: item.end_date
-      };
-    }
-    return;
-  });
+function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
+  const { data, isLoading, error } = useGetSchedule(select);
+  const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
 
-  if (!schedule.data) return <>loading...</>;
+  useEffect(() => {
+    if (prevClickedDate !== null) {
+      prevClickedDate.style.backgroundColor = '';
+    }
+  }, [select]);
+
+  // selectable 값을 선택에 따라 동적으로 변경
+  const selectable = select === 'annual' ? true : false;
+
+  // 이전에 선택한 값
+  // dateClick 이벤트 처리 함수
+  const handleDateClick = (info: DateClickArg) => {
+    if (select === 'annual') return;
+    // 클릭한 일자의 HTMLElement를 가져옴
+    const clickedDateElement = info.dayEl;
+    // 이전에 선택된 일자의 배경색을 원래대로 되돌림
+    if (prevClickedDate !== null) {
+      prevClickedDate.style.backgroundColor = '';
+    }
+    // 클릭한 일자의 배경색을 변경함
+    clickedDateElement.style.backgroundColor = '#EAF8FA';
+    // 이전에 선택된 일자를 저장함
+    setPrevClickedDate(clickedDateElement);
+    handleDateSelect(info);
+  };
+
+  if (isLoading) return <div>loading...</div>;
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin, interactionPlugin]}
-      initialView='dayGridMonth'
-      selectable={true}
-      select={console.log}
-    />
+    <S.StyleWrapper>
+      <CalendarGuide />
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin]}
+        events={data}
+        selectable={selectable}
+        select={(info) => handleDateSelect(info)}
+        dateClick={handleDateClick}
+      />
+    </S.StyleWrapper>
   );
 }
 
