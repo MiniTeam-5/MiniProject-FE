@@ -1,6 +1,7 @@
 import ApplicationStatus from './ApplicationStatus';
 import temp from '../../mockup/schedule_login.json';
 import * as S from './styles';
+import Header from '../common/Header';
 
 function UserMainPage() {
   // function sortByStartDate(a: { start_date: string }, b: { start_date: string }): number {
@@ -17,10 +18,13 @@ function UserMainPage() {
   const filteredDutyList = dutyList.filter((item) => new Date(item.start_date) >= new Date(today));
 
   return (
-    <S.UserMain>
-      <ApplicationStatus title='연차 신청 현황' annualList={filteredAnnualList} />
-      <ApplicationStatus title='당직 신청 현황' dutyList={filteredDutyList} />
-    </S.UserMain>
+    <>
+      <Header />
+      <S.UserMain>
+        <ApplicationStatus title='연차 신청 현황' annualList={filteredAnnualList} />
+        <ApplicationStatus title='당직 신청 현황' dutyList={filteredDutyList} />
+      </S.UserMain>
+    </>
   );
 }
 

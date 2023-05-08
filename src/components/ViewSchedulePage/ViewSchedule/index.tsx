@@ -4,6 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import temp from '../../../mockup/schedule_login.json';
 import * as S from './styles';
 import CalendarGuide from '../../common/CalendarGuide';
+import PageTitle from '../../common/PageTitle';
 
 function ViewSchedule() {
   const scheduleDate = () => {
@@ -42,15 +43,18 @@ function ViewSchedule() {
   }
 
   return (
-    <S.StyleWrapper>
-      <CalendarGuide />
+    <>
+      <PageTitle title='내 일정 보기' />
+      <S.StyleWrapper>
+        <CalendarGuide />
 
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        events={scheduleDate()}
-        eventContent={renderEventContent}
-      />
-    </S.StyleWrapper>
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          events={scheduleDate()}
+          eventContent={renderEventContent}
+        />
+      </S.StyleWrapper>
+    </>
   );
 }
 
