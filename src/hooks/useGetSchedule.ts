@@ -36,8 +36,8 @@ function useGetSchedule(select?: 'annual' | 'duty') {
         extendedProps: { status }
       };
     });
-
-    return annualResult.concat(dutyResult);
+    if (select === 'annual') return annualResult.concat(dutyResult);
+    return dutyResult;
   };
 
   return { data: scheduleData(), isLoading, error };
