@@ -2,7 +2,7 @@ import ApplicationStatus from './ApplicationStatus';
 import temp from '../../mockup/schedule_login.json';
 import * as S from './styles';
 
-function index() {
+function UserMainPage() {
   function sortByStartDate(a: { start_date: string }, b: { start_date: string }): number {
     const dateA = a['start_date'] ? new Date(a['start_date']).getTime() : 0;
     const dateB = b['start_date'] ? new Date(b['start_date']).getTime() : 0;
@@ -20,4 +20,4 @@ function index() {
   );
 }
 
-export default index;
+export default UserMainPage;

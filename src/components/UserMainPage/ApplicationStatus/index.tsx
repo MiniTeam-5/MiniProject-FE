@@ -1,7 +1,7 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
 
-function index({ title, annualList, dutyList }: ApplicationStatusProps) {
+function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusProps) {
   return (
     <S.ApplicationStatus>
       <S.Header>
@@ -75,4 +75,4 @@ function index({ title, annualList, dutyList }: ApplicationStatusProps) {
   );
 }
 
-export default index;
+export default ApplicationStatus;
