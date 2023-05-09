@@ -5,11 +5,20 @@ import { AxiosError } from 'axios';
 
 function useGetSchedule(select?: 'annual' | 'duty') {
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>('schedule', getSchedules);
+  const userId = 1; // store에서 가져오기
   if (!data?.data) return { data: [], isLoading, error };
 
   const schedules = data['data'];
-  const annualList = schedules.filter((item) => item.type === 'annual');
-  const dutyList = schedules.filter((item) => item.type === 'duty');
+  // annual -> 모든 사람 연차 + 내 당직
+  // duty -> 내 연차 + 내 당직
+  const annualList = schedules.filter((item) => {
+    if (select === 'duty') return item.type === 'annual' && item.id === userId;
+    return item.type === 'annual';
+  });
+  const dutyList = schedules.filter((item) => {
+    if (select) return item.type === 'duty' && item.id === userId;
+    return item.type === 'duty';
+  });
 
   const scheduleData = () => {
     const annualResult = annualList.map((item, index) => {
@@ -26,7 +35,6 @@ function useGetSchedule(select?: 'annual' | 'duty') {
 
     const dutyResult = dutyList.map((item, index) => {
       const { username, start_date, end_date, status } = item;
-
       return {
         id: `duty-${index}`,
         title: username,
@@ -37,8 +45,7 @@ function useGetSchedule(select?: 'annual' | 'duty') {
         extendedProps: { status }
       };
     });
-    if (select === 'annual') return annualResult.concat(dutyResult);
-    return dutyResult;
+    return annualResult.concat(dutyResult);
   };
 
   return { data: scheduleData(), isLoading, error };

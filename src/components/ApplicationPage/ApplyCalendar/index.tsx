@@ -2,11 +2,11 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { ICalendarProps } from '../../../interfaces/applicationPage';
-import useGetSchedule from '../../../hooks/useGetSchedule';
 import * as S from '../../common/ScheduleCalendar/styles';
 import { useEffect, useState } from 'react';
 import CalendarGuide from '../../common/CalendarGuide';
 import { EventContentArg } from '@fullcalendar/core/index.js';
+import useGetSchedule from '../../../hooks/useGetSchedule';
 
 function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(select);
