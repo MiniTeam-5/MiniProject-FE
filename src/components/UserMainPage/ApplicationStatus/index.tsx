@@ -1,7 +1,19 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
+import { useMutation } from 'react-query';
+import { deleteApplication } from '../../../apis/auth';
 
 function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusProps) {
+  const { mutate } = useMutation(deleteApplication, {
+    onSuccess(data) {
+      console.log(data);
+    }
+  });
+
+  const cancelHandler = () => {
+    mutate();
+  };
+
   return (
     <S.ApplicationStatus>
       <S.Header>
@@ -31,7 +43,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'waiting' && (
-                    <S.StatusTag as='button' cancel>
+                    <S.StatusTag as='button' cancel onClick={cancelHandler}>
                       취소
                     </S.StatusTag>
                   )}
@@ -61,7 +73,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'waiting' && (
-                    <S.StatusTag as='button' cancel>
+                    <S.StatusTag as='button' cancel onClick={cancelHandler}>
                       취소
                     </S.StatusTag>
                   )}
