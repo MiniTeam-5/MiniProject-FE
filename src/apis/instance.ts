@@ -3,7 +3,7 @@ import { getCookie } from '../utils/cookies';
 
 const getAxiosInstance = (option?: { multi?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL: '/',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'

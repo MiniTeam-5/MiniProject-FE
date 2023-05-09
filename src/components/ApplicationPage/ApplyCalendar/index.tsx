@@ -2,10 +2,11 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { ICalendarProps } from '../../../interfaces/applicationPage';
-import useGetSchedule from '../../../hooks/useGetSchedule';
 import * as S from '../../common/ScheduleCalendar/styles';
 import { useEffect, useState } from 'react';
 import CalendarGuide from '../../common/CalendarGuide';
+import { EventContentArg } from '@fullcalendar/core/index.js';
+import useGetSchedule from '../../../hooks/useGetSchedule';
 
 function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(select);
@@ -19,7 +20,17 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
 
   // selectable 값을 선택에 따라 동적으로 변경
   const selectable = select === 'annual' ? true : false;
+  // 캘린더 이벤트 바 스타일
+  function renderEventContent(eventInfo: EventContentArg) {
+    const { status } = eventInfo.event.extendedProps;
 
+    return (
+      <>
+        {status === 'wait' && <strong>승인대기</strong>}
+        <i>{eventInfo.event.title}</i>
+      </>
+    );
+  }
   // 이전에 선택한 값
   // dateClick 이벤트 처리 함수
   const handleDateClick = (info: DateClickArg) => {
@@ -47,6 +58,7 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
         selectable={selectable}
         select={(info) => handleDateSelect(info)}
         dateClick={handleDateClick}
+        eventContent={renderEventContent}
       />
     </S.StyleWrapper>
   );
