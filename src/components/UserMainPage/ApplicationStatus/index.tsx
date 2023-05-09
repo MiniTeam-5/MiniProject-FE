@@ -17,9 +17,9 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
             const { status, start_date, end_date } = annual;
 
             let statusKr = status;
-            if (statusKr === 'approve') statusKr = '승인완료';
-            else if (statusKr === 'wait') statusKr = '승인대기';
-            else if (statusKr === 'reject') statusKr = '승인거절';
+            if (statusKr === 'approved') statusKr = '승인완료';
+            else if (statusKr === 'waiting') statusKr = '승인대기';
+            else if (statusKr === 'rejected') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
@@ -30,7 +30,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'wait' && (
+                  {status === 'waiting' && (
                     <S.StatusTag as='button' cancel>
                       취소
                     </S.StatusTag>
@@ -49,9 +49,9 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
             const { start_date, status } = duty;
 
             let statusKr = status;
-            if (statusKr === 'approve') statusKr = '승인완료';
-            else if (statusKr === 'wait') statusKr = '승인대기';
-            else if (statusKr === 'reject') statusKr = '승인거절';
+            if (statusKr === 'approved') statusKr = '승인완료';
+            else if (statusKr === 'waiting') statusKr = '승인대기';
+            else if (statusKr === 'rejected') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
@@ -60,7 +60,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'wait' && (
+                  {status === 'waiting' && (
                     <S.StatusTag as='button' cancel>
                       취소
                     </S.StatusTag>
