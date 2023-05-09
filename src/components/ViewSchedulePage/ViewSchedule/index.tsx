@@ -1,27 +1,37 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import temp from '../../../mockup/schedule_login.json';
 import * as S from './styles';
 import CalendarGuide from '../../common/CalendarGuide';
 import PageTitle from '../../common/PageTitle';
+import { useQuery } from 'react-query';
+import { getSchedule } from '../../../apis/auth';
 
 function ViewSchedule() {
-  const scheduleDate = () => {
-    const annualList = temp.data.filter((item) => item.type === 'annual');
-    const dutyList = temp.data.filter((item) => item.type === 'duty');
+  const { data } = useQuery(['user'], getSchedule, {
+    onSuccess(data) {
+      console.log(data);
+    }
+  });
 
-    const annualResult = annualList.map((item, index) => {
+  const schedule = data && data['data'];
+
+  const scheduleDate = () => {
+    const annualList = schedule?.filter((item: any) => item.type === 'annual');
+    const dutyList = schedule?.filter((item: any) => item.type === 'duty');
+
+    const annualResult = annualList?.map((item: any, index: number) => {
       const { start_date, end_date, status } = item;
       return {
         id: `annual-${index}`,
         start: new Date(start_date),
         end: new Date(end_date),
+        allDay: true,
         extendedprops: { status }
       };
     });
 
-    const dutyResult = dutyList.map((item, index) => {
+    const dutyResult = dutyList?.map((item: any, index: number) => {
       const { start_date, end_date, status } = item;
       return {
         id: `duty-${index}`,
@@ -33,7 +43,7 @@ function ViewSchedule() {
       };
     });
 
-    return annualResult.concat(dutyResult);
+    return annualResult?.concat(dutyResult);
   };
 
   function renderEventContent(eventInfo: any) {
