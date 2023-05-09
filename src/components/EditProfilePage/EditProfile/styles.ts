@@ -43,6 +43,7 @@ export const ImgUploadBtn = styled.button`
 export const NameBox = styled.div`
     width: 607px;
     height: 127px;
+    margin-top: 80px;
 `;
 
 export const NameSection = styled.div`
@@ -61,6 +62,7 @@ export const NameInput = styled.input`
 export const PwBox = styled.div`
     width: 608px;
     height: 133px;
+    margin-top: 50px;
 `;
 
 export const PwSection = styled.div`
@@ -81,6 +83,7 @@ export const BtnBox = styled.div`
     width: 269px;
     height: 50px;
     display: flex;
+    margin-top: 40px;
 `
 
 export const CancelBtn = styled.button`

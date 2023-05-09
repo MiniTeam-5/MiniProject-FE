@@ -77,3 +77,26 @@ export const AdminBtn = styled.button`
   position:absolute;
   margin-left: 920px;
 `;
+
+export const PageBtn = styled.button`
+  font-size: 20px;
+  margin-top: 10px;
+`
+
+export const PageBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+`
+
+export const DeleteBtn = styled.button`
+  width: 48.75px;
+  height: 25px;
+  border-radius: 10px;
+  border: 2px solid ${({ theme }) => theme.color.btnInactive};
+  background-color: ${({ theme }) => theme.color.btnInactive};
+  font-size: 12px;
+  position:absolute;
+  margin-left: 180px;
+`

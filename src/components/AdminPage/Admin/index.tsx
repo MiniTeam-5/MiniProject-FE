@@ -17,11 +17,16 @@ interface User {
 
 function Admin() {
     const [users, setUsers] = useState<User[]>([]);
+    const [pages, setPages] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(1);
     
     useEffect(() => {
-        fetch('/src/mockup/user_all.json')
+        fetch('/src/mockup/user_all1.json')
             .then(res => res.json())
-            .then(data => setUsers(data.data))
+            .then(data => {
+                setUsers(data.data);
+                setPages(data.pageAll);
+            })
             .catch(error => console.error('Error:', error));
     }, []);
 
@@ -95,6 +100,28 @@ function Admin() {
         setUsers(updatedUsers);
     };
 
+    const handlePageClick = (page: number) => {
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > pages) {
+            page = pages;
+        }
+        setCurrentPage(page);
+        fetch(`/src/mockup/user_all${page}.json`)
+            .then(res => res.json())
+            .then(data => setUsers(data.data))
+            .catch(error => console.error('Error:', error));
+    };
+
+    const pageButtons = [];
+    for (let i = 1; i <= pages; i++) {
+        pageButtons.push(
+            <S.PageBtn key={i} onClick={() => handlePageClick(i)}>{i}</S.PageBtn>
+        );
+    }
+              
+
   return (
     <S.Wrapper>
           <S.IndexDiv>
@@ -107,6 +134,7 @@ function Admin() {
               <S.UserDiv key={user.id}>
                   <S.ProfileImg src="././public/assets/profile.png"/>
                   <S.NameBox>{user.username}</S.NameBox>
+                  {user.isEditing ? (<S.DeleteBtn>삭제</S.DeleteBtn>):null}
                   <S.RoleBox>
                       {user.isEditing ? (
                         <S.RoleSelect value={user.role} onChange={(event) => handleRoleChange(event, user.id)}>
@@ -136,6 +164,11 @@ function Admin() {
                   </S.AnnualBox>
                   <S.AdminBtn onClick={()=> user.isEditing ? handleSaveClick(user.id) : handleAdminClick(user.id)}>{user.isEditing ? '저장' : '관리'}</S.AdminBtn>
               </S.UserDiv>))}
+                <S.PageBtnBox>
+                    <S.PageBtn onClick={()=> handlePageClick(currentPage-1)}>&lt;</S.PageBtn>
+                    {pageButtons}
+                    <S.PageBtn onClick={()=> handlePageClick(currentPage+1)}>&gt;</S.PageBtn>
+                </S.PageBtnBox>
     </S.Wrapper>
   );
 }
