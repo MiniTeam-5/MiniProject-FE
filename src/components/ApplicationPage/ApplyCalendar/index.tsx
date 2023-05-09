@@ -3,14 +3,16 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { ICalendarProps } from '../../../interfaces/applicationPage';
 import * as S from '../../common/ScheduleCalendar/styles';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CalendarGuide from '../../common/CalendarGuide';
-import { EventContentArg } from '@fullcalendar/core/index.js';
+import { DateSelectArg, EventContentArg } from '@fullcalendar/core/index.js';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 
-function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
+function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(select);
   const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
+  const calendarRef = useRef<FullCalendar>(null);
+  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
     if (prevClickedDate !== null) {
@@ -31,10 +33,24 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
       </>
     );
   }
+  const handleDateSelect = (date: DateSelectArg) => {
+    if (date.startStr < today) {
+      calendarRef.current?.getApi().unselect();
+      resetDate();
+      return alert('오늘 이전 날짜는 선택할 수 없습니다.');
+    }
+    applyDateSelect(date);
+  };
   // 이전에 선택한 값
   // dateClick 이벤트 처리 함수
   const handleDateClick = (info: DateClickArg) => {
     if (select === 'annual') return;
+
+    if (info.dateStr < today) {
+      calendarRef.current?.getApi().unselect();
+      resetDate();
+      return alert('오늘 이전 날짜는 선택할 수 없습니다.');
+    }
     // 클릭한 일자의 HTMLElement를 가져옴
     const clickedDateElement = info.dayEl;
     // 이전에 선택된 일자의 배경색을 원래대로 되돌림
@@ -45,7 +61,7 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
     clickedDateElement.style.backgroundColor = '#EAF8FA';
     // 이전에 선택된 일자를 저장함
     setPrevClickedDate(clickedDateElement);
-    handleDateSelect(info);
+    applyDateSelect(info);
   };
 
   if (isLoading) return <div>loading...</div>;
@@ -53,10 +69,11 @@ function ApplyCalendar({ select, handleDateSelect }: ICalendarProps) {
     <S.StyleWrapper>
       <CalendarGuide />
       <FullCalendar
+        ref={calendarRef}
         plugins={[dayGridPlugin, interactionPlugin]}
         events={data}
         selectable={selectable}
-        select={(info) => handleDateSelect(info)}
+        select={handleDateSelect}
         dateClick={handleDateClick}
         eventContent={renderEventContent}
       />

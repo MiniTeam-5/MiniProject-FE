@@ -14,7 +14,8 @@ export interface ICalendarInfo {
 
 export interface ICalendarProps {
   select: 'annual' | 'duty';
-  handleDateSelect: (date: DateSelectArg | DateClickArg) => void;
+  applyDateSelect: (date: DateSelectArg | DateClickArg) => void;
+  resetDate: () => void;
 }
 
 export interface IApplyInfoProps {

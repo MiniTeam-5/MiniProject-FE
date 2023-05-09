@@ -9,12 +9,15 @@ function Application() {
   const [select, setSelect] = useState<'annual' | 'duty'>('annual');
   const [date, setDate] = useState({ start_date: '', end_date: '' });
 
+  const resetDate = () => {
+    setDate({ start_date: '', end_date: '' });
+  };
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLButtonElement;
     const select = target.dataset.select as 'annual' | 'duty';
     if (select) {
       setSelect(select);
-      setDate({ start_date: '', end_date: '' });
+      resetDate();
     }
   };
   const handleDateSelect = (date: DateSelectArg | DateClickArg) => {
@@ -41,7 +44,7 @@ function Application() {
           당직 신청
         </S.SelectBtn>
       </S.SelectBtns>
-      <ApplyCalendar select={select} handleDateSelect={handleDateSelect} />
+      <ApplyCalendar select={select} applyDateSelect={handleDateSelect} resetDate={resetDate} />
       {date.start_date && date.end_date && <ApplyInfo select={select} date={date} />}
     </S.Wrapper>
   );

@@ -18,6 +18,7 @@ function useGetSchedule(select?: 'annual' | 'duty') {
     return item.type === 'annual';
   });
   const dutyList = schedules.filter((item) => {
+    // select가 무엇이 되었든간에 내 당직 정보만 보여줘야 함
     if (select || pathname === '/viewSchedule') return item.type === 'duty' && item.id === userId;
     return item.type === 'duty';
   });
