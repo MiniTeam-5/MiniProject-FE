@@ -24,7 +24,12 @@ function ScheduleCalendar() {
     <S.StyleWrapper>
       <CalendarGuide />
 
-      <FullCalendar plugins={[dayGridPlugin, interactionPlugin]} events={data} eventContent={renderEventContent} />
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin]}
+        events={data}
+        eventContent={renderEventContent}
+        dayMaxEvents={1}
+      />
     </S.StyleWrapper>
   );
 }
