@@ -66,8 +66,8 @@ export const StatusTag = styled.strong<StatusTagType>`
   border-radius: 6px;
   background-color: ${({ status, cancel, theme }) => {
     if (cancel) return theme.color.navbarActive;
-    if (status === 'approved') return theme.color.status03;
-    else if (status === 'waiting') return theme.color.status01;
+    if (status === 'APPROVED') return theme.color.status03;
+    else if (status === 'WAITING') return theme.color.status01;
     else return theme.color.status02;
   }};
 `;

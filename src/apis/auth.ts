@@ -6,7 +6,7 @@ export const getSchedules = async () => {
 };
 
 export const getSchedule = async () => {
-  const response = await axiosInstance().get('/auth/leave?id=2');
+  const response = await axiosInstance().get('/auth/leave/id/1');
   return response.data;
 };
 

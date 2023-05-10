@@ -26,23 +26,23 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
       {annualList && (
         <S.List>
           {annualList?.map((annual, index) => {
-            const { status, start_date, end_date } = annual;
+            const { status, startDate, endDate } = annual;
 
             let statusKr = status;
-            if (statusKr === 'approved') statusKr = '승인완료';
-            else if (statusKr === 'waiting') statusKr = '승인대기';
-            else if (statusKr === 'rejected') statusKr = '승인거절';
+            if (statusKr === 'APPROVED') statusKr = '승인완료';
+            else if (statusKr === 'WAITING') statusKr = '승인대기';
+            else if (statusKr === 'REJECTED') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
                 <p>
-                  {start_date} ~ {end_date}
+                  {startDate} ~ {endDate}
                 </p>
 
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'waiting' && (
+                  {status === 'WAITING' && (
                     <S.StatusTag as='button' cancel onClick={cancelHandler}>
                       취소
                     </S.StatusTag>
@@ -58,21 +58,21 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
       {dutyList && (
         <S.List>
           {dutyList?.map((duty, index) => {
-            const { start_date, status } = duty;
+            const { startDate, status } = duty;
 
             let statusKr = status;
-            if (statusKr === 'approved') statusKr = '승인완료';
-            else if (statusKr === 'waiting') statusKr = '승인대기';
-            else if (statusKr === 'rejected') statusKr = '승인거절';
+            if (statusKr === 'APPROVED') statusKr = '승인완료';
+            else if (statusKr === 'WAITING') statusKr = '승인대기';
+            else if (statusKr === 'REJECTED') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
-                <p>{start_date}</p>
+                <p>{startDate}</p>
 
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'waiting' && (
+                  {status === 'WAITING' && (
                     <S.StatusTag as='button' cancel onClick={cancelHandler}>
                       취소
                     </S.StatusTag>
