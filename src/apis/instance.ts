@@ -3,10 +3,11 @@ import { getCookie } from '../utils/cookies';
 
 const getAxiosInstance = (option?: { multi?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: '/',
+    baseURL: import.meta.env.VITE_API_URL,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
     withCredentials: true
   };

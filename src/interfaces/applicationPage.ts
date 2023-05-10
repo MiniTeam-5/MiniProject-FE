@@ -13,12 +13,12 @@ export interface ICalendarInfo {
 }
 
 export interface ICalendarProps {
-  select: 'annual' | 'duty';
+  select: 'ANNUAL' | 'DUTY';
   applyDateSelect: (date: DateSelectArg | DateClickArg) => void;
   resetDate: () => void;
 }
 
 export interface IApplyInfoProps {
-  select: 'annual' | 'duty';
-  date: { start_date: string; end_date: string };
+  select: 'ANNUAL' | 'DUTY';
+  date: { startDate: string; endDate: string };
 }

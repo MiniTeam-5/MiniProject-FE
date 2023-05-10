@@ -9,26 +9,26 @@ import { DateSelectArg, EventContentArg } from '@fullcalendar/core/index.js';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 
 function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
-  const { data, isLoading, error } = useGetSchedule(select);
+  const today = new Date().toISOString().split('T')[0];
+  const [nowMonth, setNowMonth] = useState(today.slice(0, 7));
+  const { data, isLoading, error } = useGetSchedule(nowMonth, select);
   const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
   const calendarRef = useRef<FullCalendar>(null);
-  const today = new Date().toISOString().split('T')[0];
-
   useEffect(() => {
     if (prevClickedDate !== null) {
       prevClickedDate.style.backgroundColor = '';
     }
   }, [select]);
-
+  console.log(data);
   // selectable 값을 선택에 따라 동적으로 변경
-  const selectable = select === 'annual' ? true : false;
+  const selectable = select === 'ANNUAL' ? true : false;
   // 캘린더 이벤트 바 스타일
   function renderEventContent(eventInfo: EventContentArg) {
     const { status } = eventInfo.event.extendedProps;
 
     return (
       <>
-        {status === 'wait' && <strong>승인대기</strong>}
+        {status === 'WAITING' && <strong>승인대기</strong>}
         <i>{eventInfo.event.title}</i>
       </>
     );
@@ -44,7 +44,7 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   // 이전에 선택한 값
   // dateClick 이벤트 처리 함수
   const handleDateClick = (info: DateClickArg) => {
-    if (select === 'annual') return;
+    if (select === 'ANNUAL') return;
 
     if (info.dateStr < today) {
       calendarRef.current?.getApi().unselect();
