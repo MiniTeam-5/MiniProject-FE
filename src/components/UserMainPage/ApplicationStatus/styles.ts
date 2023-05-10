@@ -35,11 +35,8 @@ export const NumberOfAnnual = styled.p`
 
 export const List = styled.ol`
   flex-grow: 1;
+  padding-right: 16px;
   overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const StatusItem = styled.li`
