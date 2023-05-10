@@ -29,7 +29,9 @@
     "redux-logger": "^3.0.6",
     "styled-components": "^5.3.10",
     "styled-normalize": "^8.0.7",
-    "styled-reset": "^4.4.6"
+    "styled-reset": "^4.4.6",
+    "sweetalert2": "^11.7.5",
+    "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
