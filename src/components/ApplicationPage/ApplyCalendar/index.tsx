@@ -14,12 +14,13 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(nowMonth, select);
   const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
   const calendarRef = useRef<FullCalendar>(null);
+
   useEffect(() => {
     if (prevClickedDate !== null) {
       prevClickedDate.style.backgroundColor = '';
     }
   }, [select]);
-  console.log(data);
+
   // selectable 값을 선택에 따라 동적으로 변경
   const selectable = select === 'ANNUAL' ? true : false;
   // 캘린더 이벤트 바 스타일
@@ -41,6 +42,7 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     }
     applyDateSelect(date);
   };
+
   // 이전에 선택한 값
   // dateClick 이벤트 처리 함수
   const handleDateClick = (info: DateClickArg) => {
@@ -76,6 +78,22 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
         select={handleDateSelect}
         dateClick={handleDateClick}
         eventContent={renderEventContent}
+        customButtons={{
+          prev: {
+            click: () => {
+              const prevMonth = new Date(nowMonth);
+              prevMonth.setMonth(prevMonth.getMonth() - 1);
+              setNowMonth(prevMonth.toISOString().slice(0, 7));
+            }
+          },
+          next: {
+            click: () => {
+              const prevMonth = new Date(nowMonth);
+              prevMonth.setMonth(prevMonth.getMonth() + 1);
+              setNowMonth(prevMonth.toISOString().slice(0, 7));
+            }
+          }
+        }}
       />
     </S.StyleWrapper>
   );
