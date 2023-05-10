@@ -14,7 +14,7 @@
       "id": 2,
       "username": "관리자",
       "email": "admin@lupin.com",
-      "role": "admin",
+      "role": "ADMIN",
       "status": true,
       "profile": "example_profile_data",
       "annual_limit": 15,
