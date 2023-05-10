@@ -8,38 +8,34 @@ import { useQuery } from 'react-query';
 import { getSchedule } from '../../../apis/auth';
 
 function ViewSchedule() {
-  const { data } = useQuery(['user'], getSchedule, {
-    onSuccess(data) {
-      console.log(data);
-    }
-  });
+  const { data } = useQuery(['user'], getSchedule);
 
   const schedule = data && data['data'];
 
   const scheduleDate = () => {
-    const annualList = schedule?.filter((item: any) => item.type === 'annual');
-    const dutyList = schedule?.filter((item: any) => item.type === 'duty');
+    const annualList = schedule?.filter((item: any) => item.type === 'ANNUAL');
+    const dutyList = schedule?.filter((item: any) => item.type === 'DUTY');
 
-    const annualResult = annualList?.map((item: any, index: number) => {
-      const { start_date, end_date, status } = item;
+    const annualResult = annualList?.map((item: any) => {
+      const { userId, startDate, endDate, status } = item;
       return {
-        id: `annual-${index}`,
-        start: new Date(start_date),
-        end: new Date(end_date),
+        id: `annual-${userId}`,
+        start: new Date(startDate),
+        end: new Date(endDate),
         allDay: true,
-        extendedprops: { status }
+        extendedProps: { status }
       };
     });
 
-    const dutyResult = dutyList?.map((item: any, index: number) => {
-      const { start_date, end_date, status } = item;
+    const dutyResult = dutyList?.map((item: any) => {
+      const { userId, startDate, endDate, status } = item;
       return {
-        id: `duty-${index}`,
-        start: new Date(start_date),
-        end: new Date(end_date),
+        id: `duty-${userId}`,
+        start: new Date(startDate),
+        end: new Date(endDate),
         color: '#ba55d3',
         allDay: true,
-        extendedprops: { status }
+        extendedProps: { status }
       };
     });
 
@@ -49,7 +45,7 @@ function ViewSchedule() {
   function renderEventContent(eventInfo: any) {
     const { status } = eventInfo.event.extendedProps;
 
-    return <>{status === 'wait' && <strong>승인대기</strong>}</>;
+    return <>{status === 'WAITING' && <strong>승인대기</strong>}</>;
   }
 
   return (
