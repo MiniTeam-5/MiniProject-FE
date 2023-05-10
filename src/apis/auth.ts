@@ -10,7 +10,7 @@ export const getSchedule = async () => {
   return response.data;
 };
 
-export const deleteApplication = async () => {
-  const response = await axiosInstance().post('/auth/leave/3/delete');
+export const deleteApplication = async (id) => {
+  const response = await axiosInstance().post(`/auth/leave/${id}/delete`);
   return response.data;
 };

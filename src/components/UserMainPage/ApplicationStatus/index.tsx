@@ -10,8 +10,8 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
     }
   });
 
-  const cancelHandler = () => {
-    mutate();
+  const cancelHandler = (id) => {
+    mutate(id);
   };
 
   return (
@@ -26,7 +26,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
       {annualList && (
         <S.List>
           {annualList?.map((annual, index) => {
-            const { status, startDate, endDate } = annual;
+            const { id, status, startDate, endDate } = annual;
 
             let statusKr = status;
             if (statusKr === 'APPROVED') statusKr = '승인완료';
@@ -43,7 +43,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={cancelHandler}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id)}>
                       취소
                     </S.StatusTag>
                   )}
@@ -58,7 +58,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
       {dutyList && (
         <S.List>
           {dutyList?.map((duty, index) => {
-            const { startDate, status } = duty;
+            const { id, startDate, status } = duty;
 
             let statusKr = status;
             if (statusKr === 'APPROVED') statusKr = '승인완료';
@@ -73,7 +73,7 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={cancelHandler}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id)}>
                       취소
                     </S.StatusTag>
                   )}
