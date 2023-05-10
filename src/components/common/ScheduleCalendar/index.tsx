@@ -6,7 +6,7 @@ import useGetSchedule from '../../../hooks/useGetSchedule';
 import CalendarGuide from '../CalendarGuide';
 
 function ScheduleCalendar() {
-  const { data } = useGetSchedule();
+  const { data }: any = useGetSchedule();
 
   // 캘린더 이벤트 바 스타일
   function renderEventContent(eventInfo: any) {
@@ -14,7 +14,7 @@ function ScheduleCalendar() {
 
     return (
       <>
-        {status === 'wait' && <strong>승인대기</strong>}
+        {status === 'WAITING' && <strong>승인대기</strong>}
         <i>{eventInfo.event.title}</i>
       </>
     );
