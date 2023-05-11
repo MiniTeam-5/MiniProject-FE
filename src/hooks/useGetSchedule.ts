@@ -6,9 +6,15 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
-  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules', nowMonth], () => {
-    return getSchedules(nowMonth);
-  });
+  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(
+    ['schedules', nowMonth],
+    () => {
+      return getSchedules(nowMonth);
+    },
+    {
+      refetchOnWindowFocus: false
+    }
+  );
   const { id } = useSelector((state: any) => state.loginedUser);
 
   const { pathname } = useLocation();
