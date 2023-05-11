@@ -25,12 +25,13 @@ function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
   // ANNUAL -> 모든 사람 연차 + 내 당직
   // DUTY -> 내 연차 + 내 당직
   const annualList = schedules.filter((item) => {
-    if (select === 'DUTY' || pathname === '/viewSchedule') return item.type === 'ANNUAL' && item.id === id;
+    if (select === 'DUTY' || pathname === '/viewSchedule') return item.type === 'ANNUAL' && item.userId === id;
     return item.type === 'ANNUAL';
   });
   const dutyList = schedules.filter((item) => {
+    console.log(item);
     // select가 무엇이 되었든간에 내 당직 정보만 보여줘야 함
-    if (select || pathname === '/viewSchedule') return item.type === 'DUTY' && item.id === id;
+    if (select || pathname === '/viewSchedule') return item.type === 'DUTY' && item.userId === id;
     return item.type === 'DUTY';
   });
 
@@ -41,7 +42,7 @@ function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
         id: `annual-${index}`,
         title: username,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         allDay: true,
         extendedProps: { status }
       };
@@ -53,7 +54,7 @@ function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
         id: `duty-${index}`,
         title: username,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         color: '#ba55d3',
         allDay: true,
         extendedProps: { status }
