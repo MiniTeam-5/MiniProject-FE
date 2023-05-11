@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
-
+import loginedUserReducer from './reducers/userReducers';
 const logger = createLogger();
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  loginedUser: loginedUserReducer
+});
 
 const store = configureStore({
   reducer: rootReducer,
