@@ -98,6 +98,8 @@ export const StatusTable = styled.table`
         width: 30px;
         height: 30px;
         margin-right: 22px;
+        border-radius: 50%;
+        overflow: hidden;
       }
     }
   }
