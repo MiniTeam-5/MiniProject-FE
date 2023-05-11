@@ -3,11 +3,11 @@ export interface pageTitleProps {
 }
 
 export interface ISchedule {
-  id: number;
-  status: 'waiting' | 'approved' | 'rejected';
-  type: 'duty' | 'annual';
-  start_date: string;
-  end_date: string;
+  userId: number;
+  status: 'WAITING' | 'APPROVED' | 'REJECTED';
+  type: 'DUTY' | 'ANNUAL';
+  startDate: string;
+  endDate: string;
   username: string;
 }
 
