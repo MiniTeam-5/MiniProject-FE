@@ -1,6 +1,17 @@
+import { useEffect } from 'react';
 import * as S from './styles';
+import axios from 'axios';
+import { Leave, LeaveResponse } from '../../../interfaces/applicationStatus';
 
-function ApplicationSatus() {
+function ApplicationStatus({ leaveList, setLeaveList }: { leaveList: Leave[]; setLeaveList: (list: Leave[]) => void }) {
+  useEffect(() => {
+    async function fetchLeaveList() {
+      const response = await axios.get<LeaveResponse>('/admin/leave');
+      setLeaveList(response.data.data);
+    }
+    fetchLeaveList();
+  }, [setLeaveList]);
+
   return (
     <S.ApplicationStatus>
       <S.Title>
@@ -17,160 +28,32 @@ function ApplicationSatus() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
+            {leaveList.map((leave) => (
+              <tr key={leave.id}>
+                <td>
+                  <div className='flex'>
+                    <div className='staff_img'>
+                      <img src={leave.profile ? leave.profile : '/assets/profile.png'} alt='프로필' />
+                    </div>
+                    <p>{leave.username}</p>
                   </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
+                </td>
+                <td>
+                  <p>{leave.type == 'ANNUAL' ? '연차' : '당직'}</p>
+                </td>
+                <td>
+                  <p>
+                    {leave.startDate} ~ {leave.endDate}
+                  </p>
+                </td>
+                <td>
+                  <div className='btn_box flex'>
+                    <button className='ok'>승인</button>
+                    <button className='refusal'>거부</button>
                   </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
-                  </div>
-                  <p>이사원</p>
-                </div>
-              </td>
-              <td>
-                <p>당직</p>
-              </td>
-              <td>
-                <p>2023년 4월 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
-                  </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
-                  </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
-                  </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className='flex'>
-                  <div className='staff_img'>
-                    <img src='/assets/profile.png' alt='프로필' />
-                  </div>
-                  <p>박사원</p>
-                </div>
-              </td>
-              <td>
-                <p>연차</p>
-              </td>
-              <td>
-                <p>2023년 4월 10일 ~ 11일</p>
-              </td>
-              <td>
-                <div className='btn_box flex'>
-                  <button className='ok'>승인</button>
-                  <button className='refusal'>거부</button>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </S.StatusTable>
       </S.StatusTableWrap>
@@ -178,4 +61,4 @@ function ApplicationSatus() {
   );
 }
 
-export default ApplicationSatus;
+export default ApplicationStatus;
