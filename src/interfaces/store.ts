@@ -2,9 +2,8 @@ export interface ILoginedUser {
   id: number;
   username: string;
   email: string;
-  role: string;
-  status: boolean;
+  role: 'ROLE_USER' | 'ROLE_ADMIN' | 'ROLE_MASTER';
   profile: string;
-  annual_limit: number;
-  annual_count: number;
+  remainDays: number;
+  hire_date: string;
 }
