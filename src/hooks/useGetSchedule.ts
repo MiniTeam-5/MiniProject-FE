@@ -5,8 +5,9 @@ import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
 
 function useGetSchedule(select?: 'annual' | 'duty') {
-  // TODO: 고정된 쿼리키
-  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>('schedules', getSchedules);
+  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>('schedules', getSchedules, {
+    staleTime: Infinity
+  });
   const userId = 1; // store에서 가져오기
   const { pathname } = useLocation();
   if (!data?.data) return { data: [], isLoading, error };
@@ -31,7 +32,7 @@ function useGetSchedule(select?: 'annual' | 'duty') {
         id: `annual-${userId}`,
         title: username,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         allDay: true,
         extendedProps: { status }
       };
@@ -43,7 +44,7 @@ function useGetSchedule(select?: 'annual' | 'duty') {
         id: `duty-${userId}`,
         title: username,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         color: '#ba55d3',
         allDay: true,
         extendedProps: { status }

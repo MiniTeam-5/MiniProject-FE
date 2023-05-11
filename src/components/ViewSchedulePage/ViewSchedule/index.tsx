@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 import { getSchedule } from '../../../apis/auth';
 
 function ViewSchedule() {
-  const { data } = useQuery(['user'], getSchedule);
+  const { data } = useQuery(['user'], getSchedule, { staleTime: Infinity });
 
   const schedule = data && data['data'];
 
