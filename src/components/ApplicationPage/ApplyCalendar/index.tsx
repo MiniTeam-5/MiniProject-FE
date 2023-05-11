@@ -1,5 +1,7 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { ICalendarProps } from '../../../interfaces/applicationPage';
 import * as S from '../../common/ScheduleCalendar/styles';
@@ -14,23 +16,11 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const { data, isLoading, error } = useGetSchedule(nowMonth, select);
   const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
   const calendarRef = useRef<FullCalendar>(null);
-
-  useEffect(() => {
-    if (prevClickedDate !== null) {
-      prevClickedDate.style.backgroundColor = '';
-    }
-  }, [select]);
-
-  useEffect(() => {
-    const { current } = calendarRef;
-    if (current) {
-      console.log(new Date(nowMonth));
-      current.getApi().gotoDate(new Date(nowMonth));
-    }
-  }, [nowMonth]);
+  const MySwal = withReactContent(Swal);
 
   // selectable 값을 선택에 따라 동적으로 변경
   const selectable = select === 'ANNUAL' ? true : false;
+
   // 캘린더 이벤트 바 스타일
   function renderEventContent(eventInfo: EventContentArg) {
     const { status } = eventInfo.event.extendedProps;
@@ -42,24 +32,28 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
       </>
     );
   }
+
+  const showAlert = () => {
+    calendarRef.current?.getApi().unselect();
+    resetDate();
+    return MySwal.fire({
+      icon: 'error',
+      title: '오늘 이전 날짜는 선택할 수 없습니다.'
+    });
+  };
   const handleDateSelect = (date: DateSelectArg) => {
     if (date.startStr < today) {
-      calendarRef.current?.getApi().unselect();
-      resetDate();
-      return alert('오늘 이전 날짜는 선택할 수 없습니다.');
+      showAlert();
     }
     applyDateSelect(date);
   };
 
-  // 이전에 선택한 값
   // dateClick 이벤트 처리 함수
   const handleDateClick = (info: DateClickArg) => {
     if (select === 'ANNUAL') return;
 
     if (info.dateStr < today) {
-      calendarRef.current?.getApi().unselect();
-      resetDate();
-      return alert('오늘 이전 날짜는 선택할 수 없습니다.');
+      showAlert();
     }
     // 클릭한 일자의 HTMLElement를 가져옴
     const clickedDateElement = info.dayEl;
@@ -75,16 +69,28 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   };
   // 이전/다음 버튼 클릭 이벤트 함수
   const handlePrevButtonClick = () => {
+    const { current } = calendarRef;
+    if (!current) return;
     const prevMonth = new Date(nowMonth);
     prevMonth.setMonth(prevMonth.getMonth() - 1);
     setNowMonth(prevMonth.toISOString().slice(0, 7));
+    current.getApi().prev();
   };
 
   const handleNextButtonClick = () => {
+    const { current } = calendarRef;
+    if (!current) return;
     const nextMonth = new Date(nowMonth);
     nextMonth.setMonth(nextMonth.getMonth() + 1);
     setNowMonth(nextMonth.toISOString().slice(0, 7));
+    current.getApi().next();
   };
+
+  useEffect(() => {
+    if (prevClickedDate !== null) {
+      prevClickedDate.style.backgroundColor = '';
+    }
+  }, [select, prevClickedDate]);
 
   if (isLoading) return <div>loading...</div>;
   return (
