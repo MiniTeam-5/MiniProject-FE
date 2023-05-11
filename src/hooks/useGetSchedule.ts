@@ -29,7 +29,6 @@ function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
     return item.type === 'ANNUAL';
   });
   const dutyList = schedules.filter((item) => {
-    console.log(item);
     // select가 무엇이 되었든간에 내 당직 정보만 보여줘야 함
     if (select || pathname === '/viewSchedule') return item.type === 'DUTY' && item.userId === id;
     return item.type === 'DUTY';

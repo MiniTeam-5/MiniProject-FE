@@ -4,8 +4,27 @@ import { CgProfile } from 'react-icons/cg';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import { RiAddBoxLine, RiLogoutBoxRLine } from 'react-icons/ri';
 import { BsPeople } from 'react-icons/bs';
+import { FaBell } from 'react-icons/fa';
 import * as S from './styles';
+import { useEffect } from 'react';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+
 function Navbar() {
+  const sseURL = import.meta.env.VITE_API_URL + 'auth/connect';
+
+  useEffect(() => {
+    const eventSource = new EventSourcePolyfill(sseURL, {
+      withCredentials: true,
+      headers: { Authorization: import.meta.env.VITE_ACCESS_TOKEN }
+    });
+    eventSource.onmessage = (e) => {
+      console.log(e);
+    };
+    return () => {
+      eventSource.close();
+    };
+  });
+
   return (
     <S.Navbar>
       <div>
@@ -19,6 +38,9 @@ function Navbar() {
           <div className='user_tag'>
             <span>사원</span>
           </div>
+          <S.AlarmBtn className='active'>
+            <FaBell />
+          </S.AlarmBtn>
         </S.User>
         <S.NavList>
           <li>
