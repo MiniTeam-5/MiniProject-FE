@@ -21,6 +21,14 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     }
   }, [select]);
 
+  useEffect(() => {
+    const { current } = calendarRef;
+    if (current) {
+      console.log(new Date(nowMonth));
+      current.getApi().gotoDate(new Date(nowMonth));
+    }
+  }, [nowMonth]);
+
   // selectable 값을 선택에 따라 동적으로 변경
   const selectable = select === 'ANNUAL' ? true : false;
   // 캘린더 이벤트 바 스타일
@@ -65,6 +73,18 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     setPrevClickedDate(clickedDateElement);
     applyDateSelect(info);
   };
+  // 이전/다음 버튼 클릭 이벤트 함수
+  const handlePrevButtonClick = () => {
+    const prevMonth = new Date(nowMonth);
+    prevMonth.setMonth(prevMonth.getMonth() - 1);
+    setNowMonth(prevMonth.toISOString().slice(0, 7));
+  };
+
+  const handleNextButtonClick = () => {
+    const nextMonth = new Date(nowMonth);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    setNowMonth(nextMonth.toISOString().slice(0, 7));
+  };
 
   if (isLoading) return <div>loading...</div>;
   return (
@@ -80,18 +100,10 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
         eventContent={renderEventContent}
         customButtons={{
           prev: {
-            click: () => {
-              const prevMonth = new Date(nowMonth);
-              prevMonth.setMonth(prevMonth.getMonth() - 1);
-              setNowMonth(prevMonth.toISOString().slice(0, 7));
-            }
+            click: handlePrevButtonClick
           },
           next: {
-            click: () => {
-              const prevMonth = new Date(nowMonth);
-              prevMonth.setMonth(prevMonth.getMonth() + 1);
-              setNowMonth(prevMonth.toISOString().slice(0, 7));
-            }
+            click: handleNextButtonClick
           }
         }}
       />
