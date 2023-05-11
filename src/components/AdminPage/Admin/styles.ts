@@ -21,7 +21,7 @@ export const UserDiv = styled.div`
   border: 2px solid ${({ theme }) => theme.color.inputBorder};
   border-top: 0px;
   align-items: center;
-  &:last-child {
+  &:last-of-type {
     border-radius: 0 0 10px 10px;
   }
 `

@@ -21,12 +21,12 @@ export const changeAnnual = async (id: number, remain_days: number) => {
   return response.data;
 };
 
-export const getUser = async (id: number) => {
-  const response = await axiosInstance().get(`/auth/user/${id}`);
+export const getUser = async () => {
+  const response = await axiosInstance().get(`/auth/user/`);
   return response.data;
 }
 
-export const editUser = async (id: number, password: number, profile: string) => {
-  const response = await axiosInstance().post(`/auth/user/${id}/update`, { password, profile });
+export const editUser = async (password: string, profile: string) => {
+  const response = await axiosInstance().post(`/auth/user`, { password, profile });
   return response.data;
 }

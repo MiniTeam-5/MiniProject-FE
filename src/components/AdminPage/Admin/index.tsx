@@ -24,7 +24,7 @@ function Admin() {
         fetch('/src/mockup/user_all1.json')
             .then(res => res.json())
             .then(data => {
-                setUsers(data.data);
+                setUsers(data.data[0]);
                 setPages(data.pageAll);
             })
             .catch(error => console.error('Error:', error));

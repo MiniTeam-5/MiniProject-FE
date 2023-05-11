@@ -7,7 +7,8 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
     //baseURL: '/',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX1VTRVIiLCJpZCI6OCwiZXhwIjoxNjgzODgyODc4fQ.bRASmSYUgBSMbl4vOSEYUKBRf38vdhzKCbNM6aHlQmsGsbIO7mhDy2i9psEbMFmx4LCwhQSM0bXLIKmQ7IBGrg'
     },
     withCredentials: true
   };
