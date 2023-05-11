@@ -346,6 +346,24 @@ export const handlers = [
         }))
       )
     );
+  }),
+
+  // 관리자용 연차당직 정보 가져오기
+  rest.get('/admin/leave', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: db.leave.map((leave) => ({
+          id: leave.id,
+          username: leave.username,
+          profile: leave.profile,
+          type: leave.type,
+          status: leave.status,
+          startDate: leave.startDate,
+          endDate: leave.endDate
+        }))
+      })
+    );
   })
 ];
 

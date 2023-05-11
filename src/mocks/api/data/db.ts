@@ -51,5 +51,57 @@ export const db = {
     { id: 9, username: '진사원', type: 'duty', status: 'approve', start_date: '2023-05-21', end_date: '2023-05-21' },
     { id: 10, username: '유사원', type: 'annual', status: 'wait', start_date: '2023-05-24', end_date: '2023-05-24' },
     { id: 11, username: '구사원', type: 'annual', status: 'wait', start_date: '2023-05-21', end_date: '2023-05-21' }
+  ],
+  leave: [
+    {
+      id: 1,
+      userId: 1,
+      username: '김사원',
+      profile: 'https://picsum.photos/30',
+      type: 'ANNUAL',
+      status: 'WAITING',
+      startDate: '2023-05-20',
+      endDate: '2023-05-22'
+    },
+    {
+      id: 2,
+      userId: 2,
+      username: '박사원',
+      profile: null,
+      type: 'DUTY',
+      status: 'WAITING',
+      startDate: '2023-05-24',
+      endDate: '2023-05-24'
+    },
+    {
+      id: 3,
+      userId: 3,
+      username: '이사원',
+      profile: 'https://picsum.photos/30',
+      type: 'DUTY',
+      status: 'WAITING',
+      startDate: '2023-05-26',
+      endDate: '2023-05-27'
+    },
+    {
+      id: 4,
+      userId: 4,
+      username: '유사원',
+      profile: 'https://picsum.photos/30',
+      type: 'ANNUAL',
+      status: 'WAITING',
+      startDate: '2023-05-27',
+      endDate: '2023-05-28'
+    },
+    {
+      id: 5,
+      userId: 5,
+      username: '김사원',
+      profile: 'https://picsum.photos/30',
+      type: 'ANNUAL',
+      status: '',
+      startDate: '2023-05-27',
+      endDate: '2023-05-28'
+    }
   ]
 };
