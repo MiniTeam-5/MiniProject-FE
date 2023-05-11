@@ -1,15 +1,7 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
-import { useMutation } from 'react-query';
-import { deleteApplication } from '../../../apis/auth';
 
-function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusProps) {
-  const { mutate } = useMutation(deleteApplication, {
-    onSuccess(data) {
-      console.log(data);
-    }
-  });
-
+function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
   const cancelHandler = (id) => {
     mutate(id);
   };
