@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface StatusTagType {
   status?: string;
@@ -34,9 +34,15 @@ export const NumberOfAnnual = styled.p`
 `;
 
 export const List = styled.ol`
+  padding-right: 0;
   flex-grow: 1;
-  padding-right: 16px;
   overflow-y: auto;
+
+  ${(props) =>
+    props.hasScrollbar &&
+    css`
+      padding-right: 20px;
+    `}
 `;
 
 export const StatusItem = styled.li`

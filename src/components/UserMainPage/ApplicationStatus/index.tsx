@@ -16,7 +16,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
 
       {/* 연차 신청 현황 */}
       {annualList && (
-        <S.List>
+        <S.List hasScrollbar={annualList.length > 3}>
           {annualList?.map((annual, index) => {
             const { id, status, startDate, endDate } = annual;
 
@@ -48,7 +48,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
 
       {/* 당직 신청 현황 */}
       {dutyList && (
-        <S.List>
+        <S.List hasScrollbar={dutyList.length > 3}>
           {dutyList?.map((duty, index) => {
             const { id, startDate, status } = duty;
 
