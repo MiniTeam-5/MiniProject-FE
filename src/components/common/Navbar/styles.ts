@@ -13,6 +13,7 @@ export const Navbar = styled.div`
   padding: 30px;
   font-size: 18px;
   color: ${({ theme }) => theme.color.navbarText};
+  z-index: 4;
 `;
 
 export const User = styled.div`
