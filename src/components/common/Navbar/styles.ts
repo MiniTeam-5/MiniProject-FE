@@ -12,6 +12,7 @@ export const Navbar = styled.div`
   background: ${({ theme }) => theme.color.navbar};
   padding: 30px;
   font-size: 18px;
+  z-index: 10;
   color: ${({ theme }) => theme.color.navbarText};
 `;
 

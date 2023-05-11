@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import loginedUserReducer from './reducers/userReducers';
+import prevAlarmsReducer from './reducers/alarmReducers';
 const logger = createLogger();
 
 const rootReducer = combineReducers({
-  loginedUser: loginedUserReducer
+  loginedUser: loginedUserReducer,
+  prevAlarms: prevAlarmsReducer
 });
 
 const store = configureStore({

@@ -6,12 +6,25 @@ import { RiAddBoxLine, RiLogoutBoxRLine } from 'react-icons/ri';
 import { BsPeople } from 'react-icons/bs';
 import { FaBell } from 'react-icons/fa';
 import * as S from './styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import Alarm from '../Alarm';
 
 function Navbar() {
+  const [alarm, setAlarm] = useState(false);
+  const [isAlarmOpened, setIsAlarmOpened] = useState(false);
   const sseURL = import.meta.env.VITE_API_URL + 'auth/connect';
 
+  const handleAlarmOpen = () => {
+    setIsAlarmOpened(!isAlarmOpened);
+    if (!isAlarmOpened) {
+      setAlarm(false);
+    }
+  };
+
+  const handleCloseAlarm = () => {
+    setIsAlarmOpened(false);
+  };
   useEffect(() => {
     const eventSource = new EventSourcePolyfill(sseURL, {
       withCredentials: true,
@@ -38,7 +51,7 @@ function Navbar() {
           <div className='user_tag'>
             <span>사원</span>
           </div>
-          <S.AlarmBtn className='active'>
+          <S.AlarmBtn className={alarm ? 'active' : ''} onClick={handleAlarmOpen}>
             <FaBell />
           </S.AlarmBtn>
         </S.User>
@@ -98,6 +111,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
+      {isAlarmOpened && <Alarm handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }
