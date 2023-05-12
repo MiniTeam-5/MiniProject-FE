@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const CardLi = styled.li`
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  padding: 10px 0;
+  margin-bottom: 16px;
   border-bottom: 2px solid ${({ theme }) => theme.color.inputBorder};
   color: ${({ theme }) => theme.color.text};
 `;
