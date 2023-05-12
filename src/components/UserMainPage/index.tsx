@@ -23,7 +23,7 @@ function UserMainPage() {
   const { mutate } = useMutation(deleteApplication, {
     onSuccess() {
       queryClient.invalidateQueries('schedule');
-      window.location.reload();
+      queryClient.invalidateQueries('schedules');
     },
     onError(error: AxiosError) {
       Swal.fire({

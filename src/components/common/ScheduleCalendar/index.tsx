@@ -5,9 +5,18 @@ import * as S from './styles';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 import CalendarGuide from '../CalendarGuide';
 import { EventContentArg } from '@fullcalendar/core';
+import { useEffect, useRef } from 'react';
 
 function ScheduleCalendar() {
   const { data } = useGetSchedule();
+  const calendarRef = useRef<FullCalendar>(null);
+
+  useEffect(() => {
+    if (data) {
+      calendarRef.current?.getApi().removeAllEventSources();
+      calendarRef.current?.getApi().addEventSource(data);
+    }
+  }, [data]);
 
   // 캘린더 이벤트 바 스타일
   function renderEventContent(eventInfo: EventContentArg) {
@@ -26,6 +35,7 @@ function ScheduleCalendar() {
       <CalendarGuide />
 
       <FullCalendar
+        ref={calendarRef}
         plugins={[dayGridPlugin, interactionPlugin]}
         events={data}
         eventContent={renderEventContent}

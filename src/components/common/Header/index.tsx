@@ -13,6 +13,7 @@ function Header() {
       <S.Buttons>
         <S.ResetBtn
           onClick={() => {
+            queryClient.refetchQueries('schedule');
             queryClient.refetchQueries('schedules');
           }}
         >
