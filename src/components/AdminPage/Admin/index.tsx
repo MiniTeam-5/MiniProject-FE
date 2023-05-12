@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
+import { getUsers, changeRole, changeAnnual, resignUser } from '../../../apis/auth';
 
 interface User {
     id: number;
     username: string;
     email: string;
     role: string;
-    status: boolean;
     profile: string;
-    date: string;
-    annual_limit: number;
-    annual_count: number;
+    hireDate: string;
+    remainDays: number;
     isEditing: boolean;
 }
 
@@ -19,16 +18,20 @@ function Admin() {
     const [users, setUsers] = useState<User[]>([]);
     const [pages, setPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [url, setUrl] = useState('');
     
     useEffect(() => {
-        fetch('/src/mockup/user_all1.json')
-            .then(res => res.json())
+        getUsers(url)
             .then(data => {
-                setUsers(data.data[0]);
-                setPages(data.pageAll);
+                setUsers(data.data.content);
+                setPages(data.data.totalPages);
             })
             .catch(error => console.error('Error:', error));
     }, []);
+
+    if (users === null) {
+        return <p>Loading...</p>; // users가 null일 경우 로딩 상태를 표시
+    }
 
     const handleAdminClick = (userId: number) => {
         const updatedUsers = users.map(user => {
@@ -47,6 +50,9 @@ function Admin() {
     const handleSaveClick = (userId: number) => {
         const updatedUsers = users.map(user => {
             if (user.id === userId) {
+                changeAnnual(userId, user.remainDays);
+                changeRole(userId, user.role);
+                //changeRole(userId, user.role);
                 return {
                     ...user,
                     isEditing: false
@@ -77,7 +83,7 @@ function Admin() {
             if (user.id === userId) {
                 return {
                 ...user,
-                annual_count: Math.max(user.annual_count - 1, 0)
+                remainDays: Math.max(user.remainDays - 1, 0)
                 };
             } else {
                 return user;
@@ -91,7 +97,7 @@ function Admin() {
             if (user.id === userId) {
                 return {
                 ...user,
-                annual_count: Math.min(user.annual_count + 1, user.annual_limit)
+                remainDays: user.remainDays + 1
                 };
             } else {
                 return user;
@@ -107,10 +113,16 @@ function Admin() {
         if (page > pages) {
             page = pages;
         }
+        
+        if (currentPage === 1) {
+            setUrl('');
+        }
+        else {
+            setUrl(`?page=${page - 1}`);
+        }
         setCurrentPage(page);
-        fetch(`/src/mockup/user_all${page}.json`)
-            .then(res => res.json())
-            .then(data => setUsers(data.data))
+        getUsers(`?page=${page - 1}`)
+            .then(data => setUsers(data.data.content))
             .catch(error => console.error('Error:', error));
     };
 
@@ -132,42 +144,52 @@ function Admin() {
           </S.IndexDiv>
           {users.map((user) => (
               <S.UserDiv key={user.id}>
-                  <S.ProfileImg src="././public/assets/profile.png"/>
+                  <S.ProfileImg src={user.profile}/>
                   <S.NameBox>{user.username}</S.NameBox>
                   {user.isEditing ? (<S.DeleteBtn>삭제</S.DeleteBtn>):null}
                   <S.RoleBox>
                       {user.isEditing ? (
                         <S.RoleSelect value={user.role} onChange={(event) => handleRoleChange(event, user.id)}>
-                            <option value="USER">사원</option>
-                            <option value="ADMIN">관리자</option>
-                            <option value="MASTER">마스터</option>
+                            <option value="ROLE_USER">사원</option>
+                            <option value="ROLE_ADMIN">관리자</option>
+                            <option value="ROLE_MASTER">마스터</option>
                         </S.RoleSelect>
                         ) : (
-                        user.role === 'USER'
+                        user.role === 'ROLE_USER'
                             ? '사원'
-                            : user.role === 'ADMIN'
+                            : user.role === 'ROLE_ADMIN'
                             ? '관리자'
                             : '마스터'
                     )}
                   </S.RoleBox>
-                  <S.DateBox>{user.date}</S.DateBox>
+                  <S.DateBox>{user.hireDate}</S.DateBox>
                   <S.AnnualBox>
                       {user.isEditing ? (
                         <>
                             <button onClick={() => handleMinusClick(user.id)}>-</button>
-                            {user.annual_limit - user.annual_count}개
+                            {user.remainDays}개
                             <button onClick={() => handlePlusClick(user.id)}>+</button>
                         </>
                         ) : (
-                        `${user.annual_limit - user.annual_count}개`
+                        `${user.remainDays}개`
                         )}
                   </S.AnnualBox>
                   <S.AdminBtn onClick={()=> user.isEditing ? handleSaveClick(user.id) : handleAdminClick(user.id)}>{user.isEditing ? '저장' : '관리'}</S.AdminBtn>
-              </S.UserDiv>))}
+                </S.UserDiv>))}
                 <S.PageBtnBox>
-                    <S.PageBtn onClick={()=> handlePageClick(currentPage-1)}>&lt;</S.PageBtn>
+                    {currentPage === 1 ? null :
+                        <>
+                        <S.PageBtn onClick={() => handlePageClick(1)}>&lt;&lt;</S.PageBtn>
+                        <S.PageBtn onClick={() => handlePageClick(currentPage - 1)}>&lt;</S.PageBtn>
+                        </>
+                    }
                     {pageButtons}
-                    <S.PageBtn onClick={()=> handlePageClick(currentPage+1)}>&gt;</S.PageBtn>
+                    {currentPage === pages ? null :
+                        <>                        
+                        <S.PageBtn onClick={() => handlePageClick(currentPage + 1)}>&gt;</S.PageBtn>
+                        <S.PageBtn onClick={() => handlePageClick(pages)}>&gt;&gt;</S.PageBtn>
+                        </>
+                    }
                 </S.PageBtnBox>
     </S.Wrapper>
   );

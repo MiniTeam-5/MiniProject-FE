@@ -8,7 +8,7 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX1VTRVIiLCJpZCI6OCwiZXhwIjoxNjgzODgyODc4fQ.bRASmSYUgBSMbl4vOSEYUKBRf38vdhzKCbNM6aHlQmsGsbIO7mhDy2i9psEbMFmx4LCwhQSM0bXLIKmQ7IBGrg'
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX01BU1RFUiIsImlkIjo2LCJleHAiOjE2ODM5NTQ2NDR9.Kr2BEJm6rV47UqEQ_4dBlWctJzrCWx7ZnFdVb2-t8KBJQPBhvFf9P2PK97KeQqLxDq-JrM5YUN5fx7hOAARkRQ'
     },
     withCredentials: true
   };

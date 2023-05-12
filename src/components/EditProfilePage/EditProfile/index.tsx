@@ -16,9 +16,9 @@ interface User {
 function EditProfile() {
     const [user, setUser] = useState<User | null>(null);
     const [imgFile, setImgFile] = useState<File | null>(null);
-    const [imgUrl, setImgUrl] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [profileToDelete, setProfileToDelete] = useState('');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -54,7 +54,8 @@ function EditProfile() {
 
     const handleImgDelete = () => {
         setImgFile(null);
-        setImgUrl('');
+        setProfileToDelete(user.profile);
+        user.profile = 'https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png';
     }
 
     const handleEdit = () => {
@@ -65,9 +66,12 @@ function EditProfile() {
 
         const updatedUser = { ...user, password: newPassword, profile: imgFile};
         
-        editUser(newPassword, imgUrl)
+        editUser(user.email, user.username, newPassword, confirmPassword, profileToDelete, imgFile)
             .then(response => {
                 console.log('User updated successfully');
+                setNewPassword('');
+                setConfirmPassword('');
+                setProfileToDelete('');
             })
             .catch(error => {
                 console.error('Error updating user', error);
@@ -77,7 +81,7 @@ function EditProfile() {
   return (
     <S.Wrapper>
           <S.ImageBox>프로필 사진
-              <S.Image src={imgFile ? URL.createObjectURL(imgFile) : "/assets/profile.png"} />
+              <S.Image src={imgFile ? URL.createObjectURL(imgFile) : user.profile} />
               <S.ImgDelBtn onClick={handleImgDelete}>사진 삭제</S.ImgDelBtn>
               <S.ImgUploadBtn onClick={handleImgUpload}>사진 업로드</S.ImgUploadBtn>
               <input type="file" accept="image/*" ref={fileInputRef} style={{display: 'none'}} onChange={handleFileInputChange} />
