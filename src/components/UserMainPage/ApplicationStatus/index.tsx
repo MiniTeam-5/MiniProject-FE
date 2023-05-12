@@ -21,9 +21,9 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
             const { id, status, startDate, endDate } = annual;
 
             let statusKr = status;
-            if (statusKr === 'APPROVED') statusKr = '승인완료';
+            if (statusKr === 'APPROVAL') statusKr = '승인완료';
             else if (statusKr === 'WAITING') statusKr = '승인대기';
-            else if (statusKr === 'REJECTED') statusKr = '승인거절';
+            else if (statusKr === 'REJECTION') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
@@ -53,9 +53,9 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
             const { id, startDate, status } = duty;
 
             let statusKr = status;
-            if (statusKr === 'APPROVED') statusKr = '승인완료';
+            if (statusKr === 'APPROVAL') statusKr = '승인완료';
             else if (statusKr === 'WAITING') statusKr = '승인대기';
-            else if (statusKr === 'REJECTED') statusKr = '승인거절';
+            else if (statusKr === 'REJECTION') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
