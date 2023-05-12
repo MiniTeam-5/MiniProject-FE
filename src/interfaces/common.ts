@@ -4,7 +4,7 @@ export interface pageTitleProps {
 
 export interface ISchedule {
   userId: number;
-  status: 'WAITING' | 'APPROVED' | 'REJECTED';
+  status: 'WAITING' | 'APPROVAL' | 'REJECTION';
   type: 'DUTY' | 'ANNUAL';
   startDate: string;
   endDate: string;
