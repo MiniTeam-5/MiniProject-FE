@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import * as S from './styles';
 import { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
+import { useDispatch } from 'react-redux';
 
 const RegexID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
@@ -49,7 +50,7 @@ function LoginPage() {
     <S.Login>
       <S.LoginContainer>
         <S.LoginLogo src='../../../public/assets/logo.png' alt='logo' />
-        <S.LoginWelcomeP>Welcom Back!</S.LoginWelcomeP>
+        <S.LoginWelcomeP>Welcome Back!</S.LoginWelcomeP>
         <form onSubmit={HandleSubmit} onChange={HandleChange}>
           <S.LoginForm>
             <div className='login_email'>
