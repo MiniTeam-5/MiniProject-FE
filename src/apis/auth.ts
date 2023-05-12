@@ -11,7 +11,7 @@ export const getSchedule = async () => {
   return response.data;
 };
 
-export const deleteApplication = async (id) => {
+export const deleteApplication = async (id: number) => {
   const response = await axiosInstance().post(`/auth/leave/${id}/delete`);
   return response.data;
 };
