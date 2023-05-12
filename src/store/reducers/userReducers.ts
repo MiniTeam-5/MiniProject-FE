@@ -5,7 +5,7 @@ export const login = createAction('loginedUser/login');
 
 const loginedUser = createReducer(
   {
-    id: 1,
+    id: 8,
     username: '김테슽',
     email: 'user@example.com',
     role: 'USER',

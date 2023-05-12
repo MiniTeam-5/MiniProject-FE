@@ -16,3 +16,9 @@ export interface IUseScheduleQuery {
   status: number;
   msg: string;
 }
+
+export interface IApplySchedule {
+  type: 'ANNUAL' | 'DUTY';
+  startDate: string;
+  endDate: string;
+}
