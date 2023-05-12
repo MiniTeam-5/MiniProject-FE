@@ -3,6 +3,7 @@ import * as S from './styles';
 import Header from '../common/Header';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteApplication, getSchedule } from '../../apis/auth';
+import { AxiosError } from 'axios';
 
 function UserMainPage() {
   const queryClient = useQueryClient();
@@ -21,6 +22,9 @@ function UserMainPage() {
   const { mutate } = useMutation(deleteApplication, {
     onSuccess() {
       queryClient.invalidateQueries('schedule');
+    },
+    onError(error: AxiosError) {
+      console.log('API 요청 실패', error?.response?.data?.data?.value);
     }
   });
 

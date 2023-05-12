@@ -1,3 +1,4 @@
+import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
 
 export const getSchedules = async () => {
@@ -12,5 +13,10 @@ export const getSchedule = async () => {
 
 export const deleteApplication = async (id) => {
   const response = await axiosInstance().post(`/auth/leave/${id}/delete`);
+  return response.data;
+};
+
+export const applySchedule = async (data: IApplySchedule) => {
+  const response = await axiosInstance().post('/auth/leave/apply', data);
   return response.data;
 };
