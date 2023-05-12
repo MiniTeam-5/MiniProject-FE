@@ -1,9 +1,22 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
+import Swal from 'sweetalert2';
 
 function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
-  const cancelHandler = (id) => {
-    mutate(id);
+  const cancelHandler = (id, type, startDate, endDate) => {
+    const leaveType = type === 'ANNUAL' ? '연차' : '당직';
+
+    Swal.fire({
+      icon: 'warning',
+      html: `[${leaveType}] <br /><br /> [${startDate} ${endDate ? '~' : ''} ${
+        endDate ? endDate : ''
+      } ]  <br /><br />신청 취소 하시겠습니까?`,
+      showCancelButton: true,
+      confirmButtonText: '신청 취소',
+      cancelButtonText: '닫기'
+    }).then((res) => {
+      if (res.isConfirmed) mutate(id);
+    });
   };
 
   return (
@@ -18,7 +31,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
       {annualList && (
         <S.List hasScrollbar={annualList.length > 3}>
           {annualList?.map((annual, index) => {
-            const { id, status, startDate, endDate } = annual;
+            const { id, type, status, startDate, endDate } = annual;
 
             let statusKr = status;
             if (statusKr === 'APPROVAL') statusKr = '승인완료';
@@ -35,7 +48,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id)}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id, type, startDate, endDate)}>
                       취소
                     </S.StatusTag>
                   )}
@@ -50,7 +63,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
       {dutyList && (
         <S.List hasScrollbar={dutyList.length > 3}>
           {dutyList?.map((duty, index) => {
-            const { id, startDate, status } = duty;
+            const { id, type, startDate, status } = duty;
 
             let statusKr = status;
             if (statusKr === 'APPROVAL') statusKr = '승인완료';
@@ -65,7 +78,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id)}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id, type, startDate)}>
                       취소
                     </S.StatusTag>
                   )}
