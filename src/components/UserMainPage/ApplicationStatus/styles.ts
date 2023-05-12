@@ -1,8 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface StatusTagType {
   status?: string;
   cancel?: boolean;
+}
+
+interface HasScrollBarType {
+  hasScrollbar: boolean;
 }
 
 export const ApplicationStatus = styled.div`
@@ -33,13 +37,16 @@ export const NumberOfAnnual = styled.p`
   font-size: 14px;
 `;
 
-export const List = styled.ol`
+export const List = styled.ol<HasScrollBarType>`
+  padding-right: 0;
   flex-grow: 1;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${(props) =>
+    props.hasScrollbar &&
+    css`
+      padding-right: 20px;
+    `}
 `;
 
 export const StatusItem = styled.li`
@@ -66,8 +73,8 @@ export const StatusTag = styled.strong<StatusTagType>`
   border-radius: 6px;
   background-color: ${({ status, cancel, theme }) => {
     if (cancel) return theme.color.navbarActive;
-    if (status === 'approve') return theme.color.status03;
-    else if (status === 'wait') return theme.color.status01;
+    if (status === 'APPROVAL') return theme.color.status03;
+    else if (status === 'WAITING') return theme.color.status01;
     else return theme.color.status02;
   }};
 `;

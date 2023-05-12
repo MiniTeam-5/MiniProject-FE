@@ -1,7 +1,7 @@
-import React from 'react';
+import ViewSchedule from '../../components/ViewSchedulePage/ViewSchedule';
 
 function ViewSchedulePage() {
-  return <div>ViewSchedulePage</div>;
+  return <ViewSchedule />;
 }
 
 export default ViewSchedulePage;
