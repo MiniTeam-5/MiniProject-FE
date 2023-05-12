@@ -1,3 +1,5 @@
+import { Leave } from '../../../interfaces/applicationStatus';
+
 export const loginData = {};
 
 export const db = {
@@ -99,7 +101,7 @@ export const db = {
       username: '김사원',
       profile: 'https://picsum.photos/30',
       type: 'ANNUAL',
-      status: '',
+      status: 'WAITING',
       startDate: '2023-05-27',
       endDate: '2023-05-28'
     }
