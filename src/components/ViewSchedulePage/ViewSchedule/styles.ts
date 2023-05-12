@@ -30,14 +30,4 @@ export const StyleWrapper = styled.div`
     font-weight: 400;
     border-radius: 2px;
   }
-
-  .fc-day-sun a {
-    color: red;
-    text-decoration: none;
-  }
-
-  .fc-day-sat a {
-    color: blue;
-    text-decoration: none;
-  }
 `;
