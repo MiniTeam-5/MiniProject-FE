@@ -67,17 +67,17 @@ export const StatusTable = styled.table`
 
   th:nth-child(1) {
     width: 15%;
-    min-width: 160px;
+    min-width: 130px;
   }
 
   th:nth-child(2) {
     width: 15.15%;
-    min-width: 100px;
+    min-width: 90px;
   }
 
   th:nth-child(3) {
-    width: 45%;
-    min-width: 240px;
+    width: 50%;
+    min-width: 270px;
   }
 
   th:nth-child(4) {
@@ -97,7 +97,7 @@ export const StatusTable = styled.table`
       .staff_img {
         width: 30px;
         height: 30px;
-        margin-right: 22px;
+        margin-right: 15px;
         border-radius: 50%;
         overflow: hidden;
       }
