@@ -28,7 +28,7 @@ function ScheduleCalendar() {
         plugins={[dayGridPlugin, interactionPlugin]}
         events={data}
         eventContent={renderEventContent}
-        dayMaxEvents={1}
+        dayMaxEvents={2}
       />
     </S.StyleWrapper>
   );
