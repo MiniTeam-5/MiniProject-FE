@@ -4,6 +4,7 @@ import Header from '../common/Header';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteApplication, getSchedule } from '../../apis/auth';
 import { AxiosError } from 'axios';
+import Swal from 'sweetalert2';
 
 function UserMainPage() {
   const queryClient = useQueryClient();
@@ -22,9 +23,13 @@ function UserMainPage() {
   const { mutate } = useMutation(deleteApplication, {
     onSuccess() {
       queryClient.invalidateQueries('schedule');
+      window.location.reload();
     },
     onError(error: AxiosError) {
-      console.log('API 요청 실패', error?.response?.data?.data?.value);
+      Swal.fire({
+        icon: 'error',
+        text: error?.response?.data?.data?.value
+      });
     }
   });
 
