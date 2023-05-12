@@ -10,3 +10,8 @@ export const applySchedule = async (data: IApplySchedule) => {
   const response = await axiosInstance().post('/auth/leave/apply', data);
   return response.data;
 };
+
+export const getAlarms = async () => {
+  const response = await axiosInstance().get('/auth/alarm');
+  return response.data;
+};
