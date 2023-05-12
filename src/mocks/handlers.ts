@@ -252,16 +252,16 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ status: '200', msg: '성공', data }));
   }),
   // 연차/당직 승인 여부 결정
-  rest.post('/auth/manager/approve', async (req, res, ctx) => {
+  rest.post('/admin/approve', async (req, res, ctx) => {
     try {
       const { id, status } = await req.json();
 
       // Leave 테이블에서 id와 일치하는 연차/당직 정보를 수정
       // 수정된 정보를 가져와 data에 담아 반환
-      const oldData = db.applys.find((leave) => leave.id === Number(id));
+      const oldData = db.leave.find((leave) => leave.id === Number(id));
       const updatedData = { ...oldData, status };
       // oldData를 db에서 찾아서 updateData로 업데이트
-      db.applys = db.applys.map((leave) => (leave.id === Number(id) ? updatedData : leave));
+      db.leave = db.leave.map((leave) => (leave.id === Number(id) ? updatedData : leave));
 
       return res(
         ctx.status(200),
