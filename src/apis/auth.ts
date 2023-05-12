@@ -22,6 +22,10 @@ export const applySchedule = async (data: IApplySchedule) => {
   return response.data;
 };
 
+export const getAlarms = async () => {
+  const response = await axiosInstance().get('/auth/alarm');
+  return response.data;
+};
 export const login = async ({ email, password }: { email: string; password: string }) => {
   const response = await axiosInstance().post('/login', { email, password });
   if (response.status.toString() === '400') return Error(response.data);

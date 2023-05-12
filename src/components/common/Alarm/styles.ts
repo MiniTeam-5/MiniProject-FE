@@ -4,8 +4,8 @@ export const AlarmList = styled.div`
   position: absolute;
   top: 40px;
   left: 320px;
-  width: 300px;
-  height: 400px;
+  width: 310px;
+  height: 420px;
   padding: 16px;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -26,6 +26,7 @@ export const CloseBtn = styled.button`
   font-size: 24px;
 `;
 
-export const AlarmUl = styled.ul``;
-
-export const AlarmLi = styled.li``;
+export const AlarmUl = styled.ul`
+  height: 360px;
+  overflow-y: scroll;
+`;

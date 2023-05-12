@@ -9,12 +9,13 @@ import * as S from './styles';
 import { useEffect, useState } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
+import { axiosInstance } from '../../../apis/instance';
 
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
-  const sseURL = import.meta.env.VITE_API_URL + 'auth/connect';
-
+  const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
+  const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
   const handleAlarmOpen = () => {
     setIsAlarmOpened(!isAlarmOpened);
     if (!isAlarmOpened) {
@@ -25,18 +26,22 @@ function Navbar() {
   const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
   };
+
   useEffect(() => {
-    const eventSource = new EventSourcePolyfill(sseURL, {
+    const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
       headers: { Authorization: import.meta.env.VITE_ACCESS_TOKEN }
     });
-    eventSource.onmessage = (e) => {
-      console.log(e);
-    };
+
+    source.addEventListener('alarm', () => {
+      setAlarm(true);
+    });
+
     return () => {
-      eventSource.close();
+      source.close();
+      axiosInstance().post(disconnectURL);
     };
-  });
+  }, []);
 
   return (
     <S.Navbar>
