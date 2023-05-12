@@ -9,9 +9,9 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
 
     Swal.fire({
       icon: 'warning',
-      html: `[${leaveType}] <br /><br /> [${startDate} ${endDate ? '~' : ''} ${
+      html: `[${leaveType}] <br /><br /> ${startDate} ${endDate ? '~' : ''} ${
         endDate ? endDate : ''
-      } ]  <br /><br />신청 취소 하시겠습니까?`,
+      }<br /><br />신청 취소 하시겠습니까?`,
       showCancelButton: true,
       confirmButtonText: '신청 취소',
       cancelButtonText: '닫기'
@@ -49,7 +49,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id, type, startDate, endDate)}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler({ id, type, startDate, endDate })}>
                       취소
                     </S.StatusTag>
                   )}
@@ -79,7 +79,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
                   {status === 'WAITING' && (
-                    <S.StatusTag as='button' cancel onClick={() => cancelHandler(id, type, startDate)}>
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler({ id, type, startDate })}>
                       취소
                     </S.StatusTag>
                   )}
