@@ -1,9 +1,10 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
 import Swal from 'sweetalert2';
+import { CancelApplication } from '../../../interfaces/application';
 
 function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
-  const cancelHandler = (id, type, startDate, endDate) => {
+  const cancelHandler = ({ id, type, startDate, endDate }: CancelApplication) => {
     const leaveType = type === 'ANNUAL' ? '연차' : '당직';
 
     Swal.fire({

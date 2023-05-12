@@ -5,6 +5,10 @@ interface StatusTagType {
   cancel?: boolean;
 }
 
+interface HasScrollBarType {
+  hasScrollbar: boolean;
+}
+
 export const ApplicationStatus = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,7 +37,7 @@ export const NumberOfAnnual = styled.p`
   font-size: 14px;
 `;
 
-export const List = styled.ol`
+export const List = styled.ol<HasScrollBarType>`
   padding-right: 0;
   flex-grow: 1;
   overflow-y: auto;
