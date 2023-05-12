@@ -13,8 +13,7 @@ import { useSelector } from 'react-redux';
 
 function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const today = new Date().toISOString().split('T')[0];
-  const [nowMonth, setNowMonth] = useState(today.slice(0, 7));
-  const { data, isLoading } = useGetSchedule(nowMonth, select);
+  const { data, isLoading } = useGetSchedule(select);
   const [prevClickedDate, setPrevClickedDate] = useState<null | HTMLElement>(null);
   const { remainDays } = useSelector((state: any) => state.loginedUser);
   const calendarRef = useRef<FullCalendar>(null);
@@ -80,24 +79,6 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     setPrevClickedDate(clickedDateElement);
     applyDateSelect(info);
   };
-  // 이전/다음 버튼 클릭 이벤트 함수
-  const handlePrevButtonClick = () => {
-    const { current } = calendarRef;
-    if (!current) return;
-    const prevMonth = new Date(nowMonth);
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-    setNowMonth(prevMonth.toISOString().slice(0, 7));
-    current.getApi().prev();
-  };
-
-  const handleNextButtonClick = () => {
-    const { current } = calendarRef;
-    if (!current) return;
-    const nextMonth = new Date(nowMonth);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    setNowMonth(nextMonth.toISOString().slice(0, 7));
-    current.getApi().next();
-  };
 
   useEffect(() => {
     if (prevClickedDate !== null) {
@@ -117,14 +98,6 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
         select={handleDateSelect}
         dateClick={handleDateClick}
         eventContent={renderEventContent}
-        customButtons={{
-          prev: {
-            click: handlePrevButtonClick
-          },
-          next: {
-            click: handleNextButtonClick
-          }
-        }}
       />
     </S.StyleWrapper>
   );

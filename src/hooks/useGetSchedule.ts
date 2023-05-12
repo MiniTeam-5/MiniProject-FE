@@ -5,16 +5,10 @@ import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function useGetSchedule(nowMonth: string, select?: 'ANNUAL' | 'DUTY') {
-  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(
-    ['schedules', nowMonth],
-    () => {
-      return getSchedules(nowMonth);
-    },
-    {
-      refetchOnWindowFocus: false
-    }
-  );
+function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
+  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
+    refetchOnWindowFocus: false
+  });
   const { id } = useSelector((state: any) => state.loginedUser);
 
   const { pathname } = useLocation();
