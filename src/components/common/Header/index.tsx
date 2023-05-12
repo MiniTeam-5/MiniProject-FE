@@ -1,15 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { GrPowerReset } from 'react-icons/gr';
+import { useQueryClient } from 'react-query';
+
 function Header() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   return (
     <S.Header>
       <S.Logo src='/assets/logo-blue.png' alt='lupin' />
       <S.Buttons>
         <S.ResetBtn
           onClick={() => {
-            // refetch하는 로직
+            queryClient.refetchQueries('schedule');
+            queryClient.refetchQueries('schedules');
           }}
         >
           새로고침
