@@ -4,12 +4,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import * as S from './styles';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 import CalendarGuide from '../CalendarGuide';
+import { EventContentArg } from '@fullcalendar/core';
 
 function ScheduleCalendar() {
-  const { data }: any = useGetSchedule();
+  const { data } = useGetSchedule();
 
   // 캘린더 이벤트 바 스타일
-  function renderEventContent(eventInfo: any) {
+  function renderEventContent(eventInfo: EventContentArg) {
     const { status } = eventInfo.event.extendedProps;
 
     return (
