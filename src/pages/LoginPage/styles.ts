@@ -62,10 +62,14 @@ export const LoginForm = styled.div`
     display: flex;
     gap: 10px;
     margin: 0 auto;
+  }
+  .link_to_signup {
+    color: #ff0000;
+  }
 
-    p {
-      color: #ff0000;
-    }
+  span {
+    color: #ff0000;
+    display: none;
   }
 `;
 
@@ -86,6 +90,7 @@ export const LoginInput = styled.input`
   height: 50px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  margin-bottom: 10px;
   &:focus {
     box-shadow: 1px 1px 1px 1px gray;
   }
