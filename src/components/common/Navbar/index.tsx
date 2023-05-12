@@ -14,7 +14,6 @@ import { axiosInstance } from '../../../apis/instance';
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
-  const [alarmList, setAlarmList] = useState([]); // store에서 가져올 알림 목록 [
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
   const handleAlarmOpen = () => {
@@ -33,14 +32,8 @@ function Navbar() {
       withCredentials: true,
       headers: { Authorization: import.meta.env.VITE_ACCESS_TOKEN }
     });
-    source.onmessage = (e) => {
-      console.log(e);
-    };
-    source.addEventListener('connect', (e) => {
-      console.log(e);
-    });
 
-    source.addEventListener('alarm', (e) => {
+    source.addEventListener('alarm', () => {
       setAlarm(true);
     });
 

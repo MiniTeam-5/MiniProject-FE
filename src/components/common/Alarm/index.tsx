@@ -9,7 +9,6 @@ function Alarm({ handleCloseAlarm }) {
   const reorderedAlarmList = alarmList?.data?.sort((a, b) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
-  console.log(reorderedAlarmList);
   if (isLoading || !alarmList.data) return <div>로딩중...</div>;
   return (
     <S.AlarmList>
