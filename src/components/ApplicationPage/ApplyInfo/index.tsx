@@ -1,25 +1,50 @@
+import { applySchedule } from '../../../apis/auth';
 import { IApplyInfoProps } from '../../../interfaces/applicationPage';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import * as S from './styles';
-
+import { useNavigate } from 'react-router-dom';
 function ApplyInfo({ select, date }: IApplyInfoProps) {
-  const selectText = select === 'annual' ? '연차' : '당직';
+  const navigate = useNavigate();
+  const selectText = select === 'ANNUAL' ? '연차' : '당직';
+  const MySwal = withReactContent(Swal);
+
   const selectDays = (() => {
-    if (!date.start_date || !date.end_date) return 0;
-    const startDate = new Date(date.start_date);
-    const endDate = new Date(date.end_date);
+    if (!date.startDate || !date.endDate) return 0;
+    const startDate = new Date(date.startDate);
+    const endDate = new Date(date.endDate);
     const oneDay = 1000 * 60 * 60 * 24; // milliseconds in a day
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
     const diffDays = Math.ceil(diffTime / oneDay);
     return diffDays + 1; // include start date
   })();
+
+  const handleSubmit = async () => {
+    const submitData = { type: select, startDate: date.startDate, endDate: date.endDate };
+    const result = await applySchedule(submitData);
+    if (result.status === 200) {
+      MySwal.fire({
+        icon: 'success',
+        title: '신청이 완료되었습니다.'
+      }).then(() => {
+        navigate('/');
+      });
+    } else {
+      MySwal.fire({
+        icon: 'error',
+        title: '신청에 실패하였습니다.',
+        text: '사유 : ' + result.msg
+      });
+    }
+  };
   return (
     <S.ApplyInfo>
       <S.ApplyInfoTitle>{selectText} 신청 정보</S.ApplyInfoTitle>
       <S.ApplyInfoContent>
-        신청 날짜 : {date.start_date} {select === 'annual' ? '~ ' + date.end_date : ''}
+        신청 날짜 : {date.startDate} {select === 'ANNUAL' ? '~ ' + date.endDate : ''}
       </S.ApplyInfoContent>
       <S.ApplyInfoContent>신청 일수 : {selectDays}일</S.ApplyInfoContent>
-      <S.ApplyBtn>신청하기</S.ApplyBtn>
+      <S.ApplyBtn onClick={handleSubmit}>신청하기</S.ApplyBtn>
     </S.ApplyInfo>
   );
 }
