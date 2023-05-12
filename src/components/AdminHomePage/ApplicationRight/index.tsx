@@ -1,7 +1,13 @@
+import { useQuery } from 'react-query';
+import { fetchLeaveList } from '../../../apis/admin';
 import { Leave } from '../../../interfaces/applicationStatus';
 import * as S from './styles';
 
-function ApplicationRight({ leaveList }: { leaveList: Leave[] }) {
+function ApplicationRight() {
+  const { data } = useQuery('leaveList', fetchLeaveList);
+  const leaveList: Leave[] = data ? data.data : [];
+
+  // 날짜 가져오기
   const today: Date = new Date();
   const month: string = (today.getMonth() + 1).toLocaleString('en-US', { minimumIntegerDigits: 2 });
   const day: string = today.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 });
