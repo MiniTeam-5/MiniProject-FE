@@ -1,7 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import { ILoginedUser } from '../../interfaces/store';
 
-export const login = createAction('loginedUser/login');
+export const userLogin = createAction('loginedUser/login');
 
 const loginedUser = createReducer(
   {
@@ -14,7 +14,7 @@ const loginedUser = createReducer(
     hire_date: '2023-04-27'
   },
   {
-    [login]: (state: ILoginedUser, action) => {
+    [userLogin]: (state: ILoginedUser, action) => {
       return {
         ...state,
         ...action.payload

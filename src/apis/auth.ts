@@ -1,6 +1,7 @@
 import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
+import axios from 'axios';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -23,7 +24,11 @@ export const applySchedule = async (data: IApplySchedule) => {
 };
 
 export const login = async ({ email, password }: { email: string; password: string }) => {
-  const response = await axiosInstance().post('/login', { email, password });
+  console.log(email, password);
+  const response = await axios.post('http://13.209.163.225:5000/login', { email, password });
+  console.log(response);
+
+  // const response = await axiosInstance().post('/login', { email, password });
 
   // if (response.status.toString() === '400' || response.status.toString() === '401') return Error(response.data);
 
@@ -36,4 +41,10 @@ export const signup = async (item: ISignup) => {
   if (response.status.toString() === '400') return Error(response.data);
 
   return response.data;
+};
+
+export const getUserData = async () => {
+  const response = await axiosInstance().get('/auth/user');
+  console.log(response);
+  return response;
 };
