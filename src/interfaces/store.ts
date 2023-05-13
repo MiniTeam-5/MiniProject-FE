@@ -1,3 +1,5 @@
+import { IAlarm } from './alarm';
+
 export interface ILoginedUser {
   id: number;
   username: string;
@@ -6,4 +8,18 @@ export interface ILoginedUser {
   profile: string;
   remainDays: number;
   hire_date: string;
+}
+
+export interface IAlarmActions {
+  id: number;
+  alarmList: IAlarm[];
+}
+
+export interface IRootState {
+  loginedUser: {
+    id: string;
+  };
+  prevAlarms: {
+    [key: string]: IAlarm[];
+  };
 }

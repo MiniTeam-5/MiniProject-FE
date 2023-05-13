@@ -1,8 +1,6 @@
 import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 interface ModifiedInDTO {
   email: string;
@@ -68,7 +66,7 @@ export const editUser = async (email: string, username: string, newPassword: str
   return response.data;
 }
 export const getSchedule = async () => {
-  const response = await axiosInstance().get('/auth/leave/id/1');
+  const response = await axiosInstance().get('/auth/leave/id/12');
   return response.data;
 };
 
@@ -87,11 +85,7 @@ export const getAlarms = async () => {
   return response.data;
 };
 export const login = async ({ email, password }: { email: string; password: string }) => {
-  console.log(email, password);
-  const response = await axios.post('http://13.209.163.225:5000/login', { email, password });
-  console.log(response);
-
-  // const response = await axiosInstance().post('/login', { email, password });
+  const response = await axiosInstance().post('/login', { email, password });
 
   return response;
 };
@@ -105,17 +99,12 @@ export const signup = async (item: ISignup) => {
 };
 
 export const refresh = async () => {
-  const res = await axiosInstance().get('/refreshtoken');
-  return res.data;
+  const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
+  return response;
 };
 
-export const verify = async () => {
-  const res = await axiosInstance().get('/auth/verify');
-  return res.data;
-};
 export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
-  console.log(response);
   return response;
 };
 export const getSearchData = async (search: string) => {

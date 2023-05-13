@@ -27,6 +27,11 @@ export const CloseBtn = styled.button`
 `;
 
 export const AlarmUl = styled.ul`
-  height: 360px;
+  max-height: 360px;
   overflow-y: scroll;
+`;
+export const InfoText = styled.p`
+  margin-top: 140px;
+  color: ${({ theme }) => theme.color.border};
+  text-align: center;
 `;
