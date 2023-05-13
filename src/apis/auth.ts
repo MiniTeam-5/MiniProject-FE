@@ -2,6 +2,7 @@ import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');

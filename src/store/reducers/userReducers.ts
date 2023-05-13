@@ -5,13 +5,13 @@ export const userLogin = createAction('loginedUser/login');
 
 const loginedUser = createReducer(
   {
-    id: 12,
-    email: 'front@test.com',
-    username: '장사원',
-    profile: 'https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png',
-    role: 'ROLE_USER',
-    remainDays: 15,
-    hireDate: '2022-05-01'
+    id: '',
+    email: '',
+    username: '',
+    profile: '',
+    role: '',
+    remainDays: 0,
+    hireDate: ''
   },
   {
     [userLogin]: (state: ILoginedUser, action) => {
