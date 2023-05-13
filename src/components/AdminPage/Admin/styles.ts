@@ -100,3 +100,35 @@ export const DeleteBtn = styled.button`
   position:absolute;
   margin-left: 180px;
 `
+
+export const SearchBox = styled.div`
+  width: 240px;
+  height: 40px;
+  border: 2px solid ${({ theme }) => theme.color.inputBorder};
+  //justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius:10px;
+  position:absolute;
+  top:110px;
+  left:1108px;
+`
+
+export const SearchIcon = styled.img`
+  width:24px;
+  height:24px;
+  margin-left: 5px;
+`
+
+export const SearchInput = styled.input`
+  width: 140px;
+  height: 24px;
+  margin-left: 5px;
+`
+
+export const SearchBtn = styled.button`
+  width: 55px;
+  height: 24px;
+  background-color: ${({ theme }) => theme.color.btnInactive};
+  font-size: 14px;
+`

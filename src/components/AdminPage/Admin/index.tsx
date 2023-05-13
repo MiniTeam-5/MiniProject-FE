@@ -134,8 +134,13 @@ function Admin() {
     }
               
 
-  return (
-    <S.Wrapper>
+    return (
+        <S.Wrapper>
+            <S.SearchBox>
+                <S.SearchIcon src="/assets/ic_round-search.png"/>
+                <S.SearchInput />
+                <S.SearchBtn>검색</S.SearchBtn>
+            </S.SearchBox>
           <S.IndexDiv>
               <S.NameBox>사원명</S.NameBox>
               <S.RoleBox>직급</S.RoleBox>
