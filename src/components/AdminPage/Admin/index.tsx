@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
-import { getUsers, changeRole, changeAnnual, resignUser } from '../../../apis/auth';
+import { getUsers, changeRole, changeAnnual, resignUser, getSearchData } from '../../../apis/auth';
 
 interface User {
     id: number;
@@ -19,6 +19,7 @@ function Admin() {
     const [pages, setPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [url, setUrl] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     
     useEffect(() => {
         getUsers(url)
@@ -132,14 +133,32 @@ function Admin() {
             <S.PageBtn key={i} onClick={() => handlePageClick(i)}>{i}</S.PageBtn>
         );
     }
+
+    const handleSearchClick = () => {
+        const encodedSearchValue = encodeURI(searchValue);
+        getSearchData(encodedSearchValue)
+            .then(data => {
+                setUsers(data.data.content);
+                setPages(data.data.totalPages);
+            })
+            .catch(error => console.error('Error:', error));
+            
+        setSearchValue('');
+    }
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearchClick();
+        }
+    }
               
 
     return (
         <S.Wrapper>
             <S.SearchBox>
                 <S.SearchIcon src="/assets/ic_round-search.png"/>
-                <S.SearchInput />
-                <S.SearchBtn>검색</S.SearchBtn>
+                <S.SearchInput onChange={e => setSearchValue(e.target.value)} onKeyPress={handleKeyPress}/>
+                <S.SearchBtn onClick={()=>handleSearchClick()}>검색</S.SearchBtn>
             </S.SearchBox>
           <S.IndexDiv>
               <S.NameBox>사원명</S.NameBox>

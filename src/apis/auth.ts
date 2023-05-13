@@ -118,3 +118,7 @@ export const getUserData = async () => {
   console.log(response);
   return response;
 };
+export const getSearchData = async (search: string) => {
+  const response = await axiosInstance().get(`/admin?query=${search}`);
+  return response.data;
+}
