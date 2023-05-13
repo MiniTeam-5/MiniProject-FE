@@ -4,8 +4,45 @@ import { CgProfile } from 'react-icons/cg';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import { RiAddBoxLine, RiLogoutBoxRLine } from 'react-icons/ri';
 import { BsPeople } from 'react-icons/bs';
+import { FaBell } from 'react-icons/fa';
 import * as S from './styles';
+import { useEffect, useState } from 'react';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import Alarm from '../Alarm';
+import { axiosInstance } from '../../../apis/instance';
+
 function Navbar() {
+  const [alarm, setAlarm] = useState(false);
+  const [isAlarmOpened, setIsAlarmOpened] = useState(false);
+  const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
+  const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
+  const handleAlarmOpen = () => {
+    setIsAlarmOpened(!isAlarmOpened);
+    if (!isAlarmOpened) {
+      setAlarm(false);
+    }
+  };
+
+  const handleCloseAlarm = () => {
+    setIsAlarmOpened(false);
+  };
+
+  useEffect(() => {
+    const source = new EventSourcePolyfill(connectURL, {
+      withCredentials: true,
+      headers: { Authorization: import.meta.env.VITE_ACCESS_TOKEN }
+    });
+
+    source.addEventListener('alarm', () => {
+      setAlarm(true);
+    });
+
+    return () => {
+      source.close();
+      axiosInstance().post(disconnectURL);
+    };
+  }, []);
+
   return (
     <S.Navbar>
       <div>
@@ -19,6 +56,9 @@ function Navbar() {
           <div className='user_tag'>
             <span>사원</span>
           </div>
+          <S.AlarmBtn className={alarm ? 'active' : ''} onClick={handleAlarmOpen}>
+            <FaBell />
+          </S.AlarmBtn>
         </S.User>
         <S.NavList>
           <li>
@@ -76,6 +116,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
+      {isAlarmOpened && <Alarm handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }

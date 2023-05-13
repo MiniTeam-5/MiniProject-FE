@@ -12,10 +12,12 @@ export const Navbar = styled.div`
   background: ${({ theme }) => theme.color.navbar};
   padding: 30px;
   font-size: 18px;
+  z-index: 10;
   color: ${({ theme }) => theme.color.navbarText};
 `;
 
 export const User = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -45,6 +47,29 @@ export const User = styled.div`
     &.tag_master {
       background: ${({ theme }) => theme.color.masterTag};
     }
+  }
+`;
+
+export const AlarmBtn = styled.button`
+  position: absolute;
+  right: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -3px;
+  color: ${({ theme }) => theme.color.buttonText};
+  font-size: 24px;
+  &.active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: red;
   }
 `;
 

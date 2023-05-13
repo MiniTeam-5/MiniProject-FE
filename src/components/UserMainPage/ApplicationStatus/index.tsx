@@ -1,7 +1,25 @@
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
+import Swal from 'sweetalert2';
+import { CancelApplication } from '../../../interfaces/application';
 
-function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusProps) {
+function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
+  const cancelHandler = ({ id, type, startDate, endDate }: CancelApplication) => {
+    const leaveType = type === 'ANNUAL' ? '연차' : '당직';
+
+    Swal.fire({
+      icon: 'warning',
+      html: `[${leaveType}] <br /><br /> ${startDate} ${endDate ? '~' : ''} ${
+        endDate ? endDate : ''
+      }<br /><br />신청 취소 하시겠습니까?`,
+      showCancelButton: true,
+      confirmButtonText: '신청 취소',
+      cancelButtonText: '닫기'
+    }).then((res) => {
+      if (res.isConfirmed) mutate(id);
+    });
+  };
+
   return (
     <S.ApplicationStatus>
       <S.Header>
@@ -12,26 +30,26 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
 
       {/* 연차 신청 현황 */}
       {annualList && (
-        <S.List>
+        <S.List hasScrollbar={annualList.length > 3}>
           {annualList?.map((annual, index) => {
-            const { status, start_date, end_date } = annual;
+            const { id, type, status, startDate, endDate } = annual;
 
             let statusKr = status;
-            if (statusKr === 'approve') statusKr = '승인완료';
-            else if (statusKr === 'wait') statusKr = '승인대기';
-            else if (statusKr === 'reject') statusKr = '승인거절';
+            if (statusKr === 'APPROVAL') statusKr = '승인완료';
+            else if (statusKr === 'WAITING') statusKr = '승인대기';
+            else if (statusKr === 'REJECTION') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
                 <p>
-                  {start_date} ~ {end_date}
+                  {startDate} ~ {endDate}
                 </p>
 
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'wait' && (
-                    <S.StatusTag as='button' cancel>
+                  {status === 'WAITING' && (
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler({ id, type, startDate, endDate })}>
                       취소
                     </S.StatusTag>
                   )}
@@ -44,24 +62,24 @@ function ApplicationStatus({ title, annualList, dutyList }: ApplicationStatusPro
 
       {/* 당직 신청 현황 */}
       {dutyList && (
-        <S.List>
+        <S.List hasScrollbar={dutyList.length > 3}>
           {dutyList?.map((duty, index) => {
-            const { start_date, status } = duty;
+            const { id, type, startDate, status } = duty;
 
             let statusKr = status;
-            if (statusKr === 'approve') statusKr = '승인완료';
-            else if (statusKr === 'wait') statusKr = '승인대기';
-            else if (statusKr === 'reject') statusKr = '승인거절';
+            if (statusKr === 'APPROVAL') statusKr = '승인완료';
+            else if (statusKr === 'WAITING') statusKr = '승인대기';
+            else if (statusKr === 'REJECTION') statusKr = '승인거절';
 
             return (
               <S.StatusItem key={index}>
-                <p>{start_date}</p>
+                <p>{startDate}</p>
 
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
 
-                  {status === 'wait' && (
-                    <S.StatusTag as='button' cancel>
+                  {status === 'WAITING' && (
+                    <S.StatusTag as='button' cancel onClick={() => cancelHandler({ id, type, startDate })}>
                       취소
                     </S.StatusTag>
                   )}

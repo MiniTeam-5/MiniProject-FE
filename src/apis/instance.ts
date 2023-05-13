@@ -8,7 +8,7 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX01BU1RFUiIsImlkIjo2LCJleHAiOjE2ODQwNTI2MDJ9.F3xMT3oa76QIediCd1LQek9tiG3yqD6k7wkyUSWr8xA35wlxipddgyC5pcIrAHIOh36u0QkXbBP11c9Zy0LmjQ'
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
     withCredentials: true
   };

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import * as S from './index.styles';
+import * as S from './styles';
 
 function NotFoundPage() {
   return (
