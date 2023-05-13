@@ -3,6 +3,7 @@ import * as S from './styles';
 import { getUsers, changeRole, changeAnnual, resignUser, getSearchData } from '../../../apis/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useSelector } from 'react-redux';
 
 interface User {
     id: number;
@@ -23,6 +24,8 @@ function Admin() {
     const [url, setUrl] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const DeleteSwal = withReactContent(Swal);
+
+    const loginUser = useSelector((state: any) => state.loginedUser);
     
     useEffect(() => {
         getUsers(url)
@@ -55,7 +58,9 @@ function Admin() {
         const updatedUsers = users.map(user => {
             if (user.id === userId) {
                 changeAnnual(userId, user.remainDays);
-                changeRole(userId, user.role);
+                if (loginUser.role === 'ROLE_MASTER') {
+                    changeRole(userId, user.role);
+                }
                 //changeRole(userId, user.role);
                 return {
                     ...user,
@@ -208,9 +213,9 @@ function Admin() {
                 <S.UserDiv key={user.id} style={index === users.length - 1 ? { borderRadius: '0 0 10px 10px' } : {}}>
                   <S.ProfileImg src={user.profile}/>
                   <S.NameBox>{user.username}</S.NameBox>
-                  {user.isEditing ? (<S.DeleteBtn onClick={()=>openDeleteModal(user.id)}>삭제</S.DeleteBtn>):null}
+                  {user.isEditing && loginUser.role === 'ROLE_MASTER' ? (<S.DeleteBtn onClick={()=>openDeleteModal(user.id)}>삭제</S.DeleteBtn>):null}
                   <S.RoleBox>
-                      {user.isEditing ? (
+                      {user.isEditing && loginUser.role === 'ROLE_MASTER' ? (
                         <S.RoleSelect value={user.role} onChange={(event) => handleRoleChange(event, user.id)}>
                             <option value="ROLE_USER">사원</option>
                             <option value="ROLE_ADMIN">관리자</option>
