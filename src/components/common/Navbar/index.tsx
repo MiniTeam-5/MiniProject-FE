@@ -10,10 +10,15 @@ import { useEffect, useState } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
+import { useDispatch } from 'react-redux';
+import { setAlarmList } from '../../../store/reducers/alarmReducers';
+import { IAlarm } from '../../../interfaces/alarm';
 
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
+  const dispatch = useDispatch();
+
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
   const handleAlarmOpen = () => {
@@ -23,8 +28,9 @@ function Navbar() {
     }
   };
 
-  const handleCloseAlarm = () => {
+  const handleCloseAlarm = (data: { id: number; alarmList: IAlarm[] }) => {
     setIsAlarmOpened(false);
+    dispatch(setAlarmList(data));
   };
 
   useEffect(() => {

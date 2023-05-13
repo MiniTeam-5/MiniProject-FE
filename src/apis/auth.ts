@@ -52,6 +52,5 @@ export const verify = async () => {
 };
 export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
-  console.log(response);
   return response;
 };

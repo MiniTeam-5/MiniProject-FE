@@ -1,5 +1,6 @@
+import { IAlarmActions } from './store';
 export interface IAlarmProps {
-  handleCloseAlarm: () => void;
+  handleCloseAlarm: ({ id, alarmList }: IAlarmActions) => void;
 }
 export interface IPrevAlarmsState {
   [id: number]: IAlarm[];
