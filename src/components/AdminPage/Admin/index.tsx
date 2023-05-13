@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { getUsers, changeRole, changeAnnual, resignUser, getSearchData } from '../../../apis/auth';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 interface User {
     id: number;
@@ -20,6 +22,7 @@ function Admin() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [url, setUrl] = useState('');
     const [searchValue, setSearchValue] = useState('');
+    const DeleteSwal = withReactContent(Swal);
     
     useEffect(() => {
         getUsers(url)
@@ -128,9 +131,21 @@ function Admin() {
     };
 
     const pageButtons = [];
-    for (let i = 1; i <= pages; i++) {
+    let startPage = 1;
+    let endPage = pages;
+    if (pages > 5) {
+        if (currentPage < 3) {
+            endPage = 5;
+        } else if (currentPage > pages - 2) {
+            startPage = pages - 4;
+        } else {
+            startPage = currentPage - 2;
+            endPage = currentPage + 2;
+        }
+    }
+    for (let i = startPage; i <= endPage; i++) {
         pageButtons.push(
-            <S.PageBtn key={i} onClick={() => handlePageClick(i)}>{i}</S.PageBtn>
+            <S.PageBtn key={i} isActive={i === currentPage} onClick={() => handlePageClick(i)}>{i}</S.PageBtn>
         );
     }
 
@@ -151,7 +166,30 @@ function Admin() {
             handleSearchClick();
         }
     }
+
+    const handleDeleteClick = (userId: number) => {
+        resignUser(userId);
+        const updatedUsers = users.filter(user => user.id !== userId);
+        setUsers(updatedUsers);
+    }
               
+    const openDeleteModal = (userId: number) => {
+        return DeleteSwal.fire({
+            icon: 'warning',
+            title: '정말 삭제하시겠습니까?',
+            showCancelButton: true,
+            confirmButtonColor: '#0675E5',
+            cancelButtonColor: '#CBCCD7',
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+        
+        }).then(result => {
+            if (result.isConfirmed) {
+                handleDeleteClick(userId);
+                Swal.fire('삭제가 완료되었습니다.', '', 'success');
+            }
+        });
+    }
 
     return (
         <S.Wrapper>
@@ -166,11 +204,11 @@ function Admin() {
               <S.DateBox>입사 날짜</S.DateBox>
               <S.AnnualBox>잔여 연차</S.AnnualBox>
           </S.IndexDiv>
-          {users.map((user) => (
-              <S.UserDiv key={user.id}>
+            {users.map((user, index) => (
+                <S.UserDiv key={user.id} style={index === users.length - 1 ? { borderRadius: '0 0 10px 10px' } : {}}>
                   <S.ProfileImg src={user.profile}/>
                   <S.NameBox>{user.username}</S.NameBox>
-                  {user.isEditing ? (<S.DeleteBtn>삭제</S.DeleteBtn>):null}
+                  {user.isEditing ? (<S.DeleteBtn onClick={()=>openDeleteModal(user.id)}>삭제</S.DeleteBtn>):null}
                   <S.RoleBox>
                       {user.isEditing ? (
                         <S.RoleSelect value={user.role} onChange={(event) => handleRoleChange(event, user.id)}>
@@ -190,7 +228,7 @@ function Admin() {
                   <S.AnnualBox>
                       {user.isEditing ? (
                         <>
-                            <button onClick={() => handleMinusClick(user.id)}>-</button>
+                            <button onClick={() => handleMinusClick(user.id)} style={{ marginLeft: '3px' } }>-</button>
                             {user.remainDays}개
                             <button onClick={() => handlePlusClick(user.id)}>+</button>
                         </>
@@ -201,17 +239,27 @@ function Admin() {
                   <S.AdminBtn onClick={()=> user.isEditing ? handleSaveClick(user.id) : handleAdminClick(user.id)}>{user.isEditing ? '저장' : '관리'}</S.AdminBtn>
                 </S.UserDiv>))}
                 <S.PageBtnBox>
-                    {currentPage === 1 ? null :
+                {currentPage === 1 ? 
                         <>
-                        <S.PageBtn onClick={() => handlePageClick(1)}>&lt;&lt;</S.PageBtn>
-                        <S.PageBtn onClick={() => handlePageClick(currentPage - 1)}>&lt;</S.PageBtn>
+                        <S.inActivePageBtn >≪</S.inActivePageBtn>
+                        <S.inActivePageBtn >&lt;</S.inActivePageBtn>
+                        </>
+                    :
+                        <>
+                        <S.PageBtn isActive={false} onClick={() => handlePageClick(1)}>≪</S.PageBtn>
+                        <S.PageBtn isActive={false} onClick={() => handlePageClick(currentPage - 1)}>&lt;</S.PageBtn>
                         </>
                     }
                     {pageButtons}
-                    {currentPage === pages ? null :
+                {currentPage === pages ? 
+                        <>
+                        <S.inActivePageBtn >&gt;</S.inActivePageBtn>
+                        <S.inActivePageBtn >≫</S.inActivePageBtn>
+                        </>
+                    :
                         <>                        
-                        <S.PageBtn onClick={() => handlePageClick(currentPage + 1)}>&gt;</S.PageBtn>
-                        <S.PageBtn onClick={() => handlePageClick(pages)}>&gt;&gt;</S.PageBtn>
+                        <S.PageBtn isActive={false} onClick={() => handlePageClick(currentPage + 1)}>&gt;</S.PageBtn>
+                        <S.PageBtn isActive={false} onClick={() => handlePageClick(pages)}>≫</S.PageBtn>
                         </>
                     }
                 </S.PageBtnBox>

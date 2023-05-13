@@ -49,7 +49,13 @@ export const RoleBox = styled.div`
 
 export const RoleSelect = styled.select`
   border: 0px;
-  //margin-left:28.5px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 10px;
+  width: 80px;
+  text-align: center;
 `;
 
 export const DateBox = styled.div`
@@ -78,10 +84,20 @@ export const AdminBtn = styled.button`
   margin-left: 920px;
 `;
 
-export const PageBtn = styled.button`
+export const PageBtn = styled.button<{ isActive: boolean }>`
   font-size: 20px;
   margin-top: 10px;
+  ${props => props.isActive && `
+    text-decoration: underline;
+  `}
 `
+export const inActivePageBtn = styled.button`
+  font-size: 20px;
+  margin-top: 10px;
+  color: white;
+  cursor: default;
+`
+
 
 export const PageBtnBox = styled.div`
   display: flex;
