@@ -29,8 +29,8 @@ export const getUsers = async (url: string) => {
   return response.data;
 };
 
-export const changeAnnual = async (id: number, remain_days: number) => {
-  const response = await axiosInstance().post(`/admin/annual/${id}`, { remain_days });
+export const changeAnnual = async (id: number, remainDays: number) => {
+  const response = await axiosInstance().post(`/admin/annual/${id}`, { remainDays });
   return response.data;
 };
 
