@@ -29,8 +29,6 @@ export const getAlarms = async () => {
 export const login = async ({ email, password }: { email: string; password: string }) => {
   const response = await axiosInstance().post('/login', { email, password });
 
-  // if (response.status.toString() === '400' || response.status.toString() === '401') return Error(response.data);
-
   return response;
 };
 
@@ -40,4 +38,14 @@ export const signup = async (item: ISignup) => {
   if (response.status.toString() === '400') return Error(response.data);
 
   return response.data;
+};
+
+export const refresh = async () => {
+  const res = await axiosInstance().get('/refreshtoken');
+  return res.data;
+};
+
+export const verify = async () => {
+  const res = await axiosInstance().get('/auth/verify');
+  return res.data;
 };
