@@ -86,7 +86,6 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     calendarRef.current?.getApi().addEventSource(data);
   }, [data]);
   useEffect(() => {
-    console.log(prevClickedDate);
     if (prevClickedDate !== null) {
       prevClickedDate.style.backgroundColor = '';
     }
