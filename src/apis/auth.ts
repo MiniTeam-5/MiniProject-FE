@@ -1,7 +1,6 @@
 import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
-import axios from 'axios';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -42,14 +41,10 @@ export const signup = async (item: ISignup) => {
 };
 
 export const refresh = async () => {
-  const res = await axiosInstance().get('/refreshtoken');
-  return res.data;
+  const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
+  return response;
 };
 
-export const verify = async () => {
-  const res = await axiosInstance().get('/auth/verify');
-  return res.data;
-};
 export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
   return response;

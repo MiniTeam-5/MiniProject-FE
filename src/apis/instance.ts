@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { getCookie } from '../utils/cookies';
 
-const getAxiosInstance = (option?: { multi?: boolean }) => {
+const getAxiosInstance = (option?: { multi?: boolean; refresh?: boolean }) => {
   const config: AxiosRequestConfig = {
     baseURL: import.meta.env.VITE_API_URL,
     headers: {
@@ -16,12 +16,13 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
   instance.interceptors.request.use(
     (request) => {
       const token = getCookie('accessToken');
+      const refreshToken = getCookie('refreshToken');
       if (token) request.headers['Authorization'] = `Bearer ${token}`;
       if (option && option.multi) request.headers['Content-Type'] = 'multipart/form-data';
+      if (option && option.refresh) request.headers['RefreshToken'] = `Bearer ${refreshToken}`;
       return request;
     },
     (error: AxiosError) => {
-      console.log(error);
       return Promise.reject(error);
     }
   );
