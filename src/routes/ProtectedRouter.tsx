@@ -1,25 +1,19 @@
 import { useEffect } from 'react';
 import { useQueryClient } from 'react-query';
 import { Outlet, useNavigate } from 'react-router-dom';
-// import useVerifyToken from '../hooks/useVerifyToken';
-import { useSelector } from 'react-redux';
+import useVerifyToken from '../hooks/useVerifyToken';
 
 function ProtectedRouter() {
   const queryClient = useQueryClient();
-  const loginedUser = useSelector((state) => state.loginedUser);
-  // const isAuthenticated = useVerifyToken();
+  const { isAuthenticated, isLoading } = useVerifyToken();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!loginedUser.id) {
+    if (isAuthenticated === 'FAILED' && !isLoading) {
       queryClient.clear();
       navigate('/login');
     }
-  });
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  }, [isAuthenticated]);
+  return <>{!isLoading && <Outlet />}</>;
 }
 
 export default ProtectedRouter;

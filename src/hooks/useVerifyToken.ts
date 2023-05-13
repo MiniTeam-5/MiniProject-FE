@@ -1,43 +1,28 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { refresh, verify } from '../apis/auth';
-import { getToken, setToken } from '../utils/userTokenCookie';
-
+import { getUserData, refresh } from '../apis/auth';
+import { useDispatch } from 'react-redux';
+import { setCookie } from '../utils/cookies';
+import { userLogin } from '../store/reducers/userReducers';
 type authType = 'PENDING' | 'SUCCESS' | 'FAILED';
 
 function useVerifyToken() {
   const [isAuthenticated, setIsAuthenticated] = useState<authType>('PENDING');
-
-  const token = getToken();
-  const verifyResult = useQuery(['auth', 'verify', token], verify, {
-    onSuccess: () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useQuery('refresh', refresh, {
+    onSuccess: async (data) => {
       setIsAuthenticated('SUCCESS');
+      setCookie('accessToken', data.headers.authorization);
+      const userData = (await getUserData()).data.data;
+      dispatch(userLogin(userData));
     },
     onError: () => {
       setIsAuthenticated('FAILED');
     },
-    retry: 0,
-    enabled: !!token
+    retry: 0
   });
 
-  const refreshResult = useQuery(['auth', 'refresh'], refresh, {
-    onSuccess: (data) => {
-      if (data.content) {
-        setToken(data.accessToken, {
-          path: '/',
-          maxAge: data.content.exp - data.content.iat
-        });
-        setIsAuthenticated('SUCCESS');
-      }
-    },
-    onError: () => {
-      setIsAuthenticated('FAILED');
-    },
-    retry: 0,
-    enabled: !token
-  });
-
-  return isAuthenticated;
+  return { isAuthenticated, isLoading };
 }
 
 export default useVerifyToken;
