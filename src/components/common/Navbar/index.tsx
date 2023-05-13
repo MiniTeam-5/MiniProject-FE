@@ -10,14 +10,13 @@ import { useEffect, useState } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
-import { useDispatch } from 'react-redux';
-import { setAlarmList } from '../../../store/reducers/alarmReducers';
+import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
 import { IAlarm } from '../../../interfaces/alarm';
 
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
-  const dispatch = useDispatch();
+  const { dispatch } = useAlarm();
 
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
