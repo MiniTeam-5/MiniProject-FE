@@ -6,8 +6,7 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
     baseURL: import.meta.env.VITE_API_URL,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+      'Access-Control-Allow-Origin': '*'
     },
     withCredentials: true
   };
