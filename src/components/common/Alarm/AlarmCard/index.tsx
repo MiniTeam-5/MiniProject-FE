@@ -1,11 +1,13 @@
 import moment from 'moment';
 import 'moment/locale/ko';
 import * as S from './styles';
+moment.locale('ko');
 
 function AlarmCard({ data }) {
   const { content, createdAt } = data;
 
   // 메시지 발신 시각으로부터 얼마나 지났는지
+  console.log(moment.locale());
   const timeDiff = moment(createdAt).fromNow();
   const [name, startDate, endDate, days, type, status] = content.split(',');
   const statusText = status === 'APPROVAL' ? '승인' : '거절';

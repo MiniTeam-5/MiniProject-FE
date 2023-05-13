@@ -2,6 +2,7 @@ import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -34,8 +35,6 @@ export const login = async ({ email, password }: { email: string; password: stri
 
   // const response = await axiosInstance().post('/login', { email, password });
 
-  // if (response.status.toString() === '400' || response.status.toString() === '401') return Error(response.data);
-
   return response;
 };
 
@@ -47,6 +46,15 @@ export const signup = async (item: ISignup) => {
   return response.data;
 };
 
+export const refresh = async () => {
+  const res = await axiosInstance().get('/refreshtoken');
+  return res.data;
+};
+
+export const verify = async () => {
+  const res = await axiosInstance().get('/auth/verify');
+  return res.data;
+};
 export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
   console.log(response);
