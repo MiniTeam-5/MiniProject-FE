@@ -14,9 +14,8 @@ export const useLogin = () => {
     onSuccess: async (data) => {
       // 로그인 성공 시 처리할 코드
       setCookie('accessToken', data.headers.authorization);
-      const userData = await getUserData();
-      dispatch(userLogin(userData.data.data));
-
+      const userData = (await getUserData()).data.data;
+      dispatch(userLogin(userData));
       navigate('/');
     }
   });
