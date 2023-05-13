@@ -23,8 +23,6 @@ export const useGetNewAlarms = () => {
     const newAlarmList = alarmList.filter((newAlarm: IAlarm) => {
       !prevUserAlarms.some((prevAlarm: IAlarm) => prevAlarm.id === newAlarm.id);
     });
-    console.log(newAlarmList);
-    // 새로운 데이터는 store에 추가
     return newAlarmList;
   };
   return { alarmList: newAlarms(), error, isLoading };
