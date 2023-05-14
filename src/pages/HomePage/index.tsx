@@ -1,15 +1,15 @@
+import { useSelector } from 'react-redux';
 import UserMain from '../../components/UserMainPage';
 import Header from '../../components/common/Header';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
-import temp from '../../mockup/user_login.json';
 
 function HomePage() {
-  const user = temp.data[0].role;
+  const user = useSelector((state) => state.loginedUser.role);
 
   return (
     <div>
       <Header />
-      {user === 'USER' ? <UserMain /> : <>관리자 메인</>}
+      {user === 'ROLE_USER' ? <UserMain /> : <>관리자 메인</>}
       <ScheduleCalendar />
     </div>
   );
