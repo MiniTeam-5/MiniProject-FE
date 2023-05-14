@@ -3,11 +3,12 @@ import * as S from './styles';
 import { GrPowerReset } from 'react-icons/gr';
 import { useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const user = useSelector((state: any) => state.loginedUser.role);
+  const user = useSelector((state: RootState) => state.loginedUser.role);
 
   const refetchHandler = () => {
     if (user === 'ROLE_USER') queryClient.refetchQueries('schedule');

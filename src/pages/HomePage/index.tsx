@@ -1,15 +1,18 @@
 import { useSelector } from 'react-redux';
-import UserMain from '../../components/UserMainPage';
 import Header from '../../components/common/Header';
+import UserMain from '../../components/UserMainPage';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
+import Admin from './admin';
+import { RootState } from '../../store';
 
 function HomePage() {
-  const user = useSelector((state: any) => state.loginedUser.role);
+  // 유저 가져오기
+  const user = useSelector((state: RootState) => state.loginedUser.role);
 
   return (
     <div>
       <Header />
-      {user === 'ROLE_USER' ? <UserMain /> : <>관리자 메인</>}
+      {user === 'ROLE_USER' ? <UserMain /> : <Admin />}
       <ScheduleCalendar />
     </div>
   );

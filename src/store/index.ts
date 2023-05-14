@@ -21,6 +21,8 @@ const rootReducer = combineReducers({
   prevAlarms: persistedReducer
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
