@@ -19,6 +19,7 @@ export const useLogin = (isChecked: boolean) => {
       if (isChecked) localStorage.setItem('userEmail', userData.data.data.email);
       localStorage.setItem('rememberMe', isChecked ? 'true' : 'false');
 
+      setCookie('refreshToken', data.headers.refreshtoken);
       navigate('/');
     }
   });

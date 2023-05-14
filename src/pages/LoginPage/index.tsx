@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Link } from 'react-router-dom';
 import * as S from './styles';
 import { SyntheticEvent, useState, useRef, useEffect } from 'react';

@@ -1,13 +1,12 @@
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { getCookie } from '../utils/cookies';
 
-const getAxiosInstance = (option?: { multi?: boolean }) => {
+const getAxiosInstance = (option?: { multi?: boolean; refresh?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL: 'https://lupintech.co.kr/',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+      'Access-Control-Allow-Origin': '*'
     },
     withCredentials: true
   };
@@ -17,12 +16,13 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
   instance.interceptors.request.use(
     (request) => {
       const token = getCookie('accessToken');
+      const refreshToken = getCookie('refreshToken');
       if (token) request.headers['Authorization'] = `Bearer ${token}`;
       if (option && option.multi) request.headers['Content-Type'] = 'multipart/form-data';
+      if (option && option.refresh) request.headers['RefreshToken'] = `Bearer ${refreshToken}`;
       return request;
     },
     (error: AxiosError) => {
-      console.log(error);
       return Promise.reject(error);
     }
   );

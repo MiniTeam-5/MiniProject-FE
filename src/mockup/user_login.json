@@ -1,14 +1,24 @@
 {
   "data": [
-        {
-        "id": 1,
-        "username": "김사원",
-        "email": "user1@lupin.com",
-        "role": "USER",
-        "status": true,
-        "profile": "example_profile_data",
-        "annual_limit": 15,
-        "annual_count": 2
-        }
-    ]
+    {
+      "id": 1,
+      "username": "김사원",
+      "email": "user1@lupin.com",
+      "role": "USER",
+      "status": true,
+      "profile": "example_profile_data",
+      "annual_limit": 15,
+      "annual_count": 2
+    },
+    {
+      "id": 2,
+      "username": "관리자",
+      "email": "admin@lupin.com",
+      "role": "ADMIN",
+      "status": true,
+      "profile": "example_profile_data",
+      "annual_limit": 15,
+      "annual_count": 2
+    }
+  ]
 }

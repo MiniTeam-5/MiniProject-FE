@@ -81,10 +81,15 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   };
 
   useEffect(() => {
+    if (data === null) return;
+    calendarRef.current?.getApi().removeAllEventSources();
+    calendarRef.current?.getApi().addEventSource(data);
+  }, [data]);
+  useEffect(() => {
     if (prevClickedDate !== null) {
       prevClickedDate.style.backgroundColor = '';
     }
-  }, [select, prevClickedDate]);
+  }, [select]);
 
   if (isLoading) return <div>loading...</div>;
   return (
