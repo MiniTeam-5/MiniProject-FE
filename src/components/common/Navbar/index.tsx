@@ -26,6 +26,7 @@ function Navbar() {
   // 알람
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
+  const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const { alarmList } = useGetNewAlarms();
   const { dispatch } = useAlarm();
 
@@ -52,9 +53,7 @@ function Navbar() {
       withCredentials: true,
       headers: { Authorization: `Bearer ${token}` }
     });
-    // source.addEventListener('open', () => {
-    //   console.log('open');
-    // });
+    setNewSource(source);
     source.addEventListener('alarm', () => {
       console.log('alarm');
       setAlarm(true);
@@ -70,6 +69,8 @@ function Navbar() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
+      newSource?.close();
+      axiosInstance().post(disconnectURL);
       await logout();
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
