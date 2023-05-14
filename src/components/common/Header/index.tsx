@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const user = useSelector((state) => state.loginedUser.role);
+  const user = useSelector((state: any) => state.loginedUser.role);
 
   const refetchHandler = () => {
     if (user === 'ROLE_USER') queryClient.refetchQueries('schedule');

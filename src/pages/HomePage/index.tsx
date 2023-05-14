@@ -4,7 +4,7 @@ import Header from '../../components/common/Header';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
 
 function HomePage() {
-  const user = useSelector((state) => state.loginedUser.role);
+  const user = useSelector((state: any) => state.loginedUser.role);
 
   return (
     <div>
