@@ -38,15 +38,16 @@ function LoginPage() {
     }
   };
   useEffect(() => {
-    if (localStorage.getItem('rememberMe')) {
+    if (localStorage.getItem('rememberMe') === 'true') {
       setIsChecked(true);
       const localuserEmail = localStorage.getItem('userEmail');
 
       if (localuserEmail && inputEmail.current != null) {
+        setValues({ email: localuserEmail });
         inputEmail.current.value = localuserEmail;
       }
     }
-  });
+  }, []);
   const changeCheckbox = () => {
     setIsChecked(!isChecked);
   };
