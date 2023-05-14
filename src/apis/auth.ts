@@ -1,14 +1,6 @@
-import { ISignup } from '../interfaces/user';
+import { ISignup, ModifiedInDTO, UserData } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
-
-interface ModifiedInDTO {
-  email: string;
-  username: string;
-  newPassword?: string;
-  checkPassword?: string;
-  profileToDelete?: string;
-}
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -37,11 +29,19 @@ export const changeAnnual = async (id: number, remainDays: number) => {
 };
 
 export const getUser = async () => {
-  const response = await axiosInstance().get(`/auth/user/`);
+  const response = await axiosInstance().get('/auth/user/');
   return response.data;
 }
 
-export const editUser = async (email: string, username: string, newPassword: string, checkPassword: string, profileToDelete: string, profile: File | null) => {
+export const editUser = async (userData: UserData//{
+  // email: string;
+  // username: string;
+  // newPassword: string;
+  // checkPassword: string;
+  // profileToDelete: string;
+  // profile: File | null;
+) => {
+  const { email, username, newPassword, checkPassword, profileToDelete, profile } = userData;
   const formData = new FormData();
   if (profile) {
     formData.append('profile', profile);

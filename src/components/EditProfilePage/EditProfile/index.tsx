@@ -64,9 +64,9 @@ function EditProfile() {
             return;
         }
 
-        const updatedUser = { ...user, password: newPassword, profile: imgFile};
+        const editUserData = { email:user.email, username:user.username, newPassword: newPassword, checkPassword: confirmPassword, profileToDelete: profileToDelete, profile: imgFile};
         
-        editUser(user.email, user.username, newPassword, confirmPassword, profileToDelete, imgFile)
+        editUser(editUserData)
             .then(response => {
                 console.log('User updated successfully');
                 setNewPassword('');
