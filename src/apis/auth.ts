@@ -113,7 +113,13 @@ export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
   return response;
 };
+
 export const getSearchData = async (search: string) => {
   const response = await axiosInstance().get(`/admin?query=${search}`);
   return response.data;
+};
+
+export const logout = async () => {
+  const response = await axiosInstance({ refresh: true }).post('/auth/logout');
+  return response;
 };
