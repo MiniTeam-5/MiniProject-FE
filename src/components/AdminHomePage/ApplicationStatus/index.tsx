@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import * as S from './styles';
+import Swal from 'sweetalert2';
 import { fetchLeaveList, approveLeave } from '../../../apis/admin';
 import { ApprovalResponse, LeaveResponse } from '../../../interfaces/applicationStatus';
+import formatDateString from '../../../utils/dateUtils';
+import * as S from './styles';
 
 function ApplicationStatus() {
   const { data, isLoading, isError } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
@@ -23,8 +25,24 @@ function ApplicationStatus() {
     }
   );
 
-  const handleApproveLeave = (id: number, status: string) => {
-    approveLeaveMutation.mutate({ id, status });
+  const handleApproveLeave = (id: number, status: string, username: string, type: string, dateString: string) => {
+    Swal.fire({
+      title: `${status === 'APPROVAL' ? '승인' : '거부'}하시겠습니까?`,
+      html: `${username}님의 ${dateString} ${type == 'ANNUAL' ? '연차' : '당직'}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#76c891',
+      cancelButtonColor: '#f26262',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveLeaveMutation.mutate({ id, status });
+        Swal.fire('승인 완료', '해당 신청이 승인되었습니다.', 'success');
+      } else {
+        Swal.fire('승인 취소', '해당 신청이 승인되지 않았습니다.', 'info');
+      }
+    });
   };
 
   if (!data) {
@@ -64,23 +82,8 @@ function ApplicationStatus() {
             {sortedData.data.map((leave) => {
               const startDate = new Date(leave.startDate);
               const endDate = new Date(leave.endDate);
-              const startYear = startDate.getFullYear();
-              const startMonth = startDate.getMonth() + 1;
-              const startDay = startDate.getDate();
-              const endYear = endDate.getFullYear();
-              const endMonth = endDate.getMonth() + 1;
-              const endDay = endDate.getDate();
+              const dateString = formatDateString(startDate, endDate);
 
-              let dateString = '';
-              if (startYear === endYear && startMonth === endMonth && startDay === endDay) {
-                dateString = `${startYear}년 ${startMonth}월 ${startDay}일`; // 시작일과 종료일이 같은 경우
-              } else if (startYear === endYear && startMonth === endMonth) {
-                dateString = `${startYear}년 ${startMonth}월 ${startDay}일 ~ ${endDay}일`; // 년도와 월이 같고 일만 다른 경우
-              } else if (startYear === endYear) {
-                dateString = `${startYear}년 ${startMonth}월 ${startDay}일 ~ ${endMonth}월 ${endDay}일`; // 년도는 같고 월만 다른 경우
-              } else {
-                dateString = `${startYear}년 ${startMonth}월 ${startDay}일 ~ ${endYear}년 ${endMonth}월 ${endDay}일`; // 년도가 다른 경우
-              }
               return (
                 <tr key={leave.id}>
                   <td>
@@ -95,14 +98,22 @@ function ApplicationStatus() {
                     <p>{leave.type == 'ANNUAL' ? '연차' : '당직'}</p>
                   </td>
                   <td>
-                    <p>{dateString}</p>
+                    <p>{formatDateString(new Date(leave.startDate), new Date(leave.endDate))}</p>
                   </td>
                   <td>
                     <div className='btn_box flex'>
-                      <button className='ok' onClick={() => handleApproveLeave(leave.id, 'APPROVAL')}>
+                      <button
+                        className='ok'
+                        onClick={() => handleApproveLeave(leave.id, 'APPROVAL', leave.username, leave.type, dateString)}
+                      >
                         승인
                       </button>
-                      <button className='refusal' onClick={() => handleApproveLeave(leave.id, 'REJECTION')}>
+                      <button
+                        className='refusal'
+                        onClick={() =>
+                          handleApproveLeave(leave.id, 'REJECTION', leave.username, leave.type, dateString)
+                        }
+                      >
                         거부
                       </button>
                     </div>
