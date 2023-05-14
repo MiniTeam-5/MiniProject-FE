@@ -152,7 +152,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
-      {isAlarmOpened && <Alarm role={loginedUser.role} handleCloseAlarm={handleCloseAlarm} />}
+      {isAlarmOpened && <Alarm handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }

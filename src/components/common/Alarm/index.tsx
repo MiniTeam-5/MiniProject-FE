@@ -6,7 +6,7 @@ import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../../interfaces/store';
 
-function Alarm({ role, handleCloseAlarm }: IAlarmProps) {
+function Alarm({ handleCloseAlarm }: IAlarmProps) {
   const { alarmList, isLoading, newData } = useGetNewAlarms();
   const { id } = useSelector((state: IRootState) => state.loginedUser);
   const handleClose = () => {
