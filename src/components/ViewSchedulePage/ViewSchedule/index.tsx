@@ -6,9 +6,12 @@ import CalendarGuide from '../../common/CalendarGuide';
 import PageTitle from '../../common/PageTitle';
 import { useQuery } from 'react-query';
 import { getSchedule } from '../../../apis/auth';
+import { useSelector } from 'react-redux';
 
 function ViewSchedule() {
-  const { data } = useQuery(['user'], getSchedule, { staleTime: Infinity });
+  const userId = useSelector((state) => state.loginedUser.id);
+
+  const { data } = useQuery(['user'], () => getSchedule(userId), { staleTime: Infinity, refetchOnWindowFocus: false });
 
   const schedule = data && data['data'];
 
@@ -21,7 +24,7 @@ function ViewSchedule() {
       return {
         id: `annual-${userId}`,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         allDay: true,
         extendedProps: { status }
       };
@@ -32,7 +35,7 @@ function ViewSchedule() {
       return {
         id: `duty-${userId}`,
         start: new Date(startDate),
-        end: new Date(endDate),
+        end: new Date(new Date(endDate).getTime() + 24 * 60 * 60 * 1000),
         color: '#ba55d3',
         allDay: true,
         extendedProps: { status }
@@ -41,6 +44,8 @@ function ViewSchedule() {
 
     return annualResult?.concat(dutyResult);
   };
+
+  const events = scheduleDate()?.filter((item: any) => item.extendedProps.status !== 'REJECTION');
 
   function renderEventContent(eventInfo: any) {
     const { status } = eventInfo.event.extendedProps;
@@ -54,11 +59,7 @@ function ViewSchedule() {
       <S.StyleWrapper>
         <CalendarGuide />
 
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          events={scheduleDate()}
-          eventContent={renderEventContent}
-        />
+        <FullCalendar plugins={[dayGridPlugin, interactionPlugin]} events={events} eventContent={renderEventContent} />
       </S.StyleWrapper>
     </>
   );
