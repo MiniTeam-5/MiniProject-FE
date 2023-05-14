@@ -20,7 +20,7 @@ const getAxiosInstance = (option?: { multi?: boolean }) => {
       // if (token)
       request.headers[
         'Authorization'
-      ] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX01BU1RFUiIsImlkIjo1LCJleHAiOjE2ODM5MjA4OTl9.1Sb2qjHg7yBf43po4FO1aFFL0Cjt55_S5lNoDP5FkGRkW8d4RQvLc9tHXUuIjbCUVeFjX-hZc-yZfezHFLzQpg`;
+      ] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOjEsImV4cCI6MTY4NDEyOTcxNn0.oAyzbYlH2p50-gJOCWztV8--LcUdI2m3Wkqz96Juu6UyEnfpp6NJMYJaSd6iwntH22Sp7yhY2Ogfhcfn8M6SoA`;
       if (option && option.multi) request.headers['Content-Type'] = 'multipart/form-data';
       return request;
     },
