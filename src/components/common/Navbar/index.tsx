@@ -12,7 +12,6 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
 import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
-import { IAlarm } from '../../../interfaces/alarm';
 import { getCookie } from '../../../utils/cookies';
 import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
@@ -24,9 +23,11 @@ function Navbar() {
   const loginedUser = useSelector((state: RootState) => state.loginedUser);
 
   // 알람
+
+  const { alarmList, isLoading, newData } = useGetNewAlarms();
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
-  const { alarmList } = useGetNewAlarms();
+  const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const { dispatch } = useAlarm();
 
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
@@ -35,12 +36,14 @@ function Navbar() {
     setIsAlarmOpened(!isAlarmOpened);
     if (!isAlarmOpened) {
       setAlarm(false);
+    } else {
+      dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
     }
   };
 
-  const handleCloseAlarm = (data: { id: number; alarmList: IAlarm[] }) => {
+  const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
-    dispatch(setAlarmList(data));
+    dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
   };
 
   useEffect(() => {
@@ -52,11 +55,8 @@ function Navbar() {
       withCredentials: true,
       headers: { Authorization: `Bearer ${token}` }
     });
-    // source.addEventListener('open', () => {
-    //   console.log('open');
-    // });
+    setNewSource(source);
     source.addEventListener('alarm', () => {
-      console.log('alarm');
       setAlarm(true);
     });
 
@@ -70,6 +70,8 @@ function Navbar() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
+      newSource?.close();
+      axiosInstance().post(disconnectURL);
       await logout();
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
@@ -152,7 +154,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
-      {isAlarmOpened && <Alarm handleCloseAlarm={handleCloseAlarm} />}
+      {isAlarmOpened && !isLoading && <Alarm data={alarmList} handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }

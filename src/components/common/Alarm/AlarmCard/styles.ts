@@ -9,15 +9,24 @@ export const CardLi = styled.li`
 export const StatusText = styled.p`
   margin-bottom: 8px;
   font-size: 15px;
+  span {
+    font-weight: 600;
+  }
+  .ANNUAL {
+    color: ${({ theme }) => theme.color.status03};
+  }
+  .DUTY {
+    color: ${({ theme }) => theme.color.status02};
+  }
 `;
 export const Status = styled.span`
   padding: 2px 6px;
   border-radius: 10px;
   color: ${({ theme }) => theme.color.buttonText};
-  &.승인 {
+  &.APPROVAL {
     background-color: ${({ theme }) => theme.color.status03};
   }
-  &.거절 {
+  &.REJECTION {
     background-color: ${({ theme }) => theme.color.status02};
   }
 `;
