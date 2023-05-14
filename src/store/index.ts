@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import loginedUserReducer from './reducers/userReducers';
 import prevAlarmsReducer from './reducers/alarmSlice';
+import userEmailReducer from './reducers/rememberEmailSlice';
 // @ts-ignore
 import storage from 'redux-persist/lib/storage';
 // @ts-ignore
@@ -14,11 +15,18 @@ const persistConfig = {
   storage
 };
 
+const persistUserConfig = {
+  key: 'userEmail',
+  storage
+};
+
 const persistedReducer = persistReducer(persistConfig, prevAlarmsReducer);
+const rememberReducer = persistReducer(persistUserConfig, userEmailReducer);
 
 const rootReducer = combineReducers({
   loginedUser: loginedUserReducer,
-  prevAlarms: persistedReducer
+  prevAlarms: persistedReducer,
+  rememberEmail: rememberReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

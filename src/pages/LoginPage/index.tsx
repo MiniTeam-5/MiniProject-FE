@@ -1,13 +1,19 @@
 // @ts-nocheck
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
+import { useSelector } from 'react-redux';
 
 const RegexID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
 
 function LoginPage() {
+  const userEmail = useSelector((state: any) => state.rememberEmail);
+  const loginedUser = useSelector((state: any) => state.loginedUser);
+
+  const navigate = useNavigate();
+
   const emailErrorRef = useRef<HTMLSpanElement>(null);
   const passwordErrorRef = useRef<HTMLSpanElement>(null);
 
@@ -38,13 +44,15 @@ function LoginPage() {
     }
   };
   useEffect(() => {
-    if (localStorage.getItem('rememberMe') === 'true') {
+    if (loginedUser.email === '') {
+      alert('이미 로그인 되어 있습니다.');
+      navigate('/');
+    }
+    if (userEmail.checked) {
       setIsChecked(true);
-      const localuserEmail = localStorage.getItem('userEmail');
-
-      if (localuserEmail && inputEmail.current != null) {
-        setValues({ email: localuserEmail });
-        inputEmail.current.value = localuserEmail;
+      if (inputEmail.current != null) {
+        setValues({ email: userEmail.email });
+        inputEmail.current.value = userEmail.email;
       }
     }
   }, []);
@@ -66,7 +74,7 @@ function LoginPage() {
   return (
     <S.Login>
       <S.LoginContainer>
-        <S.LoginLogo src='public/assets/logo.png' alt='logo' />
+        <S.LoginLogo src='assets/logo.png' alt='logo' />
         <S.LoginWelcomeP>Welcome Back!</S.LoginWelcomeP>
         <form onSubmit={handleSubmit} onChange={handleChange}>
           <S.LoginForm>
@@ -106,7 +114,7 @@ function LoginPage() {
           </S.LoginForm>
         </form>
       </S.LoginContainer>
-      <S.LoginBanner src='public/assets/banner01.png' alt='Banner' />
+      <S.LoginBanner src='assets/banner01.png' alt='Banner' />
     </S.Login>
   );
 }
