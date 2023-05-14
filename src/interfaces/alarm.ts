@@ -8,8 +8,13 @@ export interface IPrevAlarmsState {
 
 export interface IAlarm {
   id: number;
-  content: string;
-  createdAt: string;
+  username: string;
+  type: 'ANNUAL' | 'DUTY';
+  startDate: string;
+  endDate: string;
+  usingDays: number;
+  status: 'APPROVAL' | 'REJECTION';
+  createdAt: Date;
 }
 export interface IAlarmCardProps {
   data: IAlarm;

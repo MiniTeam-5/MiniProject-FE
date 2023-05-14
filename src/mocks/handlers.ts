@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { rest } from 'msw';
 import { db } from './api/data/db';
 export const handlers = [
@@ -366,9 +367,3 @@ export const handlers = [
     );
   })
 ];
-
-async function sleep(timeout: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-}

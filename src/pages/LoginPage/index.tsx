@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Link } from 'react-router-dom';
 import * as S from './styles';
 import { useState } from 'react';
@@ -9,8 +10,6 @@ const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
 
 function LoginPage() {
   const [isChecked, setIsChecked] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const [values, setValues] = useState({
     email: '',

@@ -14,6 +14,7 @@ const loginedUser = createReducer(
     hireDate: ''
   },
   {
+    // @ts-ignore
     [userLogin]: (state: ILoginedUser, action) => {
       return {
         ...state,

@@ -9,7 +9,7 @@ import { getSchedule } from '../../../apis/auth';
 import { useSelector } from 'react-redux';
 
 function ViewSchedule() {
-  const userId = useSelector((state) => state.loginedUser.id);
+  const userId = useSelector((state: any) => state.loginedUser.id);
 
   const { data } = useQuery(['user'], () => getSchedule(userId), { staleTime: Infinity });
 

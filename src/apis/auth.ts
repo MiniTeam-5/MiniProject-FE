@@ -71,7 +71,7 @@ export const editUser = async (
   const response = await axiosInstance({ multi: true }).post(`/auth/user`, formData);
   return response.data;
 };
-export const getSchedule = async (userId) => {
+export const getSchedule = async (userId: number) => {
   const response = await axiosInstance().get(`/auth/leave/id/${userId}`);
   return response.data;
 };
@@ -82,8 +82,12 @@ export const deleteApplication = async (id: number) => {
 };
 
 export const applySchedule = async (data: IApplySchedule) => {
-  const response = await axiosInstance().post('/auth/leave/apply', data);
-  return response.data;
+  try {
+    const response = await axiosInstance().post('/auth/leave/apply', data);
+    return response.data;
+  } catch (error: any) {
+    return error.response.data;
+  }
 };
 
 export const getAlarms = async () => {
