@@ -8,8 +8,7 @@ import { IRootState } from '../interfaces/store';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
-    refetchOnWindowFocus: false
-    // staleTime: Infinity
+    staleTime: Infinity
   });
   const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { pathname } = useLocation();

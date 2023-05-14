@@ -10,7 +10,8 @@ export default defineConfig({
         target: 'https://lupintech.co.kr/',
         rewrite: (path) => path.replace(/^\/api/, ''),
         changeOrigin: true,
-        secure: false
+        secure: false,
+        ws: true
       }
     }
   }

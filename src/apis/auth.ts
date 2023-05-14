@@ -71,8 +71,8 @@ export const editUser = async (
   const response = await axiosInstance({ multi: true }).post(`/auth/user`, formData);
   return response.data;
 };
-export const getSchedule = async () => {
-  const response = await axiosInstance().get('/auth/leave/id/12');
+export const getSchedule = async (userId) => {
+  const response = await axiosInstance().get(`/auth/leave/id/${userId}`);
   return response.data;
 };
 
