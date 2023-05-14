@@ -4,7 +4,7 @@ import { GlobalStyle } from './styles/globalStyle.ts';
 import { theme } from './styles/theme.ts';
 import { Provider } from 'react-redux';
 import store from './store/index.ts';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 //@ts-ignore
 import { PersistGate } from 'redux-persist/integration/react';
 //@ts-ignore

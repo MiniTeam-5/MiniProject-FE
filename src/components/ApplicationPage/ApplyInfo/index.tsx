@@ -4,8 +4,29 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import Loading from '../../common/Loading';
 function ApplyInfo({ select, date }: IApplyInfoProps) {
   const navigate = useNavigate();
+  const { mutate, isLoading } = useMutation(applySchedule, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        MySwal.fire({
+          icon: 'success',
+          title: '신청이 완료되었습니다.'
+        }).then(() => {
+          navigate('/');
+        });
+      }
+      if (data.status === 400) {
+        MySwal.fire({
+          icon: 'error',
+          title: '신청에 실패하였습니다.',
+          text: '사유 : ' + data.data.data.value
+        });
+      }
+    }
+  });
   const selectText = select === 'ANNUAL' ? '연차' : '당직';
   const MySwal = withReactContent(Swal);
 
@@ -21,22 +42,9 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
 
   const handleSubmit = async () => {
     const submitData = { type: select, startDate: date.startDate, endDate: date.endDate };
-    const result = await applySchedule(submitData);
-    if (result.status === 200) {
-      MySwal.fire({
-        icon: 'success',
-        title: '신청이 완료되었습니다.'
-      }).then(() => {
-        navigate('/');
-      });
-    } else {
-      MySwal.fire({
-        icon: 'error',
-        title: '신청에 실패하였습니다.',
-        text: '사유 : ' + result.data.value
-      });
-    }
+    mutate(submitData);
   };
+  if (isLoading) return <Loading />;
   return (
     <S.ApplyInfo>
       <S.ApplyInfoTitle>{selectText} 신청 정보</S.ApplyInfoTitle>
