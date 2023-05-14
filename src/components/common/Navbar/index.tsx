@@ -12,7 +12,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
 import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
-import { getCookie } from '../../../utils/cookies';
+import { getCookie, removeCookie } from '../../../utils/cookies';
 import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
 import { RootState } from '../../../store';
@@ -73,8 +73,8 @@ function Navbar() {
       newSource?.close();
       axiosInstance().post(disconnectURL);
       await logout();
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      removeCookie('accessToken');
+      removeCookie('refreshToken');
       navigate('/login');
     } catch (error) {
       console.log(error);
@@ -85,9 +85,12 @@ function Navbar() {
     <S.Navbar>
       <div>
         <S.User>
-          <div className='user_img'>
-            <img src={loginedUser.profile ? loginedUser.profile : '/assets/profile.png'} alt='프로필' />
-          </div>
+          <div
+            className='user_img'
+            style={{
+              background: `url(${loginedUser.profile ? loginedUser.profile : '/assets/profile.png'}) center / cover`
+            }}
+          ></div>
           <p>{loginedUser.username}</p>
           {/* user_tag와 같이 class 추가
            관리자 - tag_admin, 마스터 - tag_master */}
@@ -131,14 +134,16 @@ function Navbar() {
               <p>연차 / 당직 신청</p>
             </NavLink>
           </li>
-          <li>
-            <NavLink to='/admin'>
-              <i>
-                <BsPeople />
-              </i>
-              <p>사원 연차 관리</p>
-            </NavLink>
-          </li>
+          {loginedUser.role !== 'ROLE_USER' && (
+            <li>
+              <NavLink to='/admin'>
+                <i>
+                  <BsPeople />
+                </i>
+                <p>사원 연차 관리</p>
+              </NavLink>
+            </li>
+          )}
           <li>
             <div onClick={handleLogout}>
               <i>
