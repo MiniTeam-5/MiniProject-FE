@@ -30,5 +30,5 @@ export const useGetNewAlarms = () => {
       });
     return newAlarmList;
   };
-  return { alarmList: newAlarms() || [], error, isLoading };
+  return { alarmList: newAlarms() || [], error, isLoading, newData: alarmList || [] };
 };

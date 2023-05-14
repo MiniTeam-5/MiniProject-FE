@@ -12,6 +12,7 @@ import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
 import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
 import { IAlarm } from '../../../interfaces/alarm';
+import { getCookie } from '../../../utils/cookies';
 
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
@@ -33,9 +34,10 @@ function Navbar() {
   };
 
   useEffect(() => {
+    const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
-      headers: { Authorization: import.meta.env.VITE_ACCESS_TOKEN }
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     source.addEventListener('alarm', () => {
