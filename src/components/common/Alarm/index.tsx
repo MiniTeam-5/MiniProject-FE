@@ -6,13 +6,12 @@ import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../../interfaces/store';
 
-function Alarm({ handleCloseAlarm }: IAlarmProps) {
+function Alarm({ role, handleCloseAlarm }: IAlarmProps) {
   const { alarmList, isLoading, newData } = useGetNewAlarms();
   const { id } = useSelector((state: IRootState) => state.loginedUser);
   const handleClose = () => {
     handleCloseAlarm({ id: Number(id), alarmList: newData });
   };
-
   if (isLoading || !alarmList) return <div>로딩중...</div>;
   return (
     <S.AlarmList>

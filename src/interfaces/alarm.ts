@@ -1,5 +1,6 @@
 import { IAlarmActions } from './store';
 export interface IAlarmProps {
+  role: 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MASTER';
   handleCloseAlarm: ({ id, alarmList }: IAlarmActions) => void;
 }
 export interface IPrevAlarmsState {
