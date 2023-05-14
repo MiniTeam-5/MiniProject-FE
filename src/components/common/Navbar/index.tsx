@@ -57,7 +57,6 @@ function Navbar() {
     });
     setNewSource(source);
     source.addEventListener('alarm', () => {
-      console.log('alarm');
       setAlarm(true);
     });
 
