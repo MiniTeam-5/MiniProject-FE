@@ -1,5 +1,3 @@
-import { Leave } from '../../../interfaces/applicationStatus';
-
 export const loginData = {};
 
 export const db = {

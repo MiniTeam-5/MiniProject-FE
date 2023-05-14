@@ -6,12 +6,13 @@ import formatDateString from '../../../utils/dateUtils';
 import * as S from './styles';
 
 function ApplicationStatus() {
-  const { data, isLoading, isError } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
+  const { data } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
   const queryClient = useQueryClient();
 
   const approveLeaveMutation = useMutation(
     (data: { id: number; status: string }) => approveLeave(data.id, data.status),
     {
+      //@ts-ignore
       onSuccess: (data: ApprovalResponse, variables: { id: number; status: string }) => {
         // 성공적으로 API 호출이 끝났을 때 실행되는 콜백 함수
         console.log(`Successfully approved leave request ${variables.id} with status ${variables.status}`);
