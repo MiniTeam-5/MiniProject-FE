@@ -3,11 +3,11 @@ export interface pageTitleProps {
 }
 
 export interface ISchedule {
-  id: number;
-  status: 'waiting' | 'approved' | 'rejected';
-  type: 'duty' | 'annual';
-  start_date: string;
-  end_date: string;
+  userId: number;
+  status: 'WAITING' | 'APPROVAL' | 'REJECTION';
+  type: 'DUTY' | 'ANNUAL';
+  startDate: string;
+  endDate: string;
   username: string;
 }
 
@@ -15,4 +15,10 @@ export interface IUseScheduleQuery {
   data: ISchedule[];
   status: number;
   msg: string;
+}
+
+export interface IApplySchedule {
+  type: 'ANNUAL' | 'DUTY';
+  startDate: string;
+  endDate: string;
 }
