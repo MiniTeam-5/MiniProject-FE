@@ -3,7 +3,7 @@ import { getCookie } from '../utils/cookies';
 
 const getAxiosInstance = (option?: { multi?: boolean; refresh?: boolean }) => {
   const config: AxiosRequestConfig = {
-    baseURL: '/api',
+    baseURL: 'https://lupintech.co.kr/',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
