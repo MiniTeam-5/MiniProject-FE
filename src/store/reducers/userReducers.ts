@@ -5,15 +5,13 @@ export const userLogin = createAction('loginedUser/login');
 
 const loginedUser = createReducer(
   {
-    userInfo: {
-      id: '',
-      email: '',
-      username: '',
-      profile: '',
-      role: '',
-      remainDays: 0,
-      hireDate: ''
-    }
+    id: '',
+    email: '',
+    username: '',
+    profile: '',
+    role: '',
+    remainDays: 0,
+    hireDate: ''
   },
   {
     // @ts-ignore
