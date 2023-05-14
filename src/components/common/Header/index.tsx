@@ -6,24 +6,16 @@ function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-<<<<<<< HEAD
-  const user = temp.data[1].role;
-
-=======
->>>>>>> upstream/develop
   return (
     <S.Header>
       <S.Logo src='/assets/logo-blue.png' alt='lupin' />
       <S.Buttons>
         <S.ResetBtn
           onClick={() => {
-<<<<<<< HEAD
             // refetch하는 로직
             queryClient.refetchQueries('leaveList');
-=======
             queryClient.refetchQueries('schedule');
             queryClient.refetchQueries('schedules');
->>>>>>> upstream/develop
           }}
         >
           새로고침
