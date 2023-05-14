@@ -2,8 +2,11 @@ import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
 import Swal from 'sweetalert2';
 import { CancelApplication } from '../../../interfaces/application';
+import { useSelector } from 'react-redux';
 
 function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
+  const remainDays = useSelector((state) => state.loginedUser.remainDays);
+
   const cancelHandler = ({ id, type, startDate, endDate }: CancelApplication) => {
     const leaveType = type === 'ANNUAL' ? '연차' : '당직';
 
@@ -25,7 +28,7 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
       <S.Header>
         <S.Type>{title}</S.Type>
 
-        {annualList && <S.NumberOfAnnual>남은 연차 : 4개</S.NumberOfAnnual>}
+        {annualList && <S.NumberOfAnnual>남은 연차 : {remainDays}개</S.NumberOfAnnual>}
       </S.Header>
 
       {/* 연차 신청 현황 */}

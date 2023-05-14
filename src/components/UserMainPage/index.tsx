@@ -5,8 +5,10 @@ import { deleteApplication, getSchedule } from '../../apis/auth';
 import { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { UserApplication } from '../../interfaces/application';
+import { useSelector } from 'react-redux';
 
 function UserMainPage() {
+  const userId = useSelector((state) => state.loginedUser.id);
   const queryClient = useQueryClient();
 
   // 가까운 날짜 순으로 정렬
@@ -17,7 +19,7 @@ function UserMainPage() {
   }
 
   // 특정 유저 연차/당직 정보
-  const { data: userSchedule } = useQuery('schedule', getSchedule);
+  const { data: userSchedule } = useQuery('schedule', () => getSchedule(userId));
 
   const { mutate } = useMutation(deleteApplication, {
     onSuccess() {
