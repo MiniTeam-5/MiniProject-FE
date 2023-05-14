@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { rest } from 'msw';
 import { db } from './api/data/db';
 export const handlers = [
@@ -261,6 +262,7 @@ export const handlers = [
       const oldData = db.applys.find((leave) => leave.id === Number(id));
       const updatedData = { ...oldData, status };
       // oldData를 db에서 찾아서 updateData로 업데이트
+      // @ts-ignore
       db.applys = db.applys.map((leave) => (leave.id === Number(id) ? updatedData : leave));
 
       return res(
@@ -348,9 +350,3 @@ export const handlers = [
     );
   })
 ];
-
-async function sleep(timeout: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-}

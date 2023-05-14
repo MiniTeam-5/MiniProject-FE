@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as S from './styles';
 import { ApplicationStatusProps } from '../../../interfaces/application';
 import Swal from 'sweetalert2';

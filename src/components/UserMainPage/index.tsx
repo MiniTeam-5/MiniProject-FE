@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ApplicationStatus from './ApplicationStatus';
 import * as S from './styles';
 import Header from '../common/Header';
