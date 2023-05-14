@@ -15,7 +15,6 @@ export const getSchedules = async () => {
   return response.data;
 };
 
-
 export const changeRole = async (id: number, role: string) => {
   const response = await axiosInstance().post(`/master/${id}`, { role });
   return response.data;
@@ -39,16 +38,23 @@ export const changeAnnual = async (id: number, remainDays: number) => {
 export const getUser = async () => {
   const response = await axiosInstance().get(`/auth/user/`);
   return response.data;
-}
+};
 
-export const editUser = async (email: string, username: string, newPassword: string, checkPassword: string, profileToDelete: string, profile: File | null) => {
+export const editUser = async (
+  email: string,
+  username: string,
+  newPassword: string,
+  checkPassword: string,
+  profileToDelete: string,
+  profile: File | null
+) => {
   const formData = new FormData();
   if (profile) {
     formData.append('profile', profile);
   }
-  const modifiedInDTO : ModifiedInDTO = {
+  const modifiedInDTO: ModifiedInDTO = {
     email: email,
-    username: username,
+    username: username
   };
   if (newPassword !== '') {
     modifiedInDTO.newPassword = newPassword;
@@ -56,17 +62,17 @@ export const editUser = async (email: string, username: string, newPassword: str
   if (checkPassword !== '') {
     modifiedInDTO.checkPassword = checkPassword;
   }
-  if(profileToDelete !== '') {
+  if (profileToDelete !== '') {
     modifiedInDTO.profileToDelete = profileToDelete;
   }
 
   formData.append('modifiedInDTO', new Blob([JSON.stringify(modifiedInDTO)], { type: 'application/json' }));
-  
-  const response = await axiosInstance({multi: true}).post(`/auth/user`, formData);
+
+  const response = await axiosInstance({ multi: true }).post(`/auth/user`, formData);
   return response.data;
-}
-export const getSchedule = async () => {
-  const response = await axiosInstance().get('/auth/leave/id/12');
+};
+export const getSchedule = async (userId) => {
+  const response = await axiosInstance().get(`/auth/leave/id/${userId}`);
   return response.data;
 };
 
@@ -110,4 +116,4 @@ export const getUserData = async () => {
 export const getSearchData = async (search: string) => {
   const response = await axiosInstance().get(`/admin?query=${search}`);
   return response.data;
-}
+};

@@ -1,13 +1,14 @@
 import ApplicationStatus from './ApplicationStatus';
 import * as S from './styles';
-import Header from '../common/Header';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteApplication, getSchedule } from '../../apis/auth';
 import { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { UserApplication } from '../../interfaces/application';
+import { useSelector } from 'react-redux';
 
 function UserMainPage() {
+  const userId = useSelector((state) => state.loginedUser.id);
   const queryClient = useQueryClient();
 
   // 가까운 날짜 순으로 정렬
@@ -18,7 +19,7 @@ function UserMainPage() {
   }
 
   // 특정 유저 연차/당직 정보
-  const { data: userSchedule } = useQuery('schedule', getSchedule);
+  const { data: userSchedule } = useQuery('schedule', () => getSchedule(userId));
 
   const { mutate } = useMutation(deleteApplication, {
     onSuccess() {
@@ -46,7 +47,6 @@ function UserMainPage() {
 
   return (
     <>
-      <Header />
       <S.UserMain>
         <ApplicationStatus title='연차 신청 현황' annualList={filteredAnnualList} mutate={mutate} />
         <ApplicationStatus title='당직 신청 현황' dutyList={filteredDutyList} mutate={mutate} />
