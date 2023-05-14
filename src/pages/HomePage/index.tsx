@@ -3,17 +3,16 @@ import Header from '../../components/common/Header';
 import UserMain from '../../components/UserMainPage';
 import ScheduleCalendar from '../../components/common/ScheduleCalendar';
 import Admin from './admin';
-import temp from '../../mockup/user_login.json';
 import { RootState } from '../../store';
 
 function HomePage() {
   // 유저 가져오기
-  const loginedUser = useSelector((state: RootState) => state.loginedUser);
+  const user = useSelector((state: RootState) => state.loginedUser.role);
 
   return (
     <div>
       <Header />
-      {loginedUser.role === 'ROLE_USER' ? <UserMain /> : <Admin />}
+      {user === 'ROLE_USER' ? <UserMain /> : <Admin />}
       <ScheduleCalendar />
     </div>
   );

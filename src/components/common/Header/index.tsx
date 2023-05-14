@@ -2,22 +2,25 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { GrPowerReset } from 'react-icons/gr';
 import { useQueryClient } from 'react-query';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+
 function Header() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const user = useSelector((state: RootState) => state.loginedUser.role);
+
+  const refetchHandler = () => {
+    if (user === 'ROLE_USER') queryClient.refetchQueries('schedule');
+    else queryClient.refetchQueries('leaveList');
+    queryClient.refetchQueries('schedules');
+  };
 
   return (
     <S.Header>
       <S.Logo src='/assets/logo-blue.png' alt='lupin' />
       <S.Buttons>
-        <S.ResetBtn
-          onClick={() => {
-            // refetch하는 로직
-            queryClient.refetchQueries('leaveList');
-            queryClient.refetchQueries('schedule');
-            queryClient.refetchQueries('schedules');
-          }}
-        >
+        <S.ResetBtn onClick={refetchHandler}>
           새로고침
           <GrPowerReset />
         </S.ResetBtn>
