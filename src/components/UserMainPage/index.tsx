@@ -1,6 +1,5 @@
 import ApplicationStatus from './ApplicationStatus';
 import * as S from './styles';
-import Header from '../common/Header';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteApplication, getSchedule } from '../../apis/auth';
 import { AxiosError } from 'axios';
@@ -46,7 +45,6 @@ function UserMainPage() {
 
   return (
     <>
-      <Header />
       <S.UserMain>
         <ApplicationStatus title='연차 신청 현황' annualList={filteredAnnualList} mutate={mutate} />
         <ApplicationStatus title='당직 신청 현황' dutyList={filteredDutyList} mutate={mutate} />
