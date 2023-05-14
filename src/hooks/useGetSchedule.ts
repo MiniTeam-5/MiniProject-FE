@@ -7,11 +7,10 @@ import { useSelector } from 'react-redux';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
-    refetchOnWindowFocus: false,
-    staleTime: Infinity
+    refetchOnWindowFocus: false
+    // staleTime: Infinity
   });
   const { id } = useSelector((state: any) => state.loginedUser);
-
   const { pathname } = useLocation();
 
   if (isLoading || !data?.data) return { data: [], isLoading, error };
@@ -20,14 +19,14 @@ function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
   // ANNUAL -> 모든 사람 연차 + 내 당직
   // DUTY -> 내 연차 + 내 당직
   const annualList = schedules.filter((item) => {
-    if (select === 'DUTY' || pathname === '/viewSchedule') return item.type === 'ANNUAL' && item.userId === id;
     if (item.status === 'REJECTION') return;
+    if (select === 'DUTY' || pathname === '/viewSchedule') return item.type === 'ANNUAL' && item.userId === id;
     return item.type === 'ANNUAL';
   });
   const dutyList = schedules.filter((item) => {
     // select가 무엇이 되었든간에 내 당직 정보만 보여줘야 함
-    if (select || pathname === '/viewSchedule') return item.type === 'DUTY' && item.userId === id;
     if (item.status === 'REJECTION') return;
+    if (select || pathname === '/viewSchedule') return item.type === 'DUTY' && item.userId === id;
     return item.type === 'DUTY';
   });
 

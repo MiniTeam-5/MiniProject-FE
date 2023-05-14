@@ -13,10 +13,12 @@ import { axiosInstance } from '../../../apis/instance';
 import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
 import { IAlarm } from '../../../interfaces/alarm';
 import { getCookie } from '../../../utils/cookies';
+import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 
 function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
+  const { alarmList } = useGetNewAlarms();
   const { dispatch } = useAlarm();
 
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
@@ -34,13 +36,19 @@ function Navbar() {
   };
 
   useEffect(() => {
+    if (alarmList.length > 0) {
+      setAlarm(true);
+    }
     const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
       headers: { Authorization: `Bearer ${token}` }
     });
-
+    source.addEventListener('open', () => {
+      console.log('open');
+    });
     source.addEventListener('alarm', () => {
+      console.log('alarm');
       setAlarm(true);
     });
 
