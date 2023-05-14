@@ -10,10 +10,9 @@ function Header() {
   const user = useSelector((state) => state.loginedUser.role);
 
   const refetchHandler = () => {
-    if (user === 'ROLE_USER') {
-      queryClient.refetchQueries('schedule');
-      queryClient.refetchQueries('schedules');
-    }
+    if (user === 'ROLE_USER') queryClient.refetchQueries('schedule');
+    else queryClient.refetchQueries('leaveList');
+    queryClient.refetchQueries('schedules');
   };
 
   return (
