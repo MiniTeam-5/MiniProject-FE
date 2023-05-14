@@ -17,6 +17,7 @@ const queryClient = new QueryClient({
     }
   }
 });
+
 const persistor = persistStore(store);
 function App() {
   return (

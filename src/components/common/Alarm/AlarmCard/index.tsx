@@ -21,7 +21,7 @@ function AlarmCard({ data }: IAlarmCardProps) {
     return (
       <S.CardLi>
         <S.StatusText>
-          {typeText} 신청이 <S.Status className={statusText}>{statusText}</S.Status>되었습니다.
+          {typeText} 신청이 <S.Status className={status}>{statusText}</S.Status>되었습니다.
         </S.StatusText>
         <S.ApplyInfo>
           신청 날짜 : {dateString} {typeText === '연차' && `(${usingDays}일)`}
@@ -32,7 +32,7 @@ function AlarmCard({ data }: IAlarmCardProps) {
   return (
     <S.CardLi>
       <S.StatusText>
-        {username}님이 {typeText}
+        {username}님이 <span className={type}>{typeText}</span>
         {typeText === '연차' ? '를' : '을'} 신청하셨습니다.
       </S.StatusText>
       <S.ApplyInfo>
