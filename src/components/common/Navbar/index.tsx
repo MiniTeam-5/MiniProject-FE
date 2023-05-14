@@ -44,9 +44,9 @@ function Navbar() {
       withCredentials: true,
       headers: { Authorization: `Bearer ${token}` }
     });
-    source.addEventListener('open', () => {
-      console.log('open');
-    });
+    // source.addEventListener('open', () => {
+    //   console.log('open');
+    // });
     source.addEventListener('alarm', () => {
       console.log('alarm');
       setAlarm(true);
