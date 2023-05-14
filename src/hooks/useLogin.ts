@@ -2,11 +2,10 @@ import { useMutation } from 'react-query';
 import { getUserData, login } from '../apis/auth';
 import { setCookie } from '../utils/cookies';
 import { useDispatch } from 'react-redux';
-import loginedUser, { userLogin } from '../store/reducers/userReducers';
+import { userLogin } from '../store/reducers/userReducers';
 import { useNavigate } from 'react-router-dom';
-import store from '../store';
 
-export const useLogin = () => {
+export const useLogin = (isChecked: boolean) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,6 +15,9 @@ export const useLogin = () => {
       setCookie('accessToken', data.headers.authorization);
       const userData = await getUserData();
       dispatch(userLogin(userData.data.data));
+
+      if (isChecked) localStorage.setItem('userEmail', userData.data.data.email);
+      localStorage.setItem('rememberMe', isChecked ? 'true' : 'false');
 
       navigate('/');
     }

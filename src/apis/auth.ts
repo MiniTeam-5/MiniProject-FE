@@ -24,14 +24,7 @@ export const applySchedule = async (data: IApplySchedule) => {
 };
 
 export const login = async ({ email, password }: { email: string; password: string }) => {
-  console.log(email, password);
   const response = await axios.post('http://13.209.163.225:5000/login', { email, password });
-  console.log(response);
-
-  // const response = await axiosInstance().post('/login', { email, password });
-
-  // if (response.status.toString() === '400' || response.status.toString() === '401') return Error(response.data);
-
   return response;
 };
 
