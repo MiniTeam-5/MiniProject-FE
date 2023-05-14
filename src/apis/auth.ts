@@ -49,3 +49,8 @@ export const getUserData = async () => {
   const response = await axiosInstance().get('/auth/user');
   return response;
 };
+
+export const logout = async () => {
+  const response = await axiosInstance({ refresh: true }).post('/auth/logout');
+  return response;
+};
