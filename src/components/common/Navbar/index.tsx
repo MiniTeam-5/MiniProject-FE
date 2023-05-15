@@ -49,11 +49,6 @@ function Navbar() {
   };
 
   useEffect(() => {
-    if (!alarmList) return;
-    const { newAlarmList } = alarmList;
-    if (newAlarmList.length > 0) {
-      setAlarm(true);
-    }
     const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
@@ -63,6 +58,12 @@ function Navbar() {
     source.addEventListener('alarm', () => {
       setAlarm(true);
     });
+    if (alarmList) {
+      const { newAlarmList } = alarmList;
+      if (newAlarmList.length > 0) {
+        setAlarm(true);
+      }
+    }
 
     return () => {
       source.close();
