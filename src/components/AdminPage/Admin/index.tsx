@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSelector } from 'react-redux';
 import { UserList } from '../../../interfaces/user';
-import { ILoginedUser } from '../../../interfaces/store';
 import AdminUserList from '../AdminUserList';
+import { RootState } from '../../../store';
 
 function Admin() {
   const [users, setUsers] = useState<UserList[]>([]);
@@ -16,7 +16,7 @@ function Admin() {
   const [searchValue, setSearchValue] = useState('');
   const DeleteSwal = withReactContent(Swal);
 
-  const loginUser: ILoginedUser = useSelector((state: any) => state.loginedUser);
+  const loginUser = useSelector((state: RootState) => state.loginedUser);
 
   useEffect(() => {
     getUsers(url)
@@ -52,7 +52,6 @@ function Admin() {
         if (loginUser.role === 'ROLE_MASTER') {
           changeRole(userId, user.role);
         }
-        //changeRole(userId, user.role);
         return {
           ...user,
           isEditing: false

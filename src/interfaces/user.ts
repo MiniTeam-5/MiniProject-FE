@@ -1,4 +1,4 @@
-import { ILoginedUser } from './store';
+import { RootState } from '../store';
 import { USER_TYPES } from '../constants/navbarConstants';
 
 export interface IUser {
@@ -50,7 +50,7 @@ export interface AdminUserListProps {
   index: number;
   users: UserList[];
   user: UserList;
-  loginUser: ILoginedUser;
+  loginUser: RootState['loginedUser'];
   handleAdminClick: (userId: number) => void;
   handleSaveClick: (userId: number) => void;
   handleRoleChange: (event: React.ChangeEvent<HTMLSelectElement>, userId: number) => void;
