@@ -1,4 +1,5 @@
 import { ILoginedUser } from './store';
+import { USER_TYPES } from '../constants/navbarConstants';
 
 export interface IUser {
   status: string;
@@ -34,7 +35,7 @@ export interface UserData {
   profile?: File | null;
 }
 
-export interface User {
+export interface UserList {
   id: number;
   username: string;
   email: string;
@@ -57,4 +58,8 @@ export interface AdminUserListProps {
   handlePlusClick: (userId: number) => void;
   handleDeleteClick: (userId: number) => void;
   openDeleteModal: (userId: number) => void;
+}
+
+export interface User {
+  role: keyof typeof USER_TYPES;
 }

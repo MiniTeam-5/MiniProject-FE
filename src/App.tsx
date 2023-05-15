@@ -5,7 +5,9 @@ import { theme } from './styles/theme.ts';
 import { Provider } from 'react-redux';
 import store from './store/index.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
+//@ts-ignore
 import { PersistGate } from 'redux-persist/integration/react';
+//@ts-ignore
 import persistStore from 'redux-persist/es/persistStore';
 
 const queryClient = new QueryClient();
