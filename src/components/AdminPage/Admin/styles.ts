@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  width: 1000px;
+  position: relative;
+`;
 export const IndexDiv = styled.div`
   display: flex;
-  width: 1000px;
   height: 63px;
   font-size: 16px;
   background-color: ${({ theme }) => theme.color.navbar};
@@ -15,7 +17,6 @@ export const IndexDiv = styled.div`
 
 export const UserDiv = styled.div`
   display: flex;
-  width: 1000px;
   height: 63px;
   border: 2px solid ${({ theme }) => theme.color.inputBorder};
   border-top: 0px;
@@ -126,9 +127,9 @@ export const SearchBox = styled.div`
   display: flex;
   border-radius: 10px;
   position: absolute;
-  top: 110px;
+  top: -60px;
   //left: 830px;
-  right: 535px;
+  right: 0;
 `;
 
 export const SearchIcon = styled.img`
