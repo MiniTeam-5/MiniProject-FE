@@ -85,9 +85,8 @@ export const deleteApplication = async (id: number) => {
 export const applySchedule = async (data: IApplySchedule) => {
   try {
     const response = await axiosInstance().post('/auth/leave/apply', data);
-    return response.data;
+    return response;
   } catch (error: any) {
-    console.log(error.response.data);
     throw new Error(error.response.data.data.value);
   }
 };

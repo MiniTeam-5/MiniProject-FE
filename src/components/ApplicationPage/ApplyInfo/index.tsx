@@ -22,16 +22,14 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
   })();
 
   const { mutate, isLoading } = useMutation(applySchedule, {
-    onSuccess: (data) => {
-      if (data.status === 200) {
-        MySwal.fire({
-          icon: 'success',
-          title: '신청이 완료되었습니다.'
-        }).then(() => {
-          dispatch(setRemainDays(selectDays));
-          navigate('/');
-        });
-      }
+    onSuccess: () => {
+      MySwal.fire({
+        icon: 'success',
+        title: '신청이 완료되었습니다.'
+      }).then(() => {
+        dispatch(setRemainDays(selectDays));
+        navigate('/');
+      });
     },
     onError: (error: any) => {
       MySwal.fire({
