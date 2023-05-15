@@ -6,7 +6,7 @@ import { RootState } from '../../../../store';
 import formatDateString from '../../../../utils/dateUtils';
 
 function AlarmCard({ alarmStatus, data }: IAlarmCardProps) {
-  const { role } = useSelector((state: RootState) => state.loginedUser);
+  const { role, username: loginedUser } = useSelector((state: RootState) => state.loginedUser);
   const { username, startDate, endDate, usingDays, type, status, createdAt } = data;
 
   const newStartDate = new Date(startDate);
