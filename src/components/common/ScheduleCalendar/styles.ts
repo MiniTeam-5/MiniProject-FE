@@ -41,3 +41,9 @@ export const StyleWrapper = styled.div`
     text-decoration: none;
   }
 `;
+
+export const Info = styled.p`
+  position: absolute;
+  top: -30px;
+  right: 0;
+`;

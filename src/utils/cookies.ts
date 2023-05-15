@@ -7,7 +7,7 @@ export const getCookie = (name: string) => {
   try {
     return cookies.get(name);
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 

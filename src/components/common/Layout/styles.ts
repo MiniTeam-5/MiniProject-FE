@@ -7,6 +7,7 @@ export const Wrap = styled.div`
 `;
 
 export const Container = styled.div`
+  position: relative;
   margin-left: 300px;
   width: 100%;
   padding: 50px 70px;

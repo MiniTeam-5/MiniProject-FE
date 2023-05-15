@@ -1,11 +1,18 @@
 export interface IAlarmProps {
-  data: IAlarm[];
+  data: {
+    prevAlarmList: IAlarm[];
+    newAlarmList: IAlarm[];
+  };
   handleCloseAlarm: () => void;
 }
 export interface IPrevAlarmsState {
   [id: number]: IAlarm[];
 }
 
+export interface IAlarmList {
+  prevAlarmList: IAlarm[];
+  newAlarmList: IAlarm[];
+}
 export interface IAlarm {
   id: number;
   username: string;
@@ -17,5 +24,6 @@ export interface IAlarm {
   createdAt: Date;
 }
 export interface IAlarmCardProps {
+  alarmStatus: 'new' | 'prev';
   data: IAlarm;
 }
