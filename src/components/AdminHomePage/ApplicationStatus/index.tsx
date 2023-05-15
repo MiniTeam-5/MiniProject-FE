@@ -10,7 +10,7 @@ function ApplicationStatus() {
   const queryClient = useQueryClient();
 
   const approveLeaveMutation = useMutation(
-    (data: { id: number; status: string }) => approveLeave(data.id, data.status),
+    (data: { id: number; status: string }) => approveLeave({ id: data.id, status: data.status }),
     {
       //@ts-ignore
       onSuccess: (data: ApprovalResponse, variables: { id: number; status: string }) => {
