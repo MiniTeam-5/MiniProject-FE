@@ -49,10 +49,10 @@ function SignupPage() {
   };
   return (
     <S.SignupContainer>
-      <S.SignupBanner src='../../../public/assets/banner02.png' alt='banner' />
+      <S.SignupBanner src='assets/banner02.png' alt='banner' />
       <S.SignupFormContainer>
         <S.SignupHeader>
-          <S.SignupLogo src='../../../public/assets/logo.png' alt='logo' />
+          <S.SignupLogo src='assets/logo.png' alt='logo' />
           <p className='close' onClick={() => navigate('/login')}>
             X
           </p>

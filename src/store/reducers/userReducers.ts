@@ -1,34 +1,11 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import { ILoginedUser } from '../../interfaces/store';
 
-// const initialState = {
-//       id: '',
-//       email: '',
-//       username: '',
-//       profile: '',
-//       role: '',
-//       remainDays: 0,
-//       hireDate: ''
-// }
-
-// const loginedUser = createSlice({
-//   name: 'loginedUser',
-//   initialState,
-//   reducers:{
-//     setUserLogin: (state, action) => {
-//       state = action.payload;
-//     }
-//   }
-// })
-
-// export const {setUserLogin} = loginedUser.actions;
-
-// export default loginedUser.reducer;
-
 export const userLogin = createAction<ILoginedUser>('loginedUser/login');
 export const reduceRemainDays = createAction<number>('loginedUser/reduceRemainDays');
 export const profileImg = createAction<string>('loginedUser/profileImg');
 export const userRole = createAction<string>('loginedUser/userRole');
+export const removeUserInfo = createAction('loginedUser/removeUserInfo');
 const loginedUser = createReducer(
   {
     id: '',
@@ -66,6 +43,18 @@ const loginedUser = createReducer(
       return {
         ...state,
         role: action.payload
+      };
+    },
+    // @ts-ignore
+    [removeUserInfo]: () => {
+      return {
+        id: '',
+        email: '',
+        username: '',
+        profile: '',
+        role: '',
+        remainDays: 0,
+        hireDate: ''
       };
     }
   }
