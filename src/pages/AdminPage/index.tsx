@@ -1,4 +1,3 @@
-import React from 'react';
 import Admin from '../../components/AdminPage/Admin';
 import PageTitle from '../../components/common/PageTitle';
 import { useSelector } from 'react-redux';

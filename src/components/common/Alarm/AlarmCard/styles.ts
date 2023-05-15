@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 
 export const CardLi = styled.li`
-  padding: 10px 0;
-  margin-bottom: 16px;
+  padding: 10px;
+  padding-top: 20px;
+  /* margin-bottom: 16px; */
   border-bottom: 2px solid ${({ theme }) => theme.color.inputBorder};
   color: ${({ theme }) => theme.color.text};
+  &.new {
+    background-color: #ebf8fb;
+  }
 `;
 export const StatusText = styled.p`
+  position: relative;
   margin-bottom: 8px;
   font-size: 15px;
+
   span {
     font-weight: 600;
   }

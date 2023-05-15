@@ -1,16 +1,13 @@
 // @ts-nocheck
 import ApplicationStatus from './ApplicationStatus';
 import * as S from './styles';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { deleteApplication, getSchedule } from '../../apis/auth';
-import { AxiosError } from 'axios';
-import Swal from 'sweetalert2';
+import { useQuery } from 'react-query';
+import { getSchedule } from '../../apis/auth';
 import { UserApplication } from '../../interfaces/application';
 import { useSelector } from 'react-redux';
 
 function UserMainPage() {
   const userId = useSelector((state) => state.loginedUser.id);
-  const queryClient = useQueryClient();
 
   // 가까운 날짜 순으로 정렬
   function sortByStartDate(a: { startDate: string }, b: { startDate: string }): number {
@@ -20,19 +17,8 @@ function UserMainPage() {
   }
 
   // 특정 유저 연차/당직 정보
-  const { data: userSchedule } = useQuery('schedule', () => getSchedule(userId));
-
-  const { mutate } = useMutation(deleteApplication, {
-    onSuccess() {
-      queryClient.invalidateQueries('schedule');
-      queryClient.invalidateQueries('schedules');
-    },
-    onError(error: AxiosError) {
-      Swal.fire({
-        icon: 'error',
-        text: error?.response?.data?.data?.value
-      });
-    }
+  const { data: userSchedule } = useQuery(['schedule', userId], () => getSchedule(userId), {
+    initialData: []
   });
 
   const annualList = userSchedule?.data?.filter((item: UserApplication) => item.type === 'ANNUAL');
@@ -49,8 +35,8 @@ function UserMainPage() {
   return (
     <>
       <S.UserMain>
-        <ApplicationStatus title='연차 신청 현황' annualList={filteredAnnualList} mutate={mutate} />
-        <ApplicationStatus title='당직 신청 현황' dutyList={filteredDutyList} mutate={mutate} />
+        <ApplicationStatus applyType='연차' annualList={filteredAnnualList} />
+        <ApplicationStatus applyType='당직' dutyList={filteredDutyList} />
       </S.UserMain>
     </>
   );

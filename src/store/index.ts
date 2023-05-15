@@ -3,10 +3,10 @@ import { createLogger } from 'redux-logger';
 import loginedUserReducer from './reducers/userReducers';
 import prevAlarmsReducer from './reducers/alarmSlice';
 import editUserReducer from './reducers/editUserSlice';
+import userEmailReducer from './reducers/rememberEmailSlice';
 // @ts-ignore
 import storage from 'redux-persist/lib/storage';
-// @ts-ignore
-import persistReducer from 'redux-persist/es/persistReducer';
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const logger = createLogger();
 
@@ -15,19 +15,31 @@ const persistConfig = {
   storage
 };
 
+const persistUserConfig = {
+  key: 'userEmail',
+  storage
+};
+
 const persistedReducer = persistReducer(persistConfig, prevAlarmsReducer);
+const rememberReducer = persistReducer(persistUserConfig, userEmailReducer);
 
 const rootReducer = combineReducers({
   loginedUser: loginedUserReducer,
   prevAlarms: persistedReducer,
-  editUser: editUserReducer
+  editUser: editUserReducer,
+  rememberEmail: rememberReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    }).concat(logger)
 });
 
 export default store;

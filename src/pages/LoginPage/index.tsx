@@ -1,71 +1,103 @@
 // @ts-nocheck
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as S from './styles';
-import { useState } from 'react';
+import { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookies';
 
 const RegexID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
 
 function LoginPage() {
+  const userEmail = useSelector((state: any) => state.rememberEmail);
+  const loginedUser = useSelector((state: any) => state.loginedUser);
+
+  const navigate = useNavigate();
+
+  const emailErrorRef = useRef<HTMLSpanElement>(null);
+  const passwordErrorRef = useRef<HTMLSpanElement>(null);
+
+  const inputEmail = useRef<HTMLInputElement>(null);
+
   const [isChecked, setIsChecked] = useState(false);
 
   const [values, setValues] = useState({
     email: '',
     password: ''
   });
-  const HandleChange = (e) => {
+  const handleChange = (e: SyntheticEvent) => {
     e.preventDefault();
+    const target = e.target as HTMLInputElement;
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      [target.name]: target.value
     });
-    const targetValue = `target_${e.target.name}`;
-    const targetEl = document.querySelector(`#${targetValue}`);
-
-    switch (targetValue) {
-      case 'target_email':
-        targetEl.style.display = RegexID.test(e.target.value) ? 'none' : 'block';
-        break;
-      case 'target_password':
-        targetEl.style.display = RegexPW.test(e.target.value) ? 'none' : 'block';
-        break;
+    if (emailErrorRef.current && passwordErrorRef.current) {
+      switch (target.name) {
+        case 'email':
+          emailErrorRef.current.style.display = RegexID.test(target.value) ? 'none' : 'block';
+          break;
+        case 'password':
+          passwordErrorRef.current.style.display = RegexPW.test(target.value) ? 'none' : 'block';
+          break;
+      }
     }
   };
+  useEffect(() => {
+    if (getCookie('accessToken')) {
+      console.log('토큰있음');
 
-  const ChangeCheckbox = () => {
+      alert('이미 로그인 되어 있습니다.');
+      navigate('/');
+    } else console.log('토큰없음');
+    if (userEmail.checked) {
+      setIsChecked(true);
+      if (inputEmail.current != null) {
+        setValues({ email: userEmail.email });
+        inputEmail.current.value = userEmail.email;
+      }
+    }
+  }, []);
+  const changeCheckbox = () => {
     setIsChecked(!isChecked);
   };
 
-  const Login = useLogin();
+  const login = useLogin(isChecked);
 
-  const HandleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    Login(values);
+    login(values);
   };
 
   return (
     <S.Login>
       <S.LoginContainer>
-        <S.LoginLogo src='../../../public/assets/logo.png' alt='logo' />
+        <S.LoginLogo src='assets/logo.png' alt='logo' />
         <S.LoginWelcomeP>Welcome Back!</S.LoginWelcomeP>
-        <form onSubmit={HandleSubmit} onChange={HandleChange}>
+        <form onSubmit={handleSubmit} onChange={handleChange}>
           <S.LoginForm>
             <div className='login_email'>
               <p>Email</p>
-              <S.LoginInput type='text' name='email' placeholder='이메일' className='login_email' />
-              <span id='target_email'>올바른 이메일 형식이 아닙니다.</span>
+              <S.LoginInput type='text' name='email' placeholder='이메일' className='login_email' ref={inputEmail} />
+              <span ref={emailErrorRef}>올바른 이메일 형식이 아닙니다.</span>
             </div>
 
             <div className='login_password'>
               <p>Password</p>
               <S.LoginInput type='password' name='password' placeholder='비밀번호' className='login_password' />
-              <span id='target_password'>올바른 비밀번호 형식이 아닙니다.</span>
+              <span ref={passwordErrorRef}>올바른 비밀번호 형식이 아닙니다.</span>
             </div>
 
-            <div className='login_checkbox' onClick={ChangeCheckbox}>
-              <input type='checkbox' checked={isChecked} onChange={ChangeCheckbox} className='saveEmail' />
+            <div className='login_checkbox' onClick={changeCheckbox}>
+              <input
+                type='checkbox'
+                checked={isChecked}
+                onChange={(e) => {
+                  setIsChecked(e.target.checked);
+                }}
+                className='saveEmail'
+              />
               <p>이메일 주소 기억하기</p>
             </div>
 
@@ -80,7 +112,7 @@ function LoginPage() {
           </S.LoginForm>
         </form>
       </S.LoginContainer>
-      <S.LoginBanner src='../../../public/assets/banner01.png' alt='Banner' />
+      <S.LoginBanner src='assets/banner01.png' alt='Banner' />
     </S.Login>
   );
 }

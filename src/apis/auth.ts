@@ -1,6 +1,7 @@
 import { ISignup, ModifiedInDTO, UserData } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
+import { AxiosResponse } from 'axios';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -70,9 +71,10 @@ export const deleteApplication = async (id: number) => {
 export const applySchedule = async (data: IApplySchedule) => {
   try {
     const response = await axiosInstance().post('/auth/leave/apply', data);
-    return response.data;
+    return response;
   } catch (error: any) {
-    return error.response;
+    const errorText = error.response.data?.data?.value;
+    if (errorText) throw new Error(errorText);
   }
 };
 
@@ -88,15 +90,16 @@ export const login = async ({ email, password }: { email: string; password: stri
 
 export const signup = async (item: ISignup) => {
   const response = await axiosInstance().post('/join', item);
-
-  if (response.status.toString() === '400') return Error(response.data);
-
   return response.data;
 };
 
-export const refresh = async () => {
-  const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
-  return response;
+export const refresh = async (): Promise<AxiosResponse> => {
+  try {
+    const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
+    return response;
+  } catch (err: any) {
+    throw new Error(err.response.data);
+  }
 };
 
 export const getUserData = async () => {
