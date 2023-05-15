@@ -48,8 +48,8 @@ export interface UserList {
 
 export interface AdminUserListProps {
   index: number;
-  users: User[];
-  user: User;
+  users: UserList[];
+  user: UserList;
   loginUser: ILoginedUser;
   handleAdminClick: (userId: number) => void;
   handleSaveClick: (userId: number) => void;

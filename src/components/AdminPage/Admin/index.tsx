@@ -4,13 +4,13 @@ import { getUsers, changeRole, changeAnnual, resignUser, getSearchData } from '.
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSelector } from 'react-redux';
-import { User } from '../../../interfaces/user';
+import { UserList } from '../../../interfaces/user';
 import { ILoginedUser } from '../../../interfaces/store';
 import AdminUserList from '../AdminUserList';
 import { useQuery } from 'react-query';
 
 function Admin() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserList[]>([]);
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [url, setUrl] = useState('');
