@@ -10,6 +10,7 @@ import CalendarGuide from '../../common/CalendarGuide';
 import { DateSelectArg, EventContentArg } from '@fullcalendar/core/index.js';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 import { useSelector } from 'react-redux';
+import Loading from '../../common/Loading';
 
 function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const today = new Date().toISOString().split('T')[0];
@@ -49,10 +50,10 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     const selectDays = (() => {
       const startDate = new Date(date.startStr);
       const endDate = new Date(date.endStr);
-      const oneDay = 1000 * 60 * 60 * 24; // milliseconds in a day
+      const oneDay = 1000 * 60 * 60 * 24;
       const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
       const diffDays = Math.ceil(diffTime / oneDay);
-      return diffDays + 1; // include start date
+      return diffDays;
     })();
     if (selectDays > remainDays) {
       showAlert('잔여 연차 일수보다 많은 날짜를 선택할 수 없습니다.');
@@ -91,9 +92,10 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     }
   }, [select]);
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loading />;
   return (
     <S.StyleWrapper>
+      {select === 'ANNUAL' && <S.Info>잔여 연차 일수 : {remainDays}일</S.Info>}
       <CalendarGuide />
       <FullCalendar
         ref={calendarRef}

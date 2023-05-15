@@ -1,14 +1,7 @@
-import { ISignup } from '../interfaces/user';
+import { ISignup, ModifiedInDTO, UserData } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
-
-interface ModifiedInDTO {
-  email: string;
-  username: string;
-  newPassword?: string;
-  checkPassword?: string;
-  profileToDelete?: string;
-}
+import { AxiosResponse } from 'axios';
 
 export const getSchedules = async () => {
   const response = await axiosInstance().get('/auth/leave/all');
@@ -36,18 +29,12 @@ export const changeAnnual = async (id: number, remainDays: number) => {
 };
 
 export const getUser = async () => {
-  const response = await axiosInstance().get(`/auth/user/`);
+  const response = await axiosInstance().get('/auth/user/');
   return response.data;
 };
 
-export const editUser = async (
-  email: string,
-  username: string,
-  newPassword: string,
-  checkPassword: string,
-  profileToDelete: string,
-  profile: File | null
-) => {
+export const editUser = async (userData: UserData) => {
+  const { email, username, newPassword, checkPassword, profileToDelete, profile } = userData;
   const formData = new FormData();
   if (profile) {
     formData.append('profile', profile);
@@ -84,9 +71,10 @@ export const deleteApplication = async (id: number) => {
 export const applySchedule = async (data: IApplySchedule) => {
   try {
     const response = await axiosInstance().post('/auth/leave/apply', data);
-    return response.data;
+    return response;
   } catch (error: any) {
-    return error.response.data;
+    const errorText = error.response.data?.data?.value;
+    if (errorText) throw new Error(errorText);
   }
 };
 
@@ -105,9 +93,13 @@ export const signup = async (item: ISignup) => {
   return response.data;
 };
 
-export const refresh = async () => {
-  const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
-  return response;
+export const refresh = async (): Promise<AxiosResponse> => {
+  try {
+    const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
+    return response;
+  } catch (err: any) {
+    throw new Error(err.response.data);
+  }
 };
 
 export const getUserData = async () => {

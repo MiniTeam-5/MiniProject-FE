@@ -41,3 +41,33 @@ export const StyleWrapper = styled.div`
     text-decoration: none;
   }
 `;
+
+export const FileDownloadButton = styled.button`
+  position: absolute;
+  top: 4px;
+  right: 285px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 30px;
+  margin-right: 22px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 300;
+  background-color: #449467;
+
+  .excel-icon {
+    margin-right: 8px;
+  }
+
+  > p {
+    font-size: 12px;
+  }
+`;
+
+export const Info = styled.p`
+  position: absolute;
+  top: -30px;
+  right: 0;
+`;

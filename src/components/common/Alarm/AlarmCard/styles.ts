@@ -1,23 +1,38 @@
 import styled from 'styled-components';
 
 export const CardLi = styled.li`
-  padding: 10px 0;
-  margin-bottom: 16px;
+  padding: 10px;
+  padding-top: 20px;
+  /* margin-bottom: 16px; */
   border-bottom: 2px solid ${({ theme }) => theme.color.inputBorder};
   color: ${({ theme }) => theme.color.text};
+  &.new {
+    background-color: #ebf8fb;
+  }
 `;
 export const StatusText = styled.p`
+  position: relative;
   margin-bottom: 8px;
   font-size: 15px;
+
+  span {
+    font-weight: 600;
+  }
+  .ANNUAL {
+    color: ${({ theme }) => theme.color.status03};
+  }
+  .DUTY {
+    color: ${({ theme }) => theme.color.status02};
+  }
 `;
 export const Status = styled.span`
   padding: 2px 6px;
   border-radius: 10px;
   color: ${({ theme }) => theme.color.buttonText};
-  &.승인 {
+  &.APPROVAL {
     background-color: ${({ theme }) => theme.color.status03};
   }
-  &.거절 {
+  &.REJECTION {
     background-color: ${({ theme }) => theme.color.status02};
   }
 `;

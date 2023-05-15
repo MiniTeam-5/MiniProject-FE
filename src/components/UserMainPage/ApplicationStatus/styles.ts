@@ -13,11 +13,12 @@ export const ApplicationStatus = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 486px;
+  min-width: 486px;
+  width: 48%;
   height: 230px;
   padding: 26px 36px;
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.color.navbarText};
+  border-radius: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   color: ${({ theme }) => theme.color.text};
 `;
 
