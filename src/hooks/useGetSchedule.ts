@@ -3,13 +3,11 @@ import { getSchedules } from '../apis/auth';
 import { IUseScheduleQuery } from '../interfaces/common';
 import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../interfaces/store';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
-  const { id } = useSelector((state: IRootState) => state.loginedUser);
-  const { data, isLoading, error, refetch } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
-    staleTime: Infinity
+  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
+    staleTime: Infinity,
+    cacheTime: 0
   });
   const { pathname } = useLocation();
 
