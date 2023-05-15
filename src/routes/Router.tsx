@@ -21,11 +21,13 @@ function Router() {
             <Route path='/editProfile' element={<EditProfilePage />} />
             <Route path='/viewSchedule' element={<ViewSchedulePage />} />
             <Route path='/admin' element={<AdminPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignupPage />} />
           </Route>
         </Route>
-        <Route path='*' element={<NotFoundPage />} />
+        <Route element={<ProtectedRouter />}>
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
