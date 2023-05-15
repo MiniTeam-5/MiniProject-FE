@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { UserList } from '../../../interfaces/user';
 import { ILoginedUser } from '../../../interfaces/store';
 import AdminUserList from '../AdminUserList';
-import { useQuery } from 'react-query';
 
 function Admin() {
   const [users, setUsers] = useState<UserList[]>([]);
@@ -79,26 +78,18 @@ function Admin() {
     setUsers(updatedUsers);
   };
 
-  const handleMinusClick = (userId: number) => {
+  const handlePlusMinusClick = (userId: number, isPlus: boolean) => {
     const updatedUsers = users.map((user) => {
-      if (user.id === userId) {
-        return {
-          ...user,
-          remainDays: Math.max(user.remainDays - 1, 0)
-        };
-      } else {
-        return user;
-      }
-    });
-    setUsers(updatedUsers);
-  };
-
-  const handlePlusClick = (userId: number) => {
-    const updatedUsers = users.map((user) => {
-      if (user.id === userId) {
+      if (user.id === userId && isPlus) {
         return {
           ...user,
           remainDays: user.remainDays + 1
+        };
+      }
+      if (user.id === userId && isPlus === false) {
+        return {
+          ...user,
+          remainDays: Math.max(user.remainDays - 1, 0)
         };
       } else {
         return user;
@@ -211,8 +202,7 @@ function Admin() {
           handleAdminClick={handleAdminClick}
           handleSaveClick={handleSaveClick}
           handleRoleChange={handleRoleChange}
-          handleMinusClick={handleMinusClick}
-          handlePlusClick={handlePlusClick}
+          handlePlusMinusClick={handlePlusMinusClick}
           handleDeleteClick={handleDeleteClick}
           openDeleteModal={openDeleteModal}
         />

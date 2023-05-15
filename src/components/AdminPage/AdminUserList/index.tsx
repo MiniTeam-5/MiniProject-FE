@@ -10,9 +10,7 @@ const AdminUserList: React.FC<AdminUserListProps> = ({
   handleAdminClick,
   handleSaveClick,
   handleRoleChange,
-  handleMinusClick,
-  handlePlusClick,
-  handleDeleteClick,
+  handlePlusMinusClick,
   openDeleteModal
 }) => {
   return (
@@ -41,10 +39,10 @@ const AdminUserList: React.FC<AdminUserListProps> = ({
       <S.AnnualBox>
         {user.isEditing ? (
           <>
-            <button onClick={() => handleMinusClick(user.id)} style={{ marginLeft: '3px' }}>
+            <button onClick={() => handlePlusMinusClick(user.id, false)} style={{ marginLeft: '3px' }}>
               -
             </button>
-            {user.remainDays}개<button onClick={() => handlePlusClick(user.id)}>+</button>
+            {user.remainDays}개<button onClick={() => handlePlusMinusClick(user.id, true)}>+</button>
           </>
         ) : (
           `${user.remainDays}개`

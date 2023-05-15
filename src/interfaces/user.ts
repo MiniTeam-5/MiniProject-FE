@@ -54,8 +54,7 @@ export interface AdminUserListProps {
   handleAdminClick: (userId: number) => void;
   handleSaveClick: (userId: number) => void;
   handleRoleChange: (event: React.ChangeEvent<HTMLSelectElement>, userId: number) => void;
-  handleMinusClick: (userId: number) => void;
-  handlePlusClick: (userId: number) => void;
+  handlePlusMinusClick: (userId: number, isPlus: boolean) => void;
   handleDeleteClick: (userId: number) => void;
   openDeleteModal: (userId: number) => void;
 }
