@@ -42,18 +42,15 @@ export const StyleWrapper = styled.div`
   }
 `;
 
-export const ExtraComponents = styled.div`
-  position: absolute;
-  top: 3px;
-  right: 190px;
-  display: flex;
-`;
-
 export const FileDownloadButton = styled.button`
+  position: absolute;
+  top: 4px;
+  right: 285px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 12px;
+  width: 120px;
+  height: 30px;
   margin-right: 22px;
   border-radius: 4px;
   color: #fff;

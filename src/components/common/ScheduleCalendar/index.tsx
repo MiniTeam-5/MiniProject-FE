@@ -46,13 +46,12 @@ function ScheduleCalendar() {
 
   return (
     <S.StyleWrapper>
-      <S.ExtraComponents>
-        <S.FileDownloadButton type='button' onClick={downloadHandler}>
-          <SiMicrosoftexcel className='excel-icon' />
-          <p>엑셀로 저장하기</p>
-        </S.FileDownloadButton>
-        <CalendarGuide />
-      </S.ExtraComponents>
+      <S.FileDownloadButton type='button' onClick={downloadHandler}>
+        <SiMicrosoftexcel className='excel-icon' />
+        <p>엑셀로 저장하기</p>
+      </S.FileDownloadButton>
+
+      <CalendarGuide />
 
       <FullCalendar
         ref={calendarRef}
