@@ -63,10 +63,6 @@ function LoginPage() {
     setIsChecked(!isChecked);
   };
 
-  const handleRememberMe = () => {
-    localStorage.setItem('rememberMe', isChecked ? 'true' : 'false');
-  };
-
   const login = useLogin(isChecked);
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -99,7 +95,6 @@ function LoginPage() {
                 checked={isChecked}
                 onChange={(e) => {
                   setIsChecked(e.target.checked);
-                  handleRememberMe();
                 }}
                 className='saveEmail'
               />
