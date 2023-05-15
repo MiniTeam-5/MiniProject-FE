@@ -4,8 +4,7 @@ import loginedUserReducer from './reducers/userReducers';
 import prevAlarmsReducer from './reducers/alarmSlice';
 // @ts-ignore
 import storage from 'redux-persist/lib/storage';
-// @ts-ignore
-import persistReducer from 'redux-persist/es/persistReducer';
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const logger = createLogger();
 
@@ -25,7 +24,12 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    }).concat(logger)
 });
 
 export default store;
