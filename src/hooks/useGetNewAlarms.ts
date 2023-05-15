@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 import { IAlarm } from '../interfaces/alarm';
 import { IRootState } from '../interfaces/store';
 import { useAlarm } from '../store/reducers/alarmSlice';
+import _ from 'lodash';
 
 export const useGetNewAlarms = () => {
-  const { data, error, isLoading } = useQuery('prevAlarms', getAlarms);
+  const { data, error, isLoading } = useQuery('newAlarms', getAlarms);
   const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { data: prevAlarms } = useAlarm();
   const alarmList: IAlarm[] | undefined = data?.data;
@@ -21,7 +22,8 @@ export const useGetNewAlarms = () => {
     : [];
   const newAlarms = () => {
     if (!alarmList || !id) return;
-    const newAlarmList = alarmList
+    const filteredList = _.uniqBy([...alarmList], 'leaveId');
+    const newAlarmList = filteredList
       .filter((newAlarm: IAlarm) => {
         return !prevAlarmList.some((prevAlarm: IAlarm) => prevAlarm.id === newAlarm.id);
       })
