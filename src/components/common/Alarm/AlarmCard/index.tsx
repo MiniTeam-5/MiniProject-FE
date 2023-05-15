@@ -20,7 +20,7 @@ function AlarmCard({ alarmStatus, data }: IAlarmCardProps) {
   if (role === 'ROLE_USER')
     return (
       <S.CardLi className={alarmStatus}>
-        <S.StatusText className={alarmStatus}>
+        <S.StatusText>
           {typeText} 신청이 <S.Status className={status}>{statusText}</S.Status>되었습니다.
         </S.StatusText>
         <S.ApplyInfo>
@@ -30,7 +30,7 @@ function AlarmCard({ alarmStatus, data }: IAlarmCardProps) {
       </S.CardLi>
     );
   return (
-    <S.CardLi>
+    <S.CardLi className={alarmStatus}>
       <S.StatusText>
         {username}님이 <span className={type}>{typeText}</span>
         {typeText === '연차' ? '를' : '을'} 신청하셨습니다.
