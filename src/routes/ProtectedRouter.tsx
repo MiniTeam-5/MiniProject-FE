@@ -10,6 +10,7 @@ function ProtectedRouter() {
   const { isAuthenticated, isLoading } = useVerifyToken();
   const loginedUser = useSelector((state: RootState) => state.loginedUser);
   const { pathname } = useLocation();
+
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated === 'FAILED' && !isLoading) {

@@ -9,10 +9,12 @@ import NotFoundPage from '../pages/NotFoundPage';
 import ViewSchedulePage from '../pages/ViewSchedulePage';
 import AdminPage from '../pages/AdminPage';
 import ProtectedRouter from './ProtectedRouter';
+import ScrollToTop from '../utils/scrollToTop';
 
 function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<ProtectedRouter />}>
           <Route element={<Layout />}>
