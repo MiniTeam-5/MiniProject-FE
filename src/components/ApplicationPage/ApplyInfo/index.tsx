@@ -32,7 +32,6 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
       });
     },
     onError: (error: any) => {
-      console.log(error);
       MySwal.fire({
         icon: 'error',
         title: '신청에 실패하였습니다.',
