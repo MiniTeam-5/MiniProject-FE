@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import Swal from 'sweetalert2';
 import { fetchLeaveList, approveLeave } from '../../../apis/admin';
-import { ApprovalResponse, LeaveResponse } from '../../../interfaces/applicationStatus';
+import { LeaveResponse } from '../../../interfaces/applicationStatus';
 import formatDateString from '../../../utils/dateUtils';
 import * as S from './styles';
 
@@ -9,7 +9,7 @@ function ApplicationStatus() {
   const { data } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, error } = useMutation(approveLeave, {
+  const { mutate } = useMutation(approveLeave, {
     onSuccess: () => {
       queryClient.invalidateQueries('leaveList');
     },
