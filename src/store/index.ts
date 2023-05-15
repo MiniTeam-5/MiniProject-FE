@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import loginedUserReducer from './reducers/userReducers';
 import prevAlarmsReducer from './reducers/alarmSlice';
+import editUserReducer from './reducers/editUserSlice';
 // @ts-ignore
 import storage from 'redux-persist/lib/storage';
 // @ts-ignore
@@ -18,7 +19,8 @@ const persistedReducer = persistReducer(persistConfig, prevAlarmsReducer);
 
 const rootReducer = combineReducers({
   loginedUser: loginedUserReducer,
-  prevAlarms: persistedReducer
+  prevAlarms: persistedReducer,
+  editUser: editUserReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
