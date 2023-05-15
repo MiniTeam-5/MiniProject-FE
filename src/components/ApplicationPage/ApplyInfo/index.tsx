@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import Loading from '../../common/Loading';
 import { useDispatch } from 'react-redux';
-import { setRemainDays } from '../../../store/reducers/userReducers';
+import { reduceRemainDays } from '../../../store/reducers/userReducers';
 function ApplyInfo({ select, date }: IApplyInfoProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
         icon: 'success',
         title: '신청이 완료되었습니다.'
       }).then(() => {
-        dispatch(setRemainDays(selectDays));
+        if (select === 'ANNUAL') dispatch(reduceRemainDays(selectDays));
         navigate('/');
       });
     },
