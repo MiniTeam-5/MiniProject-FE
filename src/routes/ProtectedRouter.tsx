@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useQueryClient } from 'react-query';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useVerifyToken from '../hooks/useVerifyToken';
 
 function ProtectedRouter() {
