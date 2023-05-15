@@ -21,12 +21,10 @@ import { logout } from '../../../apis/auth';
 function Navbar() {
   // 유저 가져오기
   const loginedUser = useSelector((state: RootState) => state.loginedUser);
-
   // 알람
-
-  const { alarmList, isLoading, newData } = useGetNewAlarms();
-  const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
+  const { alarmList, isLoading } = useGetNewAlarms();
+  const [alarm, setAlarm] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const { dispatch } = useAlarm();
 
@@ -37,19 +35,20 @@ function Navbar() {
     if (!isAlarmOpened) {
       setAlarm(false);
     } else {
-      dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
+      if (!alarmList) return;
+      const { prevAlarmList, newAlarmList } = alarmList;
+      dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
     }
   };
 
   const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
-    dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
+    if (!alarmList) return;
+    const { prevAlarmList, newAlarmList } = alarmList;
+    dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
   };
 
   useEffect(() => {
-    if (alarmList.length > 0) {
-      setAlarm(true);
-    }
     const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
@@ -59,6 +58,12 @@ function Navbar() {
     source.addEventListener('alarm', () => {
       setAlarm(true);
     });
+    if (alarmList) {
+      const { newAlarmList } = alarmList;
+      if (newAlarmList.length > 0) {
+        setAlarm(true);
+      }
+    }
 
     return () => {
       source.close();
@@ -159,7 +164,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
-      {isAlarmOpened && !isLoading && <Alarm data={alarmList} handleCloseAlarm={handleCloseAlarm} />}
+      {isAlarmOpened && !isLoading && alarmList && <Alarm data={alarmList} handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }

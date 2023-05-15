@@ -13,7 +13,11 @@ function ProtectedRouter() {
       navigate('/login');
     }
   }, [isAuthenticated]);
-  return <>{!isLoading && <Outlet />}</>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 }
 
 export default ProtectedRouter;

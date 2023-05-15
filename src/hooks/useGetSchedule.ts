@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '../interfaces/store';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
+  const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
     staleTime: Infinity,
     cacheTime: 0
   });
-  const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { pathname } = useLocation();
 
   if (isLoading || !data?.data) return { data: [], isLoading, error };

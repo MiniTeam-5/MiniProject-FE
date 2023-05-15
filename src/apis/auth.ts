@@ -1,6 +1,7 @@
 import { ISignup } from '../interfaces/user';
 import { IApplySchedule } from '../interfaces/common';
 import { axiosInstance } from './instance';
+import { AxiosResponse } from 'axios';
 
 interface ModifiedInDTO {
   email: string;
@@ -84,9 +85,9 @@ export const deleteApplication = async (id: number) => {
 export const applySchedule = async (data: IApplySchedule) => {
   try {
     const response = await axiosInstance().post('/auth/leave/apply', data);
-    return response.data;
+    return response;
   } catch (error: any) {
-    return error.response;
+    throw new Error(error.response.data.data.value);
   }
 };
 
@@ -108,9 +109,13 @@ export const signup = async (item: ISignup) => {
   return response.data;
 };
 
-export const refresh = async () => {
-  const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
-  return response;
+export const refresh = async (): Promise<AxiosResponse> => {
+  try {
+    const response = await axiosInstance({ refresh: true }).post('/refreshtoken');
+    return response;
+  } catch (err: any) {
+    throw new Error(err.response.data);
+  }
 };
 
 export const getUserData = async () => {
