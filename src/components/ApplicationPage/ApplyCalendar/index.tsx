@@ -94,6 +94,7 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   if (isLoading) return <div>loading...</div>;
   return (
     <S.StyleWrapper>
+      {select === 'ANNUAL' && <S.Info>잔여 연차 일수 : {remainDays}일</S.Info>}
       <CalendarGuide />
       <FullCalendar
         ref={calendarRef}
