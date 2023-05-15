@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../../store';
 import formatDateString from '../../../../utils/dateUtils';
 
-function AlarmCard({ data }: IAlarmCardProps) {
+function AlarmCard({ alarmStatus, data }: IAlarmCardProps) {
   const { role } = useSelector((state: RootState) => state.loginedUser);
   const { username, startDate, endDate, usingDays, type, status, createdAt } = data;
 
@@ -19,8 +19,8 @@ function AlarmCard({ data }: IAlarmCardProps) {
 
   if (role === 'ROLE_USER')
     return (
-      <S.CardLi>
-        <S.StatusText>
+      <S.CardLi className={alarmStatus}>
+        <S.StatusText className={alarmStatus}>
           {typeText} 신청이 <S.Status className={status}>{statusText}</S.Status>되었습니다.
         </S.StatusText>
         <S.ApplyInfo>

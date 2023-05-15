@@ -14,13 +14,13 @@ function Alarm({ data, handleCloseAlarm }: IAlarmProps) {
       </S.CloseBtn>
       <S.AlarmUl>
         {newAlarmList.map((alarm: IAlarm) => {
-          return <AlarmCard key={alarm.id} data={alarm} />;
+          return <AlarmCard key={alarm.id} data={alarm} alarmStatus='new' />;
         })}
         {prevAlarmList.map((alarm: IAlarm) => {
-          return <AlarmCard key={alarm.id} data={alarm} />;
+          return <AlarmCard key={alarm.id} data={alarm} alarmStatus='prev' />;
         })}
       </S.AlarmUl>
-      {isDataExist && <S.InfoText>새로운 알림이 없습니다.</S.InfoText>}
+      {!isDataExist && <S.InfoText>새로운 알림이 없습니다.</S.InfoText>}
     </S.AlarmList>
   );
 }

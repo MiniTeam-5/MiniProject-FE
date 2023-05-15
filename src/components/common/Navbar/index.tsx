@@ -21,12 +21,10 @@ import { logout } from '../../../apis/auth';
 function Navbar() {
   // 유저 가져오기
   const loginedUser = useSelector((state: RootState) => state.loginedUser);
-
   // 알람
-
+  const [isAlarmOpened, setIsAlarmOpened] = useState(false);
   const { alarmList, isLoading } = useGetNewAlarms();
   const [alarm, setAlarm] = useState(false);
-  const [isAlarmOpened, setIsAlarmOpened] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const { dispatch } = useAlarm();
 

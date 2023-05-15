@@ -17,6 +17,7 @@ function useVerifyToken() {
       dispatch(userLogin(userData));
     },
     onError: () => {
+      // console.log('refresh token error') status code로 관리해줘~
       setIsAuthenticated('FAILED');
     },
     retry: 0

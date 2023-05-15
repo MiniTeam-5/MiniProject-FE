@@ -24,5 +24,6 @@ export interface IAlarm {
   createdAt: Date;
 }
 export interface IAlarmCardProps {
+  alarmStatus: 'new' | 'prev';
   data: IAlarm;
 }
