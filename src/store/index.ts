@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import loginedUserReducer from './reducers/userReducers';
 import prevAlarmsReducer from './reducers/alarmSlice';
+import editUserReducer from './reducers/editUserSlice';
 import userEmailReducer from './reducers/rememberEmailSlice';
 // @ts-ignore
 import storage from 'redux-persist/lib/storage';
@@ -25,6 +26,7 @@ const rememberReducer = persistReducer(persistUserConfig, userEmailReducer);
 const rootReducer = combineReducers({
   loginedUser: loginedUserReducer,
   prevAlarms: persistedReducer,
+  editUser: editUserReducer,
   rememberEmail: rememberReducer
 });
 

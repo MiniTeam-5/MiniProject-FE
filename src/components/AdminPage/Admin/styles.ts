@@ -128,7 +128,7 @@ export const SearchBox = styled.div`
   position: absolute;
   top: 110px;
   //left: 830px;
-  right: 158px;
+  right: 535px;
 `;
 
 export const SearchIcon = styled.img`
