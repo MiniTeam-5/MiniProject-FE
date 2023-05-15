@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import Swal from 'sweetalert2';
 import { fetchLeaveList, approveLeave } from '../../../apis/admin';
-import { ApprovalResponse, LeaveResponse } from '../../../interfaces/applicationStatus';
+import { LeaveResponse } from '../../../interfaces/applicationStatus';
 import formatDateString from '../../../utils/dateUtils';
 import * as S from './styles';
 
@@ -9,22 +9,18 @@ function ApplicationStatus() {
   const { data } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
   const queryClient = useQueryClient();
 
-  const approveLeaveMutation = useMutation(
-    (data: { id: number; status: string }) => approveLeave({ id: data.id, status: data.status }),
-    {
-      //@ts-ignore
-      onSuccess: (data: ApprovalResponse, variables: { id: number; status: string }) => {
-        // 성공적으로 API 호출이 끝났을 때 실행되는 콜백 함수
-        console.log(`Successfully approved leave request ${variables.id} with status ${variables.status}`);
-        queryClient.invalidateQueries('leaveList');
-      },
-      onError: (error: Error) => {
-        // API 호출 중 에러가 발생했을 때 실행되는 콜백 함수
-        console.log(`Error occurred while approving leave request: ${error}`);
-        queryClient.invalidateQueries('leaveList');
-      }
+  const { mutate } = useMutation(approveLeave, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('leaveList');
+    },
+    onError: (error: any) => {
+      Swal.fire({
+        title: error.response.data.status === 400 ? error.response.data.data.value : error.response.data.data,
+        icon: 'error'
+      });
+      queryClient.invalidateQueries('leaveList');
     }
-  );
+  });
 
   const handleApproveLeave = (id: number, status: string, username: string, type: string, dateString: string) => {
     Swal.fire({
@@ -38,7 +34,7 @@ function ApplicationStatus() {
       cancelButtonText: '아니오'
     }).then((result) => {
       if (result.isConfirmed) {
-        approveLeaveMutation.mutate({ id, status });
+        mutate({ id, status });
         Swal.fire('승인 완료', '해당 신청이 승인되었습니다.', 'success');
       } else {
         Swal.fire('승인 취소', '해당 신청이 승인되지 않았습니다.', 'info');
