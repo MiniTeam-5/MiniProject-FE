@@ -1,7 +1,10 @@
-// @ts-nocheck
 import { useEffect, useState, useRef } from 'react';
 import * as S from './styles';
 import { getUser, editUser } from '../../../apis/auth';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 interface User {
   id: number;
@@ -21,6 +24,8 @@ function EditProfile() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [profileToDelete, setProfileToDelete] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const EditSwal = withReactContent(Swal);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUser()
@@ -58,20 +63,43 @@ function EditProfile() {
     user.profile = 'https://lupinbucket.s3.ap-northeast-2.amazonaws.com/person.png';
   };
 
+  const openModal = () => {
+    return EditSwal.fire({
+      icon: 'success',
+      title: '프로필이 수정되었습니다.',
+      confirmButtonColor: '#0675E5',
+      confirmButtonText: '확인'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('User edited successfully');
+        navigate('/');
+      }
+    });
+  };
+
   const handleEdit = () => {
     if (newPassword !== confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
     }
 
-    const updatedUser = { ...user, password: newPassword, profile: imgFile };
+    const editUserData = {
+      email: user.email,
+      username: user.username,
+      newPassword: newPassword,
+      checkPassword: confirmPassword,
+      profileToDelete: profileToDelete,
+      profile: imgFile
+    };
 
-    editUser(user.email, user.username, newPassword, confirmPassword, profileToDelete, imgFile)
+    editUser(editUserData)
       .then((response) => {
         console.log('User updated successfully');
         setNewPassword('');
         setConfirmPassword('');
         setProfileToDelete('');
+
+        openModal();
       })
       .catch((error) => {
         console.error('Error updating user', error);
