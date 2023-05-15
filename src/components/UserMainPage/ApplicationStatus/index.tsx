@@ -4,9 +4,33 @@ import { ApplicationStatusProps } from '../../../interfaces/application';
 import Swal from 'sweetalert2';
 import { CancelApplication } from '../../../interfaces/application';
 import { useSelector } from 'react-redux';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteApplication } from '../../../apis/auth';
+import { getUser } from '../../../apis/auth';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../../store/reducers/userReducers';
 
-function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationStatusProps) {
+function ApplicationStatus({ applyType, annualList, dutyList }: ApplicationStatusProps) {
   const remainDays = useSelector((state) => state.loginedUser.remainDays);
+  const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(deleteApplication, {
+    onSuccess: async () => {
+      queryClient.invalidateQueries('schedule');
+      queryClient.invalidateQueries('schedules');
+
+      const response = (await getUser()).data;
+      dispatch(userLogin(response));
+    },
+    onError(error: AxiosError) {
+      Swal.fire({
+        icon: 'error',
+        text: error?.response?.data?.data?.value
+      });
+    }
+  });
 
   const cancelHandler = ({ id, type, startDate, endDate }: CancelApplication) => {
     const leaveType = type === 'ANNUAL' ? '연차' : '당직';
@@ -27,9 +51,8 @@ function ApplicationStatus({ title, annualList, dutyList, mutate }: ApplicationS
   return (
     <S.ApplicationStatus>
       <S.Header>
-        <S.Type>{title}</S.Type>
-
-        {annualList && <S.NumberOfAnnual>남은 연차 : {remainDays}개</S.NumberOfAnnual>}
+        <S.Type>{applyType} 신청 현황</S.Type>
+        {applyType === '연차' && <S.NumberOfAnnual>남은 연차 : {remainDays}개</S.NumberOfAnnual>}
       </S.Header>
 
       {/* 연차 신청 현황 */}
