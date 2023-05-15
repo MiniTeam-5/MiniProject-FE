@@ -53,7 +53,8 @@ function Navbar() {
     const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
+      heartbeatTimeout: 1000 * 60 * 20
     });
     setNewSource(source);
     source.addEventListener('alarm', () => {
