@@ -4,9 +4,10 @@ import { fetchLeaveList, approveLeave } from '../../../apis/admin';
 import { LeaveResponse } from '../../../interfaces/applicationStatus';
 import formatDateString from '../../../utils/dateUtils';
 import * as S from './styles';
+import Loading from '../../common/Loading';
 
 function ApplicationStatus() {
-  const { data } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
+  const { data, isLoading } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(approveLeave, {
@@ -42,6 +43,7 @@ function ApplicationStatus() {
     });
   };
 
+  if (isLoading) return <Loading />;
   if (!data) {
     return (
       <S.ApplicationStatus>
@@ -59,7 +61,6 @@ function ApplicationStatus() {
         new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
     )
   };
-
   return (
     <S.ApplicationStatus>
       <S.Title>
