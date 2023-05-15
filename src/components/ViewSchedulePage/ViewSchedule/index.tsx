@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 function ViewSchedule() {
   const userId = useSelector((state) => state.loginedUser.id);
 
-  const { data } = useQuery(['user'], () => getSchedule(userId), { staleTime: Infinity });
+  const { data } = useQuery(['user'], () => getSchedule(userId), { staleTime: Infinity, enabled: !!userId });
 
   const schedule = data && data['data'];
 
