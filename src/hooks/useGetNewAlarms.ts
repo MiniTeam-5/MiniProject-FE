@@ -12,23 +12,21 @@ export const useGetNewAlarms = () => {
   const alarmList: IAlarm[] | undefined = data?.data;
   // 이전 데이터가 없을 때, 즉 로그인을 처음한 유저일 때 alarmList 전체 출력
   // 이전 데이터가 있으면, 이전 데이터와 비교해서 새로운 데이터만 출력
+
+  const storedList = prevAlarms[id] || [];
+  const prevAlarmList = storedList.sort((a: IAlarm, b: IAlarm) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
   const newAlarms = () => {
     if (!alarmList || !id) return;
-    const prevUserAlarms = prevAlarms[id];
-    if (!prevUserAlarms) {
-      const newAlarmList = alarmList.sort((a: IAlarm, b: IAlarm) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
-      return newAlarmList;
-    }
     const newAlarmList = alarmList
       .filter((newAlarm: IAlarm) => {
-        return !prevUserAlarms.some((prevAlarm: IAlarm) => prevAlarm.id === newAlarm.id);
+        return !storedList.some((prevAlarm: IAlarm) => prevAlarm.id === newAlarm.id);
       })
       .sort((a: IAlarm, b: IAlarm) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
-    return newAlarmList;
+    return { prevAlarmList, newAlarmList };
   };
-  return { alarmList: newAlarms() || [], error, isLoading, newData: alarmList || [] };
+  return { alarmList: newAlarms(), error, isLoading };
 };

@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '../interfaces/store';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
-  const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
+  const { id } = useSelector((state: IRootState) => state.loginedUser);
+  const { data, isLoading, error, refetch } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
     staleTime: Infinity
   });
-  const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { pathname } = useLocation();
 
   if (isLoading || !data?.data) return { data: [], isLoading, error };
@@ -59,7 +59,7 @@ function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
     return annualResult.concat(dutyResult);
   };
 
-  return { data: scheduleData(), isLoading, error };
+  return { data: scheduleData(), isLoading, error, refetch };
 }
 
 export default useGetSchedule;

@@ -17,6 +17,7 @@ import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
 import { RootState } from '../../../store';
 import { logout } from '../../../apis/auth';
+import { IAlarmList } from '../../../interfaces/alarm';
 
 function Navbar() {
   // 유저 가져오기
@@ -24,7 +25,8 @@ function Navbar() {
 
   // 알람
 
-  const { alarmList, isLoading, newData } = useGetNewAlarms();
+  const { alarmList, isLoading } = useGetNewAlarms();
+  const { prevAlarmList, newAlarmList } = alarmList;
   const [alarm, setAlarm] = useState(false);
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
@@ -37,17 +39,17 @@ function Navbar() {
     if (!isAlarmOpened) {
       setAlarm(false);
     } else {
-      dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
+      dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
     }
   };
 
   const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
-    dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: newData }));
+    dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
   };
 
   useEffect(() => {
-    if (alarmList.length > 0) {
+    if (newAlarmList.length > 0) {
       setAlarm(true);
     }
     const token = getCookie('accessToken');
