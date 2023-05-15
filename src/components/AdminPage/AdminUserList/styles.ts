@@ -1,18 +1,5 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div``;
-export const IndexDiv = styled.div`
-  display: flex;
-  width: 1000px;
-  height: 63px;
-  font-size: 16px;
-  background-color: ${({ theme }) => theme.color.navbar};
-  border: 2px solid ${({ theme }) => theme.color.navbar};
-  border-radius: 10px 10px 0 0;
-  color: ${({ theme }) => theme.color.buttonText};
-  align-items: center;
-`;
-
 export const UserDiv = styled.div`
   display: flex;
   width: 1000px;
@@ -82,30 +69,6 @@ export const AdminBtn = styled.button`
   position: absolute;
   margin-left: 920px;
 `;
-
-export const PageBtn = styled.button<{ isActive: boolean }>`
-  font-size: 20px;
-  margin-top: 10px;
-  ${(props) =>
-    props.isActive &&
-    `
-    text-decoration: underline;
-  `}
-`;
-export const inActivePageBtn = styled.button`
-  font-size: 20px;
-  margin-top: 10px;
-  color: white;
-  cursor: default;
-`;
-
-export const PageBtnBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1000px;
-`;
-
 export const DeleteBtn = styled.button`
   width: 49px;
   height: 25px;
@@ -115,37 +78,4 @@ export const DeleteBtn = styled.button`
   font-size: 12px;
   position: absolute;
   margin-left: 180px;
-`;
-
-export const SearchBox = styled.div`
-  width: 240px;
-  height: 40px;
-  border: 2px solid ${({ theme }) => theme.color.inputBorder};
-  //justify-content: center;
-  align-items: center;
-  display: flex;
-  border-radius: 10px;
-  position: absolute;
-  top: 110px;
-  //left: 830px;
-  right: 158px;
-`;
-
-export const SearchIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-left: 5px;
-`;
-
-export const SearchInput = styled.input`
-  width: 140px;
-  height: 24px;
-  margin-left: 5px;
-`;
-
-export const SearchBtn = styled.button`
-  width: 55px;
-  height: 24px;
-  background-color: ${({ theme }) => theme.color.btnInactive};
-  font-size: 14px;
 `;
