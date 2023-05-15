@@ -147,7 +147,7 @@ function Navbar() {
                 <i>
                   <BsPeople />
                 </i>
-                <p>사원 연차 관리</p>
+                <p>사원 {loginedUser.role === 'ROLE_ADMIN' && '연차'} 관리</p>
               </NavLink>
             </li>
           )}
