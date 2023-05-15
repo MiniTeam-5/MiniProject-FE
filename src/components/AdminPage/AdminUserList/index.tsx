@@ -10,16 +10,17 @@ const AdminUserList: React.FC<AdminUserListProps> = ({
   handleAdminClick,
   handleSaveClick,
   handleRoleChange,
-  handlePlusMinusClick,
-  openDeleteModal
+  handlePlusMinusClick
+  //openDeleteModal
 }) => {
   return (
     <S.UserDiv style={index === users.length - 1 ? { borderRadius: '0 0 10px 10px' } : {}}>
       <S.ProfileImg src={user.profile} />
       <S.NameBox>{user.username}</S.NameBox>
-      {user.isEditing && loginUser.role === 'ROLE_MASTER' ? (
-        <S.DeleteBtn onClick={() => openDeleteModal(user.id)}>삭제</S.DeleteBtn>
-      ) : null}
+      {user.isEditing && loginUser.role === 'ROLE_MASTER'
+        ? //<S.DeleteBtn onClick={() => openDeleteModal(user.id)}>삭제</S.DeleteBtn>
+          null
+        : null}
       <S.RoleBox>
         {user.isEditing && loginUser.role === 'ROLE_MASTER' ? (
           <S.RoleSelect value={user.role} onChange={(event) => handleRoleChange(event, user.id)}>

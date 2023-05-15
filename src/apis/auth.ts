@@ -90,9 +90,6 @@ export const login = async ({ email, password }: { email: string; password: stri
 
 export const signup = async (item: ISignup) => {
   const response = await axiosInstance().post('/join', item);
-
-  if (response.status.toString() === '400') return Error(response.data);
-
   return response.data;
 };
 

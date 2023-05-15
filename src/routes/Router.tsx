@@ -23,9 +23,11 @@ function Router() {
             <Route path='/admin' element={<AdminPage />} />
           </Route>
         </Route>
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignupPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route element={<ProtectedRouter />}>
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

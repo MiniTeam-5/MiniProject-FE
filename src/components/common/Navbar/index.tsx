@@ -11,7 +11,7 @@ import * as S from './styles';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
-import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
+import { setAlarmList } from '../../../store/reducers/alarmSlice';
 import { getCookie, removeCookie } from '../../../utils/cookies';
 import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
@@ -42,7 +42,6 @@ function Navbar() {
       dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
     }
   };
-
   const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
     if (!alarmList) return;
