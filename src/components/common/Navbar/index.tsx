@@ -165,7 +165,7 @@ function Navbar() {
           <img src='/assets/logo-white.png' alt='lupintech' />
         </Link>
       </S.NavLogo>
-      {isAlarmOpened && !isLoading && <Alarm data={alarmList} handleCloseAlarm={handleCloseAlarm} />}
+      {isAlarmOpened && !isLoading && alarmList && <Alarm data={alarmList} handleCloseAlarm={handleCloseAlarm} />}
     </S.Navbar>
   );
 }

@@ -3,8 +3,11 @@ import { getSchedules } from '../apis/auth';
 import { IUseScheduleQuery } from '../interfaces/common';
 import { AxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../interfaces/store';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
+  const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
     staleTime: Infinity,
     cacheTime: 0
@@ -57,7 +60,7 @@ function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
     return annualResult.concat(dutyResult);
   };
 
-  return { data: scheduleData(), isLoading, error, refetch };
+  return { data: scheduleData(), isLoading, error };
 }
 
 export default useGetSchedule;
