@@ -98,11 +98,11 @@ function Navbar() {
               background: `url(${loginedUser.profile ? loginedUser.profile : '/assets/profile.png'}) center / cover`
             }}
           ></div>
-          <p>{loginedUser.username}</p>
-          {/* user_tag와 같이 class 추가
-           관리자 - tag_admin, 마스터 - tag_master */}
-          <div className={`user_tag ${USER_CLASSNAMES[loginedUser.role]}`}>
-            <span>{USER_TYPES[loginedUser.role]}</span>
+          <div className='user_text'>
+            <p>{loginedUser.username}</p>
+            <div className={`user_tag ${USER_CLASSNAMES[loginedUser.role]}`}>
+              <span>{USER_TYPES[loginedUser.role]}</span>
+            </div>
           </div>
           <S.AlarmBtn className={alarm ? 'active' : ''} onClick={handleAlarmOpen}>
             <FaBell />
@@ -147,7 +147,7 @@ function Navbar() {
                 <i>
                   <BsPeople />
                 </i>
-                <p>사원 연차 관리</p>
+                <p>사원 {loginedUser.role === 'ROLE_ADMIN' && '연차'} 관리</p>
               </NavLink>
             </li>
           )}
