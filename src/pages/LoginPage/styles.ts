@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const Login = styled.div`
   background-color: ${({ theme }) => theme.color.background};
   width: 1440px;
-  height: 1025px;
+  height: 100vh;
   display: flex;
+  margin: auto;
 `;
 
 export const LoginLogo = styled.img`
@@ -24,13 +25,13 @@ export const LoginWelcomeP = styled.p`
 `;
 
 export const LoginBanner = styled.img`
-  width: 720px;
-  height: 1025px;
+  width: auto;
+  height: 100%;
 `;
 
 export const LoginContainer = styled.div`
   width: 720px;
-  height: 1025px;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -56,6 +57,7 @@ export const LoginForm = styled.div`
     display: flex;
     gap: 10px;
     cursor: pointer;
+    margin-bottom: 10px;
   }
 
   .login_signup {
