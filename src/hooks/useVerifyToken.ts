@@ -19,7 +19,8 @@ function useVerifyToken() {
     onError: () => {
       setIsAuthenticated('FAILED');
     },
-    retry: 0
+    retry: 0,
+    staleTime: Infinity
   });
 
   return { isAuthenticated, isLoading };
