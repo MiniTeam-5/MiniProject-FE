@@ -9,6 +9,7 @@ import { deleteApplication } from '../../../apis/auth';
 import { getUser } from '../../../apis/auth';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../../store/reducers/userReducers';
+import formatDateString from '../../../utils/dateUtils';
 
 function ApplicationStatus({ applyType, annualList, dutyList }: ApplicationStatusProps) {
   const remainDays = useSelector((state) => state.loginedUser.remainDays);
@@ -68,9 +69,7 @@ function ApplicationStatus({ applyType, annualList, dutyList }: ApplicationStatu
 
             return (
               <S.StatusItem key={index}>
-                <p>
-                  {startDate} ~ {endDate}
-                </p>
+                <p>{formatDateString(new Date(startDate), new Date(endDate))}</p>
 
                 <S.StatusTagGroup>
                   <S.StatusTag status={status}>{statusKr}</S.StatusTag>
