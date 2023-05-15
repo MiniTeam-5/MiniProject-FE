@@ -10,6 +10,7 @@ import CalendarGuide from '../../common/CalendarGuide';
 import { DateSelectArg, EventContentArg } from '@fullcalendar/core/index.js';
 import useGetSchedule from '../../../hooks/useGetSchedule';
 import { useSelector } from 'react-redux';
+import Loading from '../../common/Loading';
 
 function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
   const today = new Date().toISOString().split('T')[0];
@@ -91,7 +92,7 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     }
   }, [select]);
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loading />;
   return (
     <S.StyleWrapper>
       {select === 'ANNUAL' && <S.Info>잔여 연차 일수 : {remainDays}일</S.Info>}

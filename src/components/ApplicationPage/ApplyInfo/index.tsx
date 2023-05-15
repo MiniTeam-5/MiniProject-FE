@@ -6,8 +6,21 @@ import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import Loading from '../../common/Loading';
+import { useDispatch } from 'react-redux';
+import { setRemainDays } from '../../../store/reducers/userReducers';
 function ApplyInfo({ select, date }: IApplyInfoProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selectDays = (() => {
+    if (!date.startDate || !date.endDate) return 0;
+    const startDate = new Date(date.startDate);
+    const endDate = new Date(date.endDate);
+    const oneDay = 1000 * 60 * 60 * 24;
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / oneDay);
+    return diffDays + 1;
+  })();
+
   const { mutate, isLoading } = useMutation(applySchedule, {
     onSuccess: (data) => {
       if (data.status === 200) {
@@ -15,6 +28,7 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
           icon: 'success',
           title: '신청이 완료되었습니다.'
         }).then(() => {
+          dispatch(setRemainDays(selectDays));
           navigate('/');
         });
       }
@@ -29,16 +43,6 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
   });
   const selectText = select === 'ANNUAL' ? '연차' : '당직';
   const MySwal = withReactContent(Swal);
-
-  const selectDays = (() => {
-    if (!date.startDate || !date.endDate) return 0;
-    const startDate = new Date(date.startDate);
-    const endDate = new Date(date.endDate);
-    const oneDay = 1000 * 60 * 60 * 24; // milliseconds in a day
-    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-    const diffDays = Math.ceil(diffTime / oneDay);
-    return diffDays + 1; // include start date
-  })();
 
   const handleSubmit = async () => {
     const submitData = { type: select, startDate: date.startDate, endDate: date.endDate };
