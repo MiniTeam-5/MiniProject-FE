@@ -42,6 +42,33 @@ export const StyleWrapper = styled.div`
   }
 `;
 
+export const ExtraComponents = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 190px;
+  display: flex;
+`;
+
+export const FileDownloadButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 12px;
+  margin-right: 22px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 300;
+  background-color: #449467;
+
+  .excel-icon {
+    margin-right: 8px;
+  }
+
+  > p {
+    font-size: 12px;
+  }
+`;
+
 export const Info = styled.p`
   position: absolute;
   top: -30px;

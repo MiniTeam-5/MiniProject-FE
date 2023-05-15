@@ -6,6 +6,8 @@ import useGetSchedule from '../../../hooks/useGetSchedule';
 import CalendarGuide from '../CalendarGuide';
 import { EventContentArg } from '@fullcalendar/core';
 import { useEffect, useRef } from 'react';
+import { axiosInstance } from '../../../apis/instance';
+import { SiMicrosoftexcel } from 'react-icons/si';
 
 function ScheduleCalendar() {
   const { data } = useGetSchedule();
@@ -30,9 +32,27 @@ function ScheduleCalendar() {
     );
   }
 
+  const downloadHandler = async () => {
+    const response = await axiosInstance().get('/auth/leave/download', {
+      responseType: 'blob'
+    });
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'example.xlsx');
+    document.body.appendChild(link);
+    link.click();
+  };
+
   return (
     <S.StyleWrapper>
-      <CalendarGuide />
+      <S.ExtraComponents>
+        <S.FileDownloadButton type='button' onClick={downloadHandler}>
+          <SiMicrosoftexcel className='excel-icon' />
+          <p>엑셀로 저장하기</p>
+        </S.FileDownloadButton>
+        <CalendarGuide />
+      </S.ExtraComponents>
 
       <FullCalendar
         ref={calendarRef}
