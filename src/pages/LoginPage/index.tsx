@@ -45,12 +45,6 @@ function LoginPage() {
     }
   };
   useEffect(() => {
-    if (getCookie('accessToken')) {
-      console.log('토큰있음');
-
-      alert('이미 로그인 되어 있습니다.');
-      navigate('/');
-    } else console.log('토큰없음');
     if (userEmail.checked) {
       setIsChecked(true);
       if (inputEmail.current != null) {
