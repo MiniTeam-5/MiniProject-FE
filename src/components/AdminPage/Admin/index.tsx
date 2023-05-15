@@ -8,7 +8,7 @@ import { UserList } from '../../../interfaces/user';
 import AdminUserList from '../AdminUserList';
 import { RootState } from '../../../store';
 import { useDispatch } from 'react-redux';
-import { userRole } from '../../../store/reducers/userReducers';
+import { setUserRole } from '../../../store/reducers/userReducers';
 import { useNavigate } from 'react-router-dom';
 
 function Admin() {
@@ -57,7 +57,7 @@ function Admin() {
         if (loginUser.role === 'ROLE_MASTER') {
           changeRole(userId, user.role);
           if (user.id === loginuserId) {
-            dispatch(userRole(user.role));
+            dispatch(setUserRole(user.role));
             if (user.role === 'ROLE_USER') {
               navigate('/');
             }

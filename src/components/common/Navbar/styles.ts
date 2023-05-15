@@ -29,20 +29,16 @@ export const User = styled.div`
     border-radius: 50%;
     overflow: hidden;
     margin-right: 20px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
 
   .user_tag {
+    width: fit-content;
     line-height: 20px;
     border-radius: 20px;
     padding: 0 8px;
     background: ${({ theme }) => theme.color.userTag};
     font-size: 12px;
-    margin-left: 10px;
+    margin-top: 10px;
     color: ${({ theme }) => theme.color.buttonText};
     &.tag_admin {
       background: ${({ theme }) => theme.color.adminTag};

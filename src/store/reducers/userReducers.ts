@@ -3,8 +3,8 @@ import { ILoginedUser } from '../../interfaces/store';
 
 export const userLogin = createAction<ILoginedUser>('loginedUser/login');
 export const reduceRemainDays = createAction<number>('loginedUser/reduceRemainDays');
-export const profileImg = createAction<string>('loginedUser/profileImg');
-export const userRole = createAction<string>('loginedUser/userRole');
+export const setProfileImg = createAction<string>('loginedUser/profileImg');
+export const setUserRole = createAction<string>('loginedUser/userRole');
 export const removeUserInfo = createAction('loginedUser/removeUserInfo');
 const loginedUser = createReducer(
   {
@@ -32,14 +32,14 @@ const loginedUser = createReducer(
       };
     },
     // @ts-ignore
-    [profileImg]: (state: ILoginedUser, action) => {
+    [setProfileImg]: (state: ILoginedUser, action) => {
       return {
         ...state,
         profile: action.payload
       };
     },
     // @ts-ignore
-    [userRole]: (state: ILoginedUser, action) => {
+    [setUserRole]: (state: ILoginedUser, action) => {
       return {
         ...state,
         role: action.payload
