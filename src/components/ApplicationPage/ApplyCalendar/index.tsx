@@ -49,10 +49,10 @@ function ApplyCalendar({ select, applyDateSelect, resetDate }: ICalendarProps) {
     const selectDays = (() => {
       const startDate = new Date(date.startStr);
       const endDate = new Date(date.endStr);
-      const oneDay = 1000 * 60 * 60 * 24; // milliseconds in a day
+      const oneDay = 1000 * 60 * 60 * 24;
       const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
       const diffDays = Math.ceil(diffTime / oneDay);
-      return diffDays + 1; // include start date
+      return diffDays;
     })();
     if (selectDays > remainDays) {
       showAlert('잔여 연차 일수보다 많은 날짜를 선택할 수 없습니다.');
