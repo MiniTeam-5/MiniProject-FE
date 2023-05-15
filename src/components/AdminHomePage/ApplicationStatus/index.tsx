@@ -14,7 +14,6 @@ function ApplicationStatus() {
       queryClient.invalidateQueries('leaveList');
     },
     onError: (error: any) => {
-      console.log('aa', error);
       Swal.fire({
         title: error.response.data.status === 400 ? error.response.data.data.value : error.response.data.data,
         icon: 'error'
