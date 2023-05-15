@@ -27,7 +27,6 @@ function Navbar() {
   const [alarm, setAlarm] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const { dispatch } = useAlarm();
-
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
   const handleAlarmOpen = () => {
@@ -40,7 +39,6 @@ function Navbar() {
       dispatch(setAlarmList({ id: Number(loginedUser.id), alarmList: prevAlarmList.concat(newAlarmList) }));
     }
   };
-
   const handleCloseAlarm = () => {
     setIsAlarmOpened(false);
     if (!alarmList) return;

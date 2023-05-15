@@ -20,7 +20,7 @@ function useVerifyToken() {
       setIsAuthenticated('FAILED');
     },
     retry: 0,
-    staleTime: Infinity
+    refetchOnWindowFocus: false
   });
 
   return { isAuthenticated, isLoading };
