@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateProfile } from '../../../store/reducers/editUserSlice';
+import { profileImg } from '../../../store/reducers/userReducers';
 
 interface User {
   id: number;
@@ -101,7 +101,9 @@ function EditProfile() {
         setConfirmPassword('');
         setProfileToDelete('');
         if (editUserData.profile) {
-          dispatch(updateProfile({ profile: URL.createObjectURL(editUserData.profile) }));
+          dispatch(profileImg(URL.createObjectURL(editUserData.profile)));
+        } else {
+          dispatch(profileImg(user.profile));
         }
         openModal();
       })
