@@ -11,10 +11,7 @@ export const fetchLeaveList = async () => {
   }
 };
 
-export const approveLeave = async (id: number, status: string) => {
-  const response = await axiosInstance().post<ApprovalResponse>('/admin/approve', {
-    id,
-    status
-  });
+export const approveLeave = async (data: { id: number; status: string }) => {
+  const response = await axiosInstance().post<ApprovalResponse>('/admin/approve', data);
   return response.data;
 };
