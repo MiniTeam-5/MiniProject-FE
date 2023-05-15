@@ -2,7 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 import { ILoginedUser } from '../../interfaces/store';
 
 export const userLogin = createAction<ILoginedUser>('loginedUser/login');
-export const setRemainDays = createAction<number>('loginedUser/setRemainDays');
+export const reduceRemainDays = createAction<number>('loginedUser/reduceRemainDays');
 const loginedUser = createReducer(
   {
     id: '',
@@ -22,7 +22,7 @@ const loginedUser = createReducer(
       };
     },
     // @ts-ignore
-    [setRemainDays]: (state: ILoginedUser, action) => {
+    [reduceRemainDays]: (state: ILoginedUser, action) => {
       return {
         ...state,
         remainDays: state.remainDays - action.payload
