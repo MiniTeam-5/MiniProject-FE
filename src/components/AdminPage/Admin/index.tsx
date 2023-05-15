@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import { UserList } from '../../../interfaces/user';
 import AdminUserList from '../AdminUserList';
 import { RootState } from '../../../store';
+import { useDispatch } from 'react-redux';
+import { userRole } from '../../../store/reducers/userReducers';
+import { useNavigate } from 'react-router-dom';
 
 function Admin() {
   const [users, setUsers] = useState<UserList[]>([]);
@@ -15,8 +18,10 @@ function Admin() {
   const [url, setUrl] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const DeleteSwal = withReactContent(Swal);
-
   const loginUser = useSelector((state: RootState) => state.loginedUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginuserId = parseInt(loginUser.id);
 
   useEffect(() => {
     getUsers(url)
@@ -51,6 +56,12 @@ function Admin() {
         changeAnnual(userId, user.remainDays);
         if (loginUser.role === 'ROLE_MASTER') {
           changeRole(userId, user.role);
+          if (user.id === loginuserId) {
+            dispatch(userRole(user.role));
+            if (user.role === 'ROLE_USER') {
+              navigate('/');
+            }
+          }
         }
         return {
           ...user,
