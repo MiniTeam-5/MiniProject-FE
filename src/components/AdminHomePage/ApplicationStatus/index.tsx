@@ -1,9 +1,11 @@
+// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import Swal from 'sweetalert2';
 import { fetchLeaveList, approveLeave } from '../../../apis/admin';
 import { ApprovalResponse, LeaveResponse } from '../../../interfaces/applicationStatus';
 import formatDateString from '../../../utils/dateUtils';
 import * as S from './styles';
+import { AxiosError } from 'axios';
 
 function ApplicationStatus() {
   const { data } = useQuery<LeaveResponse>('leaveList', fetchLeaveList);
@@ -12,15 +14,20 @@ function ApplicationStatus() {
   const approveLeaveMutation = useMutation(
     (data: { id: number; status: string }) => approveLeave(data.id, data.status),
     {
-      //@ts-ignore
       onSuccess: (data: ApprovalResponse, variables: { id: number; status: string }) => {
         // 성공적으로 API 호출이 끝났을 때 실행되는 콜백 함수
         console.log(`Successfully approved leave request ${variables.id} with status ${variables.status}`);
         queryClient.invalidateQueries('leaveList');
       },
-      onError: (error: Error) => {
+      onError: (error: AxiosError) => {
         // API 호출 중 에러가 발생했을 때 실행되는 콜백 함수
-        console.log(`Error occurred while approving leave request: ${error}`);
+        console.log('aa', error);
+        if (error.response && error.response.data) {
+          Swal.fire({
+            title: error.response.data.data.value,
+            icon: 'error'
+          });
+        }
         queryClient.invalidateQueries('leaveList');
       }
     }
