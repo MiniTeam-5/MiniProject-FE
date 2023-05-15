@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Login = styled.div`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.color.background};
   width: 1440px;
   height: 1025px;
   display: flex;
@@ -64,23 +64,23 @@ export const LoginForm = styled.div`
     margin: 0 auto;
   }
   .link_to_signup {
-    color: #ff0000;
+    color: ${({ theme }) => theme.color.masterTag};
   }
 
   span {
-    color: #ff0000;
+    color: ${({ theme }) => theme.color.masterTag};
     display: none;
   }
 `;
 
 export const LoginBtn = styled.button`
-  background-color: #0675e5;
-  color: #fff;
+  background-color: ${({ theme }) => theme.color.buttonActive};
+  color: ${({ theme }) => theme.color.btnInactiveBackground};
   border-radius: 10px;
   width: 400px;
   height: 50px;
   &:hover {
-    background-color: #3f6af7;
+    background-color: ${({ theme }) => theme.color.buttonActive};
   }
 `;
 
@@ -88,7 +88,7 @@ export const LoginInput = styled.input`
   padding: 0 10px;
   width: 400px;
   height: 50px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.color.inputBorder};
   border-radius: 10px;
   margin-bottom: 10px;
   &:focus {

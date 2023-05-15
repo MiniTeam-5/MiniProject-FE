@@ -4,7 +4,6 @@ import { getUser, editUser } from '../../../apis/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 interface User {
   id: number;
@@ -93,8 +92,7 @@ function EditProfile() {
     };
 
     editUser(editUserData)
-      .then((response) => {
-        console.log('User updated successfully');
+      .then(() => {
         setNewPassword('');
         setConfirmPassword('');
         setProfileToDelete('');
