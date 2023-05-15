@@ -30,7 +30,7 @@ export const LoginBanner = styled.img`
 `;
 
 export const LoginContainer = styled.div`
-  width: 720px;
+  width: 700px;
   height: 100%;
   display: flex;
   flex-direction: column;
