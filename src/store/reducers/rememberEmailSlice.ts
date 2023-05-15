@@ -9,15 +9,14 @@ const rememberEmail = createSlice({
   name: 'rememberEmail',
   initialState,
   reducers: {
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setChecked: (state, action) => {
-      state.checked = action.payload;
+    setRemember: (state, action) => {
+      console.log(action);
+      state.email = action.payload.email;
+      state.checked = action.payload.checked;
     }
   }
 });
 
-export const { setChecked, setEmail } = rememberEmail.actions;
+export const { setRemember } = rememberEmail.actions;
 
 export default rememberEmail.reducer;

@@ -4,6 +4,7 @@ import * as S from './styles';
 import { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import { useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookies';
 
 const RegexID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
@@ -44,10 +45,12 @@ function LoginPage() {
     }
   };
   useEffect(() => {
-    if (loginedUser.email === '') {
+    if (getCookie('accessToken')) {
+      console.log('토큰있음');
+
       alert('이미 로그인 되어 있습니다.');
       navigate('/');
-    }
+    } else console.log('토큰없음');
     if (userEmail.checked) {
       setIsChecked(true);
       if (inputEmail.current != null) {

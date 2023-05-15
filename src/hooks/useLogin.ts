@@ -4,9 +4,9 @@ import { setCookie } from '../utils/cookies';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../store/reducers/userReducers';
 import { useNavigate } from 'react-router-dom';
-import { setChecked, setEmail } from '../store/reducers/rememberEmailSlice';
+import { setRemember } from '../store/reducers/rememberEmailSlice';
 
-export const useLogin = (isChecked: boolean) => {
+export const useLogin = (checked: boolean) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,13 +15,7 @@ export const useLogin = (isChecked: boolean) => {
       // 로그인 성공 시 처리할 코드
       setCookie('accessToken', data.headers.authorization);
       const userData = await getUserData();
-      if (isChecked) {
-        dispatch(setEmail(userData.data.data.email));
-        dispatch(setChecked(true));
-      } else {
-        dispatch(setEmail(''));
-        dispatch(setChecked(false));
-      }
+      dispatch(setRemember({ email: userData.data.data.email, checked }));
       dispatch(userLogin(userData.data.data));
 
       setCookie('refreshToken', data.headers.refreshtoken);
