@@ -16,13 +16,17 @@ export const useGetNewAlarms = () => {
 
   const storedList = prevAlarms[id];
   const prevAlarmList = storedList
-    ? [...storedList].sort((a: IAlarm, b: IAlarm) => {
+    ? _.uniqBy([...storedList], 'leaveId').sort((a: IAlarm, b: IAlarm) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       })
     : [];
   const newAlarms = () => {
     if (!alarmList || !id) return;
-    const filteredList = _.uniqBy([...alarmList], 'leaveId');
+    const filteredList = _(alarmList)
+      .groupBy('leaveId')
+      .map((group) => _.maxBy(group, 'createdAt'))
+      .value() as IAlarm[];
+
     const newAlarmList = filteredList
       .filter((newAlarm: IAlarm) => {
         return !prevAlarmList.some((prevAlarm: IAlarm) => prevAlarm.id === newAlarm.id);

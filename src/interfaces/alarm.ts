@@ -22,6 +22,7 @@ export interface IAlarm {
   usingDays: number;
   status: 'APPROVAL' | 'REJECTION';
   createdAt: Date;
+  leaveId: number;
 }
 export interface IAlarmCardProps {
   alarmStatus: 'new' | 'prev';
