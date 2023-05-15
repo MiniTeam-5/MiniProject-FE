@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { UserList } from '../../../interfaces/user';
 import AdminUserList from '../AdminUserList';
 import { RootState } from '../../../store';
+import { useDispatch } from 'react-redux';
+import { userRole } from '../../../store/reducers/userReducers';
 
 function Admin() {
   const [users, setUsers] = useState<UserList[]>([]);
@@ -15,8 +17,9 @@ function Admin() {
   const [url, setUrl] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const DeleteSwal = withReactContent(Swal);
-
   const loginUser = useSelector((state: RootState) => state.loginedUser);
+  const dispatch = useDispatch();
+  const loginuserId = parseInt(loginUser.id);
 
   useEffect(() => {
     getUsers(url)
@@ -51,6 +54,9 @@ function Admin() {
         changeAnnual(userId, user.remainDays);
         if (loginUser.role === 'ROLE_MASTER') {
           changeRole(userId, user.role);
+          if (user.id === loginuserId) {
+            dispatch(userRole(user.role));
+          }
         }
         return {
           ...user,
