@@ -33,7 +33,7 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
       MySwal.fire({
         icon: 'error',
         title: '신청에 실패하였습니다.',
-        text: '사유 : ' + result.msg
+        text: '사유 : ' + result.data.value
       });
     }
   };

@@ -14,6 +14,7 @@ export const Navbar = styled.div`
   font-size: 18px;
   z-index: 10;
   color: ${({ theme }) => theme.color.navbarText};
+  z-index: 4;
 `;
 
 export const User = styled.div`
@@ -30,6 +31,8 @@ export const User = styled.div`
     margin-right: 20px;
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
