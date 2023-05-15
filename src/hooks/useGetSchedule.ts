@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 function useGetSchedule(select?: 'ANNUAL' | 'DUTY') {
   const { data, isLoading, error } = useQuery<IUseScheduleQuery, AxiosError>(['schedules'], getSchedules, {
-    staleTime: Infinity
+    staleTime: Infinity,
+    cacheTime: 0
   });
   const { id } = useSelector((state: any) => state.loginedUser);
 
