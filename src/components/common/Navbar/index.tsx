@@ -17,6 +17,8 @@ import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
 import { RootState } from '../../../store';
 import { logout } from '../../../apis/auth';
+import { useDispatch } from 'react-redux';
+import { removeUserInfo } from '../../../store/reducers/userReducers';
 
 function Navbar() {
   // 유저 가져오기
@@ -26,7 +28,7 @@ function Navbar() {
   const { alarmList, isLoading } = useGetNewAlarms();
   const [alarm, setAlarm] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
-  const { dispatch } = useAlarm();
+  const dispatch = useDispatch();
 
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
@@ -80,6 +82,7 @@ function Navbar() {
       await logout();
       removeCookie('accessToken');
       removeCookie('refreshToken');
+      dispatch(removeUserInfo());
       navigate('/login');
     } catch (error) {
       console.log(error);
