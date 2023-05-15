@@ -18,13 +18,13 @@ function ApplyInfo({ select, date }: IApplyInfoProps) {
           navigate('/');
         });
       }
-      if (data.status === 400) {
-        MySwal.fire({
-          icon: 'error',
-          title: '신청에 실패하였습니다.',
-          text: '사유 : ' + data.data.data.value
-        });
-      }
+    },
+    onError: (error: any) => {
+      MySwal.fire({
+        icon: 'error',
+        title: '신청에 실패하였습니다.',
+        text: error
+      });
     }
   });
   const selectText = select === 'ANNUAL' ? '연차' : '당직';
