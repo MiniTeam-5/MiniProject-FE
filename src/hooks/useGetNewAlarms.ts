@@ -1,3 +1,4 @@
+import { refresh } from './../apis/auth';
 import { useQuery } from 'react-query';
 import { getAlarms } from '../apis/auth';
 import { useSelector } from 'react-redux';
@@ -7,7 +8,7 @@ import { useAlarm } from '../store/reducers/alarmSlice';
 import _ from 'lodash';
 
 export const useGetNewAlarms = () => {
-  const { data, error, isLoading } = useQuery('newAlarms', getAlarms);
+  const { data, error, isLoading, refetch } = useQuery('newAlarms', getAlarms);
   const { id } = useSelector((state: IRootState) => state.loginedUser);
   const { data: prevAlarms } = useAlarm();
   const alarmList: IAlarm[] | undefined = data?.data;
@@ -36,5 +37,5 @@ export const useGetNewAlarms = () => {
       });
     return { prevAlarmList, newAlarmList };
   };
-  return { alarmList: newAlarms(), error, isLoading };
+  return { alarmList: newAlarms(), error, isLoading, refetch };
 };
