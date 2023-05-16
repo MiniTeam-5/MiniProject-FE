@@ -1,13 +1,13 @@
-// @ts-nocheck
 import ApplicationStatus from './ApplicationStatus';
 import * as S from './styles';
 import { useQuery } from 'react-query';
 import { getSchedule } from '../../apis/auth';
 import { UserApplication } from '../../interfaces/application';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 function UserMainPage() {
-  const userId = useSelector((state) => state.loginedUser.id);
+  const userId = useSelector((state: RootState) => state.loginedUser.id);
 
   // 가까운 날짜 순으로 정렬
   function sortByStartDate(a: { startDate: string }, b: { startDate: string }): number {
