@@ -4,6 +4,8 @@ import { getUser, editUser } from '../../../apis/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setProfileImg } from '../../../store/reducers/userReducers';
 
 interface User {
   id: number;
@@ -25,6 +27,7 @@ function EditProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const EditSwal = withReactContent(Swal);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getUser()
@@ -92,11 +95,16 @@ function EditProfile() {
     };
 
     editUser(editUserData)
-      .then(() => {
+      .then((response) => {
+        console.log('User updated successfully' + response);
         setNewPassword('');
         setConfirmPassword('');
         setProfileToDelete('');
-
+        if (editUserData.profile) {
+          dispatch(setProfileImg(URL.createObjectURL(editUserData.profile)));
+        } else {
+          dispatch(setProfileImg(user.profile));
+        }
         openModal();
       })
       .catch((error) => {

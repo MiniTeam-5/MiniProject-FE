@@ -11,12 +11,14 @@ import * as S from './styles';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import Alarm from '../Alarm';
 import { axiosInstance } from '../../../apis/instance';
-import { setAlarmList, useAlarm } from '../../../store/reducers/alarmSlice';
+import { setAlarmList } from '../../../store/reducers/alarmSlice';
 import { getCookie, removeCookie } from '../../../utils/cookies';
 import { useGetNewAlarms } from '../../../hooks/useGetNewAlarms';
 import { USER_TYPES, USER_CLASSNAMES } from '../../../constants/navbarConstants';
 import { RootState } from '../../../store';
 import { logout } from '../../../apis/auth';
+import { useDispatch } from 'react-redux';
+import { removeUserInfo } from '../../../store/reducers/userReducers';
 
 function Navbar() {
   // 유저 가져오기
@@ -26,7 +28,8 @@ function Navbar() {
   const { alarmList, isLoading } = useGetNewAlarms();
   const [alarm, setAlarm] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
-  const { dispatch } = useAlarm();
+  const dispatch = useDispatch();
+
   const connectURL = import.meta.env.VITE_API_URL + 'auth/connect';
   const disconnectURL = import.meta.env.VITE_API_URL + 'auth/disconnect';
   const handleAlarmOpen = () => {
@@ -50,7 +53,8 @@ function Navbar() {
     const token = getCookie('accessToken');
     const source = new EventSourcePolyfill(connectURL, {
       withCredentials: true,
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
+      heartbeatTimeout: 1000 * 60 * 20
     });
     setNewSource(source);
     source.addEventListener('alarm', () => {
@@ -78,6 +82,7 @@ function Navbar() {
       await logout();
       removeCookie('accessToken');
       removeCookie('refreshToken');
+      dispatch(removeUserInfo());
       navigate('/login');
     } catch (error) {
       console.log(error);
@@ -94,11 +99,11 @@ function Navbar() {
               background: `url(${loginedUser.profile ? loginedUser.profile : '/assets/profile.png'}) center / cover`
             }}
           ></div>
-          <p>{loginedUser.username}</p>
-          {/* user_tag와 같이 class 추가
-           관리자 - tag_admin, 마스터 - tag_master */}
-          <div className={`user_tag ${USER_CLASSNAMES[loginedUser.role]}`}>
-            <span>{USER_TYPES[loginedUser.role]}</span>
+          <div className='user_text'>
+            <p>{loginedUser.username}</p>
+            <div className={`user_tag ${USER_CLASSNAMES[loginedUser.role]}`}>
+              <span>{USER_TYPES[loginedUser.role]}</span>
+            </div>
           </div>
           <S.AlarmBtn className={alarm ? 'active' : ''} onClick={handleAlarmOpen}>
             <FaBell />
@@ -143,7 +148,7 @@ function Navbar() {
                 <i>
                   <BsPeople />
                 </i>
-                <p>사원 연차 관리</p>
+                <p>사원 {loginedUser.role === 'ROLE_ADMIN' && '연차'} 관리</p>
               </NavLink>
             </li>
           )}

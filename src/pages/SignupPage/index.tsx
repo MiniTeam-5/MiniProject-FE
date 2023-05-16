@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState } from 'react';
+import { MdClose } from 'react-icons/md';
 import * as S from './styles';
 import { useSignup } from '../../hooks/useSignup';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +55,7 @@ function SignupPage() {
         <S.SignupHeader>
           <S.SignupLogo src='assets/logo.png' alt='logo' />
           <p className='close' onClick={() => navigate('/login')}>
-            X
+            <MdClose />
           </p>
         </S.SignupHeader>
         <p className='title'>루팡 사원 계정 생성</p>
