@@ -1,8 +1,7 @@
 # 🏢 LUPIN 일정관리 프로그램 (FE)
 
 ## 💁🏻 프로젝트 소개
-
-![2023-05-16-15-14-03](https://github.com/MiniTeam-5/MiniProject-FE/assets/71622691/9a82a0ca-9c50-4320-a65a-d5779d23e308)
+![May-16-2023 22-02-53](https://github.com/MiniTeam-5/MiniProject-FE/assets/102499959/ca09f4dd-e4a5-44eb-8ad4-e2080a4fae3b)
 > LUPIN 일정관리 프로그램으로 LUPINTECH 회사 사원들의 연차 / 당직을 손쉽게 관리해보세요! <br />
 
 #### ⏰ 개발 기간
