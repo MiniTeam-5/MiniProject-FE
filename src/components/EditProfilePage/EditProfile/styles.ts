@@ -28,10 +28,11 @@ export const ImgDelBtn = styled.button`
   height: 40px;
   border-radius: 20px;
   border: 2px solid ${({ theme }) => theme.color.button01};
-  text-align: center;
-  line-height: 230%;
   margin-left: 50px;
   align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ImgUploadBtn = styled.button`
@@ -41,10 +42,11 @@ export const ImgUploadBtn = styled.button`
   border: 2px solid ${({ theme }) => theme.color.button01};
   background-color: ${({ theme }) => theme.color.button01};
   color: #ffffff;
-  text-align: center;
-  line-height: 230%;
   margin-left: 15px;
   align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const NameBox = styled.div`
@@ -72,9 +74,10 @@ export const NameDiv = styled.div`
   height: 50px;
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color.inputBorder};
-  line-height: 120%;
   padding: 15px;
   margin-left: 110px;
+  display: flex;
+  align-items: center;
 `;
 
 export const PwBox = styled.div`
@@ -104,9 +107,10 @@ export const PwInput = styled.input`
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color.inputBorder};
   color: ${({ theme }) => theme.color.placeholder};
-  line-height: 120%;
   padding: 15px;
   margin-left: 52px;
+  display: flex;
+  align-items: center;
 `;
 
 export const BtnBox = styled.div`
@@ -121,10 +125,11 @@ export const CancelBtn = styled.button`
   height: 50px;
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color.button01};
-  text-align: center;
-  line-height: 230%;
   font-size: 20px;
   margin-left: 630px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const EditBtn = styled.button`
@@ -133,9 +138,10 @@ export const EditBtn = styled.button`
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color.button01};
   background-color: ${({ theme }) => theme.color.button01};
-  text-align: center;
-  line-height: 230%;
   color: #ffffff;
   font-size: 20px;
   margin-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
