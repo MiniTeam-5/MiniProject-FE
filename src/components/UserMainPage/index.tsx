@@ -17,7 +17,7 @@ function UserMainPage() {
   }
 
   // 특정 유저 연차/당직 정보
-  const { data: userSchedule } = useQuery(['schedule', userId], () => getSchedule(userId), {
+  const { data: userSchedule } = useQuery(['schedule', userId], () => getSchedule(Number(userId)), {
     initialData: []
   });
 
