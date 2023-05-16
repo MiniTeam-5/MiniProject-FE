@@ -28,9 +28,9 @@
 
 ## 💻 개발 환경
 ### 🔧 스킬셋
-![skillsets](https://github.com/MiniTeam-5/MiniProject-FE/assets/102499959/a0ea78ea-ad77-4ad6-a987-25945447b64a)
+![frontskillset](https://github.com/MiniTeam-5/MiniProject-FE/assets/102499959/fd99de99-6a68-4d4c-9265-af7fe6c2d723)
 
-- 기타 라이브러리 : `FullCalendar`, `SweetAlert2`, `event-source-polyfill`, `lodash`, `moment`, `react-icons`
+- 기타 라이브러리 : `SweetAlert2`, `event-source-polyfill`, `lodash`, `moment`, `react-icons`
 <br /><br />
 
 ### 📁 프로젝트 폴더 구조
