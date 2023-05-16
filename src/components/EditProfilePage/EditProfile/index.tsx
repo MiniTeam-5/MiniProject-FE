@@ -112,6 +112,13 @@ function EditProfile() {
       });
   };
 
+  const handleCancel = () => {
+    setNewPassword('');
+    setConfirmPassword('');
+    setProfileToDelete('');
+    navigate('/');
+  };
+
   return (
     <S.Wrapper>
       <S.ImageBox>
@@ -165,7 +172,7 @@ function EditProfile() {
         </S.PwSectionBox>
       </S.PwBox>
       <S.BtnBox>
-        <S.CancelBtn>취소</S.CancelBtn>
+        <S.CancelBtn onClick={handleCancel}>취소</S.CancelBtn>
         <S.EditBtn onClick={handleEdit}>수정 완료</S.EditBtn>
       </S.BtnBox>
     </S.Wrapper>
