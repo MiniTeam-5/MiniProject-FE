@@ -49,7 +49,7 @@ export const LoginForm = styled.div`
   .login_password,
   .login_email {
     p {
-      margin-bottom: 20px;
+      color: ${({ theme }) => theme.color.masterTag};
     }
   }
 
@@ -93,6 +93,7 @@ export const LoginInput = styled.input`
   border: 1px solid ${({ theme }) => theme.color.inputBorder};
   border-radius: 10px;
   margin-bottom: 10px;
+  margin-top: 20px;
   &:focus {
     box-shadow: 1px 1px 1px 1px gray;
   }
