@@ -57,8 +57,12 @@ export const SignupForm = styled.form`
     grid-template-rows: repeat(3, 160px);
     column-gap: 20px;
 
-    p {
+    label {
       margin-bottom: 10px;
+    }
+
+    p {
+      color: #ff0000;
     }
 
     input {
@@ -67,6 +71,7 @@ export const SignupForm = styled.form`
       border-radius: 10px;
       border: 1px solid ${({ theme }) => theme.color.inputBorder};
       padding: 0 10px;
+      margin-bottom: 10px;
 
       &:focus {
         box-shadow: 1px 1px 1px 1px gray;

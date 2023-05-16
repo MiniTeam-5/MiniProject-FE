@@ -34,17 +34,17 @@ export const ProfileImg = styled.img`
 export const NameBox = styled.div`
   width: 250px;
   height: 32px;
-  text-align: center;
-  align-items: center;
   margin-left: 15px;
-  line-height: 190%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const RoleBox = styled.div`
   width: 200px;
   height: 32px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  text-align: center;
-  line-height: 190%;
 `;
 
 export const RoleSelect = styled.select`
@@ -61,16 +61,16 @@ export const RoleSelect = styled.select`
 export const DateBox = styled.div`
   width: 250px;
   height: 32px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  line-height: 190%;
 `;
 export const AnnualBox = styled.div`
   width: 250px;
   height: 32px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  line-height: 190%;
 `;
 
 export const AdminBtn = styled.button`
