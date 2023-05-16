@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
 export const SignupContainer = styled.div`
-  width: 1440px;
-  height: 1025px;
+  max-width: 1440px;
+  height: 100vh;
   display: flex;
+  margin: auto;
   background-color: #fff;
 `;
 export const SignupBanner = styled.img`
-  width: 720px;
+  width: auto;
   height: 100%;
 `;
 
 export const SignupFormContainer = styled.div`
-  width: 720px;
+  width: 700px;
   .title {
     justify-content: center;
     align-items: center;

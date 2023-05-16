@@ -3,11 +3,10 @@ import styled from 'styled-components';
 export const CardLi = styled.li`
   padding: 10px;
   padding-top: 20px;
-  /* margin-bottom: 16px; */
   border-bottom: 2px solid ${({ theme }) => theme.color.inputBorder};
   color: ${({ theme }) => theme.color.text};
   &.new {
-    background-color: #ebf8fb;
+    background-color: #f5f5fc;
   }
 `;
 export const StatusText = styled.p`

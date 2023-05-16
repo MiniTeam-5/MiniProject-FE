@@ -20,7 +20,7 @@ export interface IAlarm {
   startDate: string;
   endDate: string;
   usingDays: number;
-  status: 'APPROVAL' | 'REJECTION';
+  status: 'APPROVAL' | 'REJECTION' | 'WAITING';
   createdAt: Date;
   leaveId: number;
 }

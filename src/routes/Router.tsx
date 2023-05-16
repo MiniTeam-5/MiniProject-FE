@@ -9,10 +9,12 @@ import NotFoundPage from '../pages/NotFoundPage';
 import ViewSchedulePage from '../pages/ViewSchedulePage';
 import AdminPage from '../pages/AdminPage';
 import ProtectedRouter from './ProtectedRouter';
+import ScrollToTop from '../utils/scrollToTop';
 
 function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<ProtectedRouter />}>
           <Route element={<Layout />}>
@@ -26,8 +28,8 @@ function Router() {
         <Route element={<ProtectedRouter />}>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
-          <Route path='*' element={<NotFoundPage />} />
         </Route>
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
