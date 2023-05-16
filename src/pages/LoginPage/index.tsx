@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import { Login } from '../../interfaces/user';
 
 function LoginPage() {
   const {
@@ -31,9 +33,16 @@ function LoginPage() {
 
   const login = useLogin(isChecked);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: Login) => {
     if (Object.keys(errors).length === 0) {
       login(data);
+    } else {
+      Swal.fire({
+        title: '로그인 실패',
+        text: '이메일 혹은 비밀번호가 일치하지 않습니다.',
+        icon: 'error',
+        confirmButtonText: '확인'
+      });
     }
   };
 
