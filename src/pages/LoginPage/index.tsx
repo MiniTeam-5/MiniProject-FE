@@ -5,7 +5,6 @@ import { useLogin } from '../../hooks/useLogin';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { Login } from '../../interfaces/user';
 
 function LoginPage() {
   const {
@@ -20,8 +19,6 @@ function LoginPage() {
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    console.log(userEmail);
-
     if (userEmail.checked) {
       setIsChecked(true);
       setEmail(userEmail.email);
@@ -33,7 +30,7 @@ function LoginPage() {
 
   const login = useLogin(isChecked);
 
-  const onSubmit = (data: Login) => {
+  const onSubmit = (data: any) => {
     if (Object.keys(errors).length === 0) {
       login(data);
     } else {

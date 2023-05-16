@@ -46,11 +46,6 @@ export interface UserList {
   isEditing: boolean;
 }
 
-export interface Login{
-  email: string;
-  password: string;
-}
-
 export interface AdminUserListProps {
   index: number;
   users: UserList[];
