@@ -1,4 +1,3 @@
-import { refresh } from './../apis/auth';
 import { useQuery } from 'react-query';
 import { getAlarms } from '../apis/auth';
 import { useSelector } from 'react-redux';
