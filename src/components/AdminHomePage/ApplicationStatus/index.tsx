@@ -37,8 +37,6 @@ function ApplicationStatus() {
       if (result.isConfirmed) {
         mutate({ id, status });
         Swal.fire('승인 완료', '해당 신청이 승인되었습니다.', 'success');
-      } else {
-        Swal.fire('승인 취소', '해당 신청이 승인되지 않았습니다.', 'info');
       }
     });
   };

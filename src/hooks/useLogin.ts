@@ -22,7 +22,7 @@ export const useLogin = (checked: boolean) => {
       setCookie('refreshToken', data.headers.refreshtoken);
       navigate('/');
     },
-    onError: (error) => {
+    onError: () => {
       // 실패 시 처리할 코드
       Swal.fire({
         title: '로그인 실패',

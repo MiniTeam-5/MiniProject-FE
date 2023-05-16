@@ -13,7 +13,7 @@ export interface IUser {
 export interface ISignup {
   email: string;
   password: string;
-  check_password: string;
+  checkPassword: string;
   username: string;
   hireDate: string;
 }
