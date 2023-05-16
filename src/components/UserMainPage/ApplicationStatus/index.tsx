@@ -30,6 +30,7 @@ function ApplicationStatus({ applyType, annualList, dutyList }: ApplicationStatu
         icon: 'error',
         text: error?.response?.data?.data?.value
       });
+      queryClient.invalidateQueries('schedule');
     }
   });
 
