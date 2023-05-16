@@ -26,7 +26,7 @@ export interface CancelApplication {
 }
 
 export interface ApplicationStatusProps {
-  title: string;
+  applyType: string;
   annualList?: ApplicationList[];
   dutyList?: ApplicationList[];
 }

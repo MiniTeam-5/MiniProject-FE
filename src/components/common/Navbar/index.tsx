@@ -25,7 +25,7 @@ function Navbar() {
   const loginedUser = useSelector((state: RootState) => state.loginedUser);
   // 알람
   const [isAlarmOpened, setIsAlarmOpened] = useState(false);
-  const { alarmList, isLoading } = useGetNewAlarms();
+  const { alarmList, isLoading, refetch } = useGetNewAlarms();
   const [alarm, setAlarm] = useState(false);
   const [newSource, setNewSource] = useState<EventSourcePolyfill | null>(null);
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ function Navbar() {
     setIsAlarmOpened(!isAlarmOpened);
     if (!isAlarmOpened) {
       setAlarm(false);
+      refetch();
     } else {
       if (!alarmList) return;
       const { prevAlarmList, newAlarmList } = alarmList;
