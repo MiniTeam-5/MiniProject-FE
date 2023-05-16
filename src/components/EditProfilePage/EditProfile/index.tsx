@@ -37,10 +37,6 @@ function EditProfile() {
       .catch((error) => console.error('Error:', error));
   }, []);
 
-  useEffect(() => {
-    console.log(user); // for debugging
-  }, [user]); // this effect will run whenever the 'user' state changes
-
   if (user === null) {
     return <p>Loading...</p>;
   }
@@ -95,8 +91,7 @@ function EditProfile() {
     };
 
     editUser(editUserData)
-      .then((response) => {
-        console.log('User updated successfully' + response);
+      .then(() => {
         setNewPassword('');
         setConfirmPassword('');
         setProfileToDelete('');
