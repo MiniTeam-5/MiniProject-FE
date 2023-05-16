@@ -1,19 +1,14 @@
-// @ts-nocheck
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as S from './styles';
 import { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import { useSelector } from 'react-redux';
-import { getCookie } from '../../utils/cookies';
 
 const RegexID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const RegexPW = /^(?=.*[a-zA-Z\d])[a-zA-Z\d]{2,}$/;
 
 function LoginPage() {
   const userEmail = useSelector((state: any) => state.rememberEmail);
-  const loginedUser = useSelector((state: any) => state.loginedUser);
-
-  const navigate = useNavigate();
 
   const emailErrorRef = useRef<HTMLSpanElement>(null);
   const passwordErrorRef = useRef<HTMLSpanElement>(null);
@@ -48,7 +43,7 @@ function LoginPage() {
     if (userEmail.checked) {
       setIsChecked(true);
       if (inputEmail.current != null) {
-        setValues({ email: userEmail.email });
+        setValues({ email: userEmail.email, password: '' });
         inputEmail.current.value = userEmail.email;
       }
     }
