@@ -1,3 +1,4 @@
+import { refresh } from './../apis/auth';
 import { useQuery } from 'react-query';
 import { getAlarms } from '../apis/auth';
 import { useSelector } from 'react-redux';
@@ -8,7 +9,7 @@ import _ from 'lodash';
 
 export const useGetNewAlarms = () => {
   const { id } = useSelector((state: IRootState) => state.loginedUser);
-  const { data, error, isLoading } = useQuery('newAlarms', getAlarms, {
+  const { data, error, isLoading, refetch } = useQuery('newAlarms', getAlarms, {
     enabled: !!id
   });
   // 스토어에 저장된 이전 알람 데이터를 가져옴
@@ -43,5 +44,5 @@ export const useGetNewAlarms = () => {
       });
     return { prevAlarmList, newAlarmList };
   };
-  return { alarmList: newAlarms(), error, isLoading };
+  return { alarmList: newAlarms(), error, isLoading, refetch };
 };
