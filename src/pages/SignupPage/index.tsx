@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import * as S from './styles';
 import { useSignup } from '../../hooks/useSignup';

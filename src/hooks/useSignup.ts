@@ -17,7 +17,7 @@ export const useSignup = () => {
 
       navigate('/login');
     },
-    onError: (error) => {
+    onError: () => {
       // 실패 시 처리할 코드
       Swal.fire({
         title: '회원가입 실패',
