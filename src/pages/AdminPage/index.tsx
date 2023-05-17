@@ -1,9 +1,10 @@
 import Admin from '../../components/AdminPage/Admin';
 import PageTitle from '../../components/common/PageTitle';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 function AdminPage() {
-  const user = useSelector((state: any) => state.loginedUser);
+  const user = useSelector((state: RootState) => state.loginedUser);
   let pageTitle = '사원 연차 관리';
   if (user.role === 'ROLE_ADMIN') {
     pageTitle = '사원 연차 관리';
